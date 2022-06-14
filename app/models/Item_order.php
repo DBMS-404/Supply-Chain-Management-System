@@ -10,20 +10,24 @@ class Item_order extends Model {
 
     public function getallOrders(){
         return $this->find([
-            "order"=>"status desc"
+            "order"=>"status"
         ]);
     }
 
     public function getorderofstatus($status){
         return $this->find([
-            "condition"=>"status = ?",
-            "bind" => $status
+            "conditions"=>"status = ?",
+            "bind" => [$status]
         ]);
     }
 
     public function changeStatus($id,$status){
-        $sql = "update {$this->table} set status=? where order_id=?";
-        $this->db->query($sql,[$status,$id]);
+        $sql = "update item_order set status=? where order_id=?";
+        $this->_db->query($sql,[$status,$id]);
+    }
+
+    public function findbyOrderId($id){
+        $this->findFirst(['conditions' => 'order_id=?', 'bind' => [$id]]);
     }
 
 

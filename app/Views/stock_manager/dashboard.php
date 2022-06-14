@@ -8,5 +8,10 @@
 </head>
 <body>
     <h1>Stock Manager Dashboard</h1>
+
+    <div>
+        <a href="<?=SROOT?>StockManagerHandler/viewinventory">Inventory</a><br><br>
+        <a href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a>
+    </div>
 </body>
 </html>
