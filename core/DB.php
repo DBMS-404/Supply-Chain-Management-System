@@ -108,7 +108,7 @@ class DB
 
 
     //provide all pks as pks={pk_field=>pk_value} 
-    public function update_by_pks($table, $pks, $fields = [])
+    public function update_by_pks($table, $fields = [])
     {
         $fieldString = '';
         $values = [];
@@ -149,7 +149,7 @@ class DB
         return false;
     }
 
-    public function delete_by_pks($table, $pks)
+    public function delete_by_pks($table, $fields)
     {
         $condition = '';
         if (isset($fields['conditions'])) {
