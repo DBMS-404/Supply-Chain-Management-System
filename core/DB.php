@@ -118,10 +118,18 @@ class DB
             $fieldString .= ' ' . $field . '=?,';
             $values[] = $value;
         }
-        foreach ($pks as $pk_f => $pk) {
-            $condition .= " {$pk_f}={$pk} AND";
+
+        if (isset($fields['conditions'])) {
+            if (is_array($fields['conditions'])) {
+                foreach ($fields['conditions'] as $cond) {
+                    $condition .= ' ' . $cond . ' AND';
+                }
+                $condition = trim($condition);
+                $condition = rtrim($condition, ' AND');
+            } else {
+                $condition = $fields['conditions'];
+            }
         }
-        $condition = trim($condition, ' AND');
         $fieldString = trim($fieldString);
         $fieldString = rtrim($fieldString, ',');
 
@@ -144,11 +152,17 @@ class DB
     public function delete_by_pks($table, $pks)
     {
         $condition = '';
-        foreach ($pks as $pk_f => $pk) {
-            $condition .= " {$pk_f}={$pk} AND";
+        if (isset($fields['conditions'])) {
+            if (is_array($fields['conditions'])) {
+                foreach ($fields['conditions'] as $cond) {
+                    $condition .= ' ' . $cond . ' AND';
+                }
+                $condition = trim($condition);
+                $condition = rtrim($condition, ' AND');
+            } else {
+                $condition = $fields['conditions'];
+            }
         }
-
-        $condition = trim($condition, ' AND');
         $sql = "DELETE FROM {$table} WHERE id = {$condition}";
         if (!$this->query($sql)->error()) {
             return true;
