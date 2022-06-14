@@ -8,9 +8,7 @@
         }
 
         public function indexAction(){
-            $this->view->render('Dashboard');
-            echo "Home";
-            die();
+            $this->view->render('home/login');
         }
 
     }
