@@ -77,7 +77,6 @@ class DB
 
         foreach ($fields as $value) {
             $valueString .= '?,';
-            $values[] = $value;
         }
         $valueString = rtrim($valueString, ',');
         $sql = "INSERT INTO {$table} VALUES ({$valueString})";
