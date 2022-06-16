@@ -8,6 +8,7 @@ class StockManagerHandler extends Controller{
         parent::__construct($controller,$action);
         $this->load_model("Item_order");
         $this->load_model("Train");
+        $this->load_model("Item");
     }
 
     public function indexAction() {
@@ -52,5 +53,71 @@ class StockManagerHandler extends Controller{
         $train_assignment->make_assignment($train_id,$order_id);
         Router::redirect("StockManagerHandler/vieworders");
 
+    }
+
+    public function viewinventoryAction(){
+        $this->view->inventory = $this->ItemModel->findAllIteams();
+        $this->view->render("stock_manager/inventory");
+    }
+
+    public function manageStockAction ($id = ""){
+        $this->view->item_id = $id;
+        $validaton = new Validate();
+        if ($id != ""){
+            //edit
+            if ($_POST){
+                $validaton->check($_POST,[
+                    'available_count'=>[
+                        'display' => "Quantity",
+                        'is_numeric'=>true
+                    ],
+                    'unit_price'=>[
+                        'display' => "Unit Price",
+                        'is_numeric'=>true
+                    ]
+                    ]);
+                if ($validaton->passed()){
+                    $this->ItemModel->updateItem($id,$_POST);
+                    Router::redirect("StockManagerHandler/viewinventory");
+                }else {
+                    $this->view->displayErrors = $validaton->displayErrors();
+                    $this->ItemModel->findbyitemId($id);
+                    $this->view->edit_values = $this->ItemModel->getValues();
+                    $this->view->render("stock_manager/manage_item");
+                }
+            }else {
+                $this->ItemModel->findbyitemId($id);
+                $this->view->edit_values = $this->ItemModel->getValues();
+                $this->view->render("stock_manager/manage_item");
+            }
+        }else {
+            //add
+            if ($_POST){
+                $validaton->check($_POST,[
+                    'available_count'=>[
+                        'display' => "Quantity",
+                        'is_numeric'=>true
+                    ],
+                    'unit_price'=>[
+                        'display' => "Unit Price",
+                        'is_numeric'=>true
+                    ]
+                    ]);
+                if ($validaton->passed()){
+                    $this->ItemModel->addItem($_POST);
+                    Router::redirect("StockManagerHandler/viewinventory");
+                }else {
+                    $this->view->displayErrors = $validaton->displayErrors();
+                    $this->view->render("stock_manager/manage_item");
+                }
+            }else {
+                $this->view->render("stock_manager/manage_item");
+            }
+        }
+    }
+
+    public function deleteAction($id){
+        $this->ItemModel->delete($id);
+        Router::redirect("StockManagerHandler/viewinventory");
     }
 }
