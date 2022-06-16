@@ -131,4 +131,15 @@ class Model
         }
         return false;
     }
+
+    public function beginTransaction(){
+        $this->_db->beginTransaction();
+    }
+
+    public function commit(){
+        $this->_db->commit();
+    }
+
+
+
 }

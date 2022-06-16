@@ -272,6 +272,13 @@ class DB
         return false;
     }
 
+    public function beginTransaction(){
+        $this->_pdo->beginTransaction();
+    }
+    
+    public function commit(){
+        $this->_pdo->commit();
+    }
 
     public function error()
     {
