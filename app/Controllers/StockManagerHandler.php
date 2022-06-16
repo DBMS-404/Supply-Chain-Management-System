@@ -7,7 +7,7 @@ class StockManagerHandler extends Controller{
     {
         parent::__construct($controller,$action);
         $this->load_model("Item_order");
-        $this->load_model("train");
+        $this->load_model("Train");
     }
 
     public function indexAction() {
@@ -38,7 +38,19 @@ class StockManagerHandler extends Controller{
     public function assignto_trainAction($order_id){
         $this->Item_orderModel->findbyOrderId($order_id);
         $this->view->order = $this->Item_orderModel;
-        $this->view->trains = $this->trainModel->gettrains();
+        $this->view->trains = $this->TrainModel->gettrains();
         $this->view->render('stock_manager/train_assignment');
+    }
+
+    public function make_assignmentAction($order_id,$train_id){
+        $this->Item_orderModel->findbyOrderId($order_id);
+        $this->TrainModel->findByTrainId($train_id);
+        $new_capacity = $this->TrainModel->filled_capacity + $this->Item_orderModel->weight;
+        $this->TrainModel->update_capacity($this->TrainModel->train_id,$new_capacity);
+        $this->Item_orderModel->changeStatus($order_id,"dtrain");
+        $train_assignment = new Train_assignment();
+        $train_assignment->make_assignment($train_id,$order_id);
+        Router::redirect("StockManagerHandler/vieworders");
+
     }
 }

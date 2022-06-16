@@ -27,8 +27,9 @@
                             <?= "Remaining capacity: ".($train->capacity - $train->filled_capacity)?>
                         </td>
                         <td>
-                            <?php if (($train->capacity - $train->filled_capacity)>0){?>
-                                <a href="#">Assign</a>
+                            <?php if (($train->capacity - $train->filled_capacity)>0 && 
+                            ($train->capacity - $train->filled_capacity - $this->order->weight)>= 0 ){?>
+                                <a href="<?=SROOT?>StockManagerHandler/make_assignment/<?=$this->order->order_id?>/<?=$train->train_id?>">Assign</a>
                             <?php }?>
                         </td>
                     </tr>

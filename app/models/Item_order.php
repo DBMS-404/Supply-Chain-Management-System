@@ -29,8 +29,5 @@ class Item_order extends Model {
     public function findbyOrderId($id){
         $this->findFirst(['conditions' => 'order_id=?', 'bind' => [$id]]);
     }
-
-
-
-
+    
 }

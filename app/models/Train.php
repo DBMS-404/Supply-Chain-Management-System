@@ -12,4 +12,13 @@ class Train extends Model {
         return $this->find([]);
     }
 
+    public function findbytrainId($id){
+        $this->findFirst(['conditions' => 'train_id=?', 'bind' => [$id]]);
+    }
+
+    public function update_capacity($id,$capacity){
+        $sql = "update train set filled_capacity=? where train_id=?";
+        $this->_db->query($sql,[$capacity,$id]);
+    }
+
 }
