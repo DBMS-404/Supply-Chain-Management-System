@@ -20,7 +20,7 @@ class Item extends Model {
     }
 
     public function addItem($params){
-        $params['deleted'] = 0;
+        $params['is_deleted'] = 0;
         $this->assign($params);
         $this->save();
     }
