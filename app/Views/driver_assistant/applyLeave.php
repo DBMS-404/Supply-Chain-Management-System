@@ -17,8 +17,8 @@
                 <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png"/></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>DriverHandler/turnCompletion">Turn Completion</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?=SROOT?>DriverHandler/applyLeave">Apply Leave</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
             </div>
         </div>
@@ -32,12 +32,34 @@
                         <h1 class="fw-bold">The best solution for you and your customers</h1>
                     </div>
                 </div>
-                <div class="col-12 col-lg-10 mx-auto">
-                </div>
             </div>
         </div>
     </header>
-    <footer class="bg-primary-gradient fixed-bottom">
+    <section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2 class="fw-bold">Apply for Leaves</h2>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8 col-xl-6">
+                <div>
+                    <form class="p-3 p-xl-4" method="post">
+                        <div class="mb-3">
+                            <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" />
+                        </div>
+                        <div class="mb-3">
+                            <textarea id="reason" class="form-control" name="reason" rows="6" placeholder="Reason"></textarea>
+                        </div>
+                        <div><button class="btn btn-primary shadow d-block w-100" type="submit">Apply </button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <footer class="bg-primary-gradient">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
                 <p class="mb-0">Copyright © 2022 Team 404</p>

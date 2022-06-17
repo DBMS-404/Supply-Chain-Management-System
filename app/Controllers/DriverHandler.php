@@ -10,6 +10,14 @@ class DriverHandler extends Controller{
 
     public function indexAction() {
         //unsetSessionExcept();   
-        $this->view->render('driver/dashboard');
+        $this->view->render('driver/turnCompletion');
+    }
+
+    public function applyLeaveAction() {
+        $this->view->render('driver/applyLeave');
+    }
+
+    public function turnCompletionAction() {
+        $this->view->render('driver/turnCompletion');
     }
 }

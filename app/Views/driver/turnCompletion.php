@@ -17,7 +17,7 @@
                 <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png"/></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>DriverHandler/turnCompletion">Turn Completion</a></li>
+                <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>DriverHandler/turnCompletion">Turn Completion</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?=SROOT?>DriverHandler/applyLeave">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
             </div>
@@ -32,12 +32,27 @@
                         <h1 class="fw-bold">The best solution for you and your customers</h1>
                     </div>
                 </div>
-                <div class="col-12 col-lg-10 mx-auto">
-                </div>
             </div>
         </div>
     </header>
-    <footer class="bg-primary-gradient fixed-bottom">
+    <section>
+    <div class="container py-5">
+        <div class="mx-auto" style="max-width: 900px;">
+            <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
+                <div class="col mb-4">
+                    <div class="card bg-primary-light">
+                        <div class="card-body text-center px-4 py-5 px-md-5">
+                            <p class="fw-bold text-primary card-text mb-2">Click the button</p>
+                            <h5 class="fw-bold card-title mb-3">If you have completed your ongoing turn</h5>
+                            <button class="btn btn-primary btn-lg" type="button">TURN COMPLETED</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <footer class="bg-primary-gradient">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
                 <p class="mb-0">Copyright © 2022 Team 404</p>
