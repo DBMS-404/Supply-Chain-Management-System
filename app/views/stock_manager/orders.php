@@ -1,6 +1,6 @@
 <?php
 $this->filter = $this->filter ?? "all";
-$statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'ctrain' => "Collected from train", 'dtruck' => "Dispatched to train", 'delivered' => "Delivered"];
+$statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'ctrain' => "Collected from train", 'dtruck' => "Dispatched to truck", 'delivered' => "Delivered"];
 ?>
 
 <!DOCTYPE html>
