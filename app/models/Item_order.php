@@ -29,5 +29,15 @@ class Item_order extends Model {
     public function findbyOrderId($id){
         $this->findFirst(['conditions' => 'order_id=?', 'bind' => [$id]]);
     }
+
+    public function getRouteIdsForDispatch(){
+        $sql = "SELECT DISTINCT route_id FROM item_order WHERE status = 'dtrain'";
+
+        $resultsQuery = $this->_db->query($sql);
+        $results = [];
+
+        if (!$resultsQuery) return $results;
+        return $resultsQuery->results();
+    }
     
 }
