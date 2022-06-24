@@ -3,7 +3,7 @@
 class User extends Model
 {
     private $_sessionName;
-    public static $currentLoggedInUser = null;
+    public static $currentLoggedInUser = '';
 
     public function __construct()
     {
@@ -17,19 +17,17 @@ class User extends Model
         $this->findFirst(['conditions' => 'user_id=?', 'bind' => [$user_id]]);
     }
 
+    //currentLoggedInUser user has the user id
     public static function currentLoggedInUser()
     {
-        if (!(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
-            $user = new User();
-            $user->findByUserName(Session::get('user_id'));
-            self::$currentLoggedInUser = $user;
+        if (self::$currentLoggedInUser === '') {
+            self::$currentLoggedInUser = (Session::get('user_id'));
         }
         return self::$currentLoggedInUser;
     }
 
     public function login()
     {
-        Session::set($this->_sessionName, $this->id);
         Session::set('user_id', $this->user_id);
         self::$currentLoggedInUser = $this;
     }
