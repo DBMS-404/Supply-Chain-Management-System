@@ -39,5 +39,21 @@ class Item_order extends Model {
         if (!$resultsQuery) return $results;
         return $resultsQuery->results();
     }
+
+    public function getDtruckOrders(){
+        $sql = "SELECT order_id FROM assistant_order WHERE assistant_id=?";
+        $this->_db->query($sql,[User::currentLoggedInUser()]);
+        return $this->getOrdersByIds($this->_db->results());
+    }
+    
+    public function getOrdersByIds($order_ids){
+        $orders = [];
+        foreach ($order_ids as $id) {
+            $order = new Item_order();
+            $order->findbyOrderId($id->order_id);
+            $orders[] = $order;
+        }
+        return $orders;
+    }
     
 }
