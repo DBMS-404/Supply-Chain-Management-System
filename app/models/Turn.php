@@ -26,11 +26,18 @@ class Turn extends Model {
         $sql1 = "update turn set turn_start_time=? where turn_id=?";
         $sql2 = "update item_order set status='dtruck' where route_id=? AND status = 'ctrain'";
 
-        // Create following function as transaction
-        // Start
-        $this->_db->query($sql1,[$turn_start_time,$turn_id]);
-        $this->_db->query($sql2,[$route_id]);
-        //End
+
+        $this->_db->beginTransaction();
+
+        try{
+            $this->_db->query($sql1,[$turn_start_time,$turn_id]);
+            $this->_db->query($sql2,[$route_id]);
+        }catch (Exception $e){
+            $this->_db->rollBack();
+        }
+
+        $this->_db->commit();
+
 
     }
 
