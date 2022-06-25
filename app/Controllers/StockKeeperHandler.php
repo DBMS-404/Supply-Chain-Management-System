@@ -16,7 +16,7 @@ class StockKeeperHandler extends Controller{
     }
 
     public function viewordersAction(){
-        $this->view->orders = $this->Stock_keeperModel->getOrdersdDispatchedByTrain();
+        $this->view->orders = $this->Item_orderModel->getOrdersdDispatchedByTrainUsisngCityID($this->Stock_keeperModel->getCity());
         $this->view->render('stock_keeper/orders');
     }
 
