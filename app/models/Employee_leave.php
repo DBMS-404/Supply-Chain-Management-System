@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * status -> state
+ * 0 -> pending
+ * 1 -> approved
+ * 2 -> declined
+ */
+
 class Employee_leave extends Model {
 
     public function __construct()

@@ -18,14 +18,25 @@
 
         <?php
 
-        foreach ($this->routes as $route) { ?>
+        foreach ($this->routesToAssign as $route) { ?>
             <tr>
                 <td>Route <?= $route->route_id ?></td>
                 <td>
                     <a href="<?=SROOT?>StockKeeperHandler/assigntruck/<?= $route->route_id ?>">Assign</a>
                 </td>
             </tr>
-            <?php
+        <?php
+        }
+
+        foreach ($this->routesToDispatch as $turn) {
+        ?>
+            <tr>
+                <td>Route <?= $turn->route_id ?></td>
+                <td>
+                    <a href="<?=SROOT?>StockKeeperHandler/dispatchtruck/<?= $turn->turn_id ?>/<?= $turn->route_id ?>">Dispatch</a>
+                </td>
+            </tr>
+        <?php
         }
         ?>
     </table>
