@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Train Assignment</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
     </style>
@@ -23,7 +24,7 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="<?=SROOT?>StockManagerHandler/viewinventory">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?=SROOT?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -61,7 +62,7 @@
                     <tr>
                         <td>
                             <div>
-                                <?= $train->train_name ?><br>
+                                <i class="fa fa-train" aria-hidden="true"></i><?= " ".$train->train_name ?><br>
                                 <?= "Destination: ".$train->destination?><br>
                                 <?= "Arrival Day: ".$train->arrival_day ?><br>
                                 <?= "Arrival Time: ".$train->arrival_day?><br>

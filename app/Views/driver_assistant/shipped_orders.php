@@ -17,9 +17,9 @@
                 <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>AssistantHandler/vieworders">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>AssistantHandler">Turn <?=$this->t_id ?></a></li>
                     <li class="nav-item"><a class="nav-link" href="">Apply Leave</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -39,30 +39,39 @@
     </header>
     <section>
         <div class="container">
-                <?php if (count($this->orders) > 0) { ?>
-                    <div class="row m-3">
+            <div class="row m-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="<?= SROOT ?>AssistantHandler">Turns</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Turn <?=$this->t_id ?></li>
+                    </ol>
+                </nav>
+            </div>
+
+            <?php if (count($this->orders) > 0) { ?>
+                <div class="row m-3">
                     <iframe src="<?= $this->orders[0]->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="row m-3">
-                        <h3>Packages In Your Truck</h3>
-                    </div>
-                    <div class="row m-1">
+                </div>
+                <div class="row m-3">
+                    <h3>Packages In Your Truck</h3>
+                </div>
+                <div class="row m-3">
                     <?php foreach ($this->orders as $item_order) { ?>
-                        <div class="col-sm-3 col-12 m-2">
-                        <div class="card bg-light" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
-                                <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
-                                <p class="card-text"><?= $item_order->weight . " g" ?></p>
-                                <a href="<?=SROOT?>AssistantHandler/completeOneOrder/<?=$item_order->order_id?>" class="btn btn-outline-success btn-sm">Delivered</a>
+                        <div class="col-sm-3 col-12 mb-4">
+                            <div class="card bg-light shadow-lg" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
+                                    <p class="card-text"><?= $item_order->weight . " g" ?></p>
+                                    <a href="<?= SROOT ?>AssistantHandler/completeOneOrder/<?= $item_order->order_id ?>" class="btn btn-outline-success btn-sm">Delivered</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <?php } ?>
                 <?php } else { ?>
                     <h1>No orders available</h1>
                 <?php } ?>
-            </div>
+                </div>
         </div>
     </section>
     <footer class="bg-primary-gradient">

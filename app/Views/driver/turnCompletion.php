@@ -22,7 +22,7 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/turnCompletion">Turn Completion</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -68,7 +68,7 @@
                                     } ?>
                                 </h5>
                                 <?php if ($this->ongoingTurns != 0) { ?>
-                                    <a href="<?= SROOT ?>DriverHandler/recordTurnCompletion/<?=$this->ongoingTurns[0]->turn_id?>">
+                                    <a href="<?= SROOT ?>DriverHandler/recordTurnCompletion/<?= $this->ongoingTurns[0]->turn_id ?>">
                                         <button class="btn btn-primary btn-lg" type="button" <?php if ($this->remainingOrders != '0') {
                                                                                                     echo 'disabled';
                                                                                                 } ?>>TURN COMPLETED</button>

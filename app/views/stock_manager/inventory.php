@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script>
         function search() {
@@ -43,7 +44,7 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>StockManagerHandler/viewinventory">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?=SROOT?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -62,15 +63,24 @@
         </div>
     </header>
     <div class="container">
-        <h1>Stocks</h1>
+        <div class="m-3">
+            <h1>Stocks</h1>
+
+        </div>
         <div class="row" style="width: 890.2px;">
             <div class="col">
                 <a href="<?= SROOT ?>StockManagerHandler/manageStock" class="btn btn-sm btn-primary">Add Stock Item</a> <br><br>
             </div>
             <div class="col">
-                <input type="text" id="input" onkeyup="search()" placeholder="Search by Item name">
+            <div class="input-group rounded">
+                <input class="form-control" type="text" id="input" onkeyup="search()" placeholder="Search by Item name">
+                <span class="input-group-text border-0" id="search-addon">
+                    <i class="fa fa-search"></i>
+                </span>
+                </div>
             </div>
         </div>
+        <br>
         <div class="table-div">
             <?php if (count($this->inventory) > 0) { ?>
                 <table class="table">

@@ -20,7 +20,7 @@
                     <li class="nav-item"><a class="nav-link active" href="">Orders</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Leaves</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Routes</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>

@@ -11,6 +11,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Orders</title>
     <script>
         input = document.getElementById("input");
@@ -51,7 +52,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>StockManagerHandler/viewinventory">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>StockManagerHandler/vieworders">Orders</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?=SROOT?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -70,42 +71,51 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
         </div>
     </header>
     <div class="container">
-        <div class="row" style="width: 890.2px;">
-            <div class="col">
-                <form action='<?= SROOT ?>StockManagerHandler/filterstatus' method='post'>
-                    <label for="filter">Filter by Status</label>
-                    <select name='filter-status' onchange='this.form.submit()' class="btn btn-sm btn-info dropdown-toggle">
-                        <?php
-                        foreach ($statuses as $key => $value) {
-                            if ($key === $this->filter) {
-                                echo "<option value =" . $key . " selected= 'selected'>" . $value." (" .$this->counts[$key].")". "</option>";
-                            } else {
-                                echo "<option value=" . $key . ">" . $value ." (" .$this->counts[$key].")". "</option>";
-                            }
-                        }
+        <div class="m-4">
+            <div class="row">
+                <div class="col-sm-3 col-12">
+                    <form action='<?= SROOT ?>StockManagerHandler/filterstatus' method='post'>
+                        <div class="form-floating">
+                            <select id="floatingSelect" name='filter-status' onchange='this.form.submit()' class="form-select">
+                                <?php
+                                foreach ($statuses as $key => $value) {
+                                    if ($key === $this->filter) {
+                                        echo "<option value =" . $key . " selected= 'selected'>" . $value." (" .$this->counts[$key].")". "</option>";
+                                    } else {
+                                        echo "<option value=" . $key . ">" . $value ." (" .$this->counts[$key].")". "</option>";
+                                    }
+                                }
 
-                        ?>
-                    </select>
-                </form>
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Filter by Status</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-3 col-12 offset-sm-6">
+                    <div class="input-group rounded">
+                        <input class="form-control" type="text" id="input" onkeyup="search()" placeholder="Search by order ID">
+                        <span class="input-group-text border-0" id="search-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <input type="text" id="input" onkeyup="search()" placeholder="Search by order ID">
-            </div>
-        </div>
         <div>
-            <div class="row d-flex justify-content-center" id="orders">
+            <div class="row" id="orders">
                 <?php if (count($this->orders) > 0) {
                     foreach ($this->orders as $item_order) { ?>
-                        <div class="col-sm-4 col-12 m-2">
-                            <div class="card bg-light" style="height: 206.4px;">
+                        <div class="col-sm-3 col-12 mb-4">
+                            <div class="card bg-light" style="height: 215px; width:19rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><div><?= "Order " . $item_order->order_id ?></div></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->weight . " g" ?></h6>
                                     <p class="card-text"><?= $item_order->address ?></p>
                                     <div class="row">
-                                        <div class="col-6 m-1">
+                                        <div class="col-12 mb-2">
                                             <form action='<?= SROOT ?>StockManagerHandler/changeStatus/<?= $item_order->order_id ?>' method='post'>
-                                                <select name='status' onchange='this.form.submit()' class="btn btn-sm btn-info dropdown-toggle">
+                                                <select name='status' onchange='this.form.submit()' class="form-select">
                                                     <?php
                                                     foreach ($statuses as $key => $value) {
                                                         if ($key !== "all") {
@@ -137,6 +147,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                     <h1>No orders available</h1>
                 <?php } ?>
             </div>
+        </div>
         </div>
 
 

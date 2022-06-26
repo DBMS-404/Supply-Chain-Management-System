@@ -40,4 +40,9 @@ class Turn extends Model {
 
     }
 
+    public function findbyAssistantId($id){
+        return $this->find(['conditions' => 'assistant_id=? AND turn_end_time IS NULL', 'bind' => [$id]]);
+        
+    }
+
 }

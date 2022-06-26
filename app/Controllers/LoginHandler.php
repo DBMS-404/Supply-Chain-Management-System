@@ -50,13 +50,9 @@ class LoginHandler extends Controller
 
     public function logoutAction()
     {
-        $user = User::currentLoggedInUser();
-        if ($user->role === 'customer' || $user->role  === 'super_admin') {
-            $this->UserModel->logout();
-        } else {
-            $this->PharmacyModel->logout();
-        }
-
+        $user_id = User::currentLoggedInUser();
+        $this->UserModel->findByUserName($user_id);
+        $this->UserModel->logout();
         Router::redirect('home/index');
     }
 }
