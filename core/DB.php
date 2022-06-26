@@ -281,7 +281,7 @@ class DB
     }
 
     public function rollBack(){
-        $this->rollBack();
+        $this->_pdo->rollBack();
     }
 
     public function error()

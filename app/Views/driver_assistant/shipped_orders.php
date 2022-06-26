@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
+    <title>Orders</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
 </head>
 <style>
@@ -39,23 +39,26 @@
     </header>
     <section>
         <div class="container">
-            <div class="card">
-                <?php if (count($this->orders) > 0) {
-                    foreach ($this->orders as $item_order) { ?>
-                        <tr>
-                            <td>
-                                <div>
-                                    <?= "Order " . $item_order->order_id ?><br>
-                                    <?= $item_order->weight . " kg" ?><br>
-                                    <?= $item_order->address ?><br><br>
-                                </div>
-                            </td>
-                            <td>
-                                <?php if ($item_order->status == "new") { ?>
-                                    <a href="<?= SROOT ?>StockManagerHandler/assignto_train/<?= $item_order->order_id ?>">Assign</a>
-                                <?php } ?>
-                            </td>
-                        </tr>
+
+                <?php if (count($this->orders) > 0) { ?>
+                    <div class="row m-3">
+                    <iframe src="<?= $this->orders[0]->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="row m-3">
+                        <h3>Packages In Your Truck</h3>
+                    </div>
+                    <div class="row m-1">
+                    <?php foreach ($this->orders as $item_order) { ?>
+                        <div class="col-sm-3 col-12 m-2">
+                        <div class="card bg-light" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
+                                <p class="card-text"><?= $item_order->weight . " kg" ?></p>
+                                <a href="<?=SROOT?>AssistantHandler/completeOneOrder/<?=$item_order->order_id?>" class="btn btn-outline-success btn-sm">Delivered</a>
+                            </div>
+                        </div>
+                    </div>
                     <?php } ?>
                 <?php } else { ?>
                     <h1>No orders available</h1>
@@ -63,7 +66,7 @@
             </div>
         </div>
     </section>
-    <footer class="bg-primary-gradient fixed-bottom">
+    <footer class="bg-primary-gradient">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
                 <p class="mb-0">Copyright © 2022 Team 404</p>

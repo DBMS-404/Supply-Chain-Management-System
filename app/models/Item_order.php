@@ -31,7 +31,7 @@ class Item_order extends Model {
     }
 
     public function getDtruckOrders(){
-        $sql = "SELECT order_id FROM driver_assistant_order WHERE assistant_id=?";
+        $sql = "SELECT order_id,route_map FROM driver_assistant_order WHERE assistant_id=?";
         $this->_db->query($sql,[User::currentLoggedInUser()]);
         return $this->getOrdersByIds($this->_db->results());
     }
@@ -41,6 +41,7 @@ class Item_order extends Model {
         foreach ($order_ids as $id) {
             $order = new Item_order();
             $order->findbyOrderId($id->order_id);
+            $order->route_map = $id->route_map;
             $orders[] = $order;
         }
         return $orders;
