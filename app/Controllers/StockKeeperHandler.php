@@ -83,8 +83,6 @@ class StockKeeperHandler extends Controller{
             $_SESSION['error'] = "Set all values and try again";
             Router::redirect("StockKeeperHandler/assigntruck/$route_id");
         }
-
-
     }
 
     public function dispatchtruckAction($turn_id, $route_id){

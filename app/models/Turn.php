@@ -32,11 +32,13 @@ class Turn extends Model {
         try{
             $this->_db->query($sql1,[$turn_start_time,$turn_id]);
             $this->_db->query($sql2,[$route_id]);
+
+            $this->_db->commit();
         }catch (Exception $e){
             $this->_db->rollBack();
         }
 
-        $this->_db->commit();
+
 
     }
 
