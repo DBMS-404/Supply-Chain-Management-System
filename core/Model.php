@@ -140,6 +140,10 @@ class Model
         $this->_db->commit();
     }
 
+    public function rollBack(){
+        $this->_db->rollBack();
+    }
+
 
 
 }
