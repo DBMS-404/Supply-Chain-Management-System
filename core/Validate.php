@@ -40,7 +40,11 @@ class Validate
                             }
                             break;
                         case 'unique':
-                            $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ?", [$value]);
+                            if ($rule_value==='item'){
+                                $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ? and is_deleted=?", [$value,0]);
+                            }else {
+                                $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ?", [$value]);
+                            }
                             if ($check->count()) {
                                 $this->addError(["{$display} is already exists. please choose another {$display}", $item]);
                             }

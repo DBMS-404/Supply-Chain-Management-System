@@ -71,7 +71,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
         </div>
     </header>
     <div class="container">
-        <div class="m-4">
+        <div class="mb-4 mt-4">
             <div class="row">
                 <div class="col-sm-3 col-12">
                     <form action='<?= SROOT ?>StockManagerHandler/filterstatus' method='post'>
@@ -106,7 +106,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
             <div class="row" id="orders">
                 <?php if (count($this->orders) > 0) {
                     foreach ($this->orders as $item_order) { ?>
-                        <div class="col-sm-3 col-12 mb-4">
+                        <div class="col-md-3 col-12 mb-4">
                             <div class="card bg-light" style="height: 215px; width:19rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><div><?= "Order " . $item_order->order_id ?></div></h5>

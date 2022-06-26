@@ -60,7 +60,6 @@ if (isset($this->edit_values)) {
             </ol>
         </nav>
         <div class="row d-flex justify-content-center">
-            <h1>Manage stock</h1>
             <div class="col-md-8 col-xl-6">
                 <span class='danger' style="color:red;">
                     <?= $this->displayErrors ?? "" ?>
