@@ -50,7 +50,7 @@
                             <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" />
                         </div>
                         <div class="mb-3">
-                            <textarea id="reason" class="form-control" name="reason" rows="6" placeholder="Reason"></textarea>
+                            <textarea id="leave_reason" class="form-control" name="leave_reason" rows="6" placeholder="Reason"></textarea>
                         </div>
                         <div><button class="btn btn-primary shadow d-block w-100" type="submit">Apply </button></div>
                     </form>
