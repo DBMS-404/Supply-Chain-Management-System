@@ -1,44 +1,79 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Routes</title>
-</head>
-<body>
+<?php
+
+$page_title = "Routes";
+$orders_active = "";
+$leaves_active = "";
+$routes_active = "active";
+
+require_once 'app/views/includes/sk_header.php';
+?>
+
+
+<div class="container">
     <h2>Routes</h2>
 
-    <table>
-        <tr>
-            <th>Route</th>
-            <th></th>
-        </tr>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#assign" data-bs-toggle="tab">Assign Truck</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#dispatch" data-bs-toggle="tab">Dispatch Truck</a>
+        </li>
 
-        <?php
+    </ul>
 
-        foreach ($this->routesToAssign as $route) { ?>
-            <tr>
-                <td>Route <?= $route->route_id ?></td>
-                <td>
-                    <a href="<?=SROOT?>StockKeeperHandler/assigntruck/<?= $route->route_id ?>">Assign</a>
-                </td>
-            </tr>
-        <?php
-        }
+    <div class="tab-content">
+        <div id="assign" class="tab-pane fade show active">
 
-        foreach ($this->routesToDispatch as $turn) {
-        ?>
-            <tr>
-                <td>Route <?= $turn->route_id ?></td>
-                <td>
-                    <a href="<?=SROOT?>StockKeeperHandler/dispatchtruck/<?= $turn->turn_id ?>/<?= $turn->route_id ?>">Dispatch</a>
-                </td>
-            </tr>
-        <?php
-        }
-        ?>
-    </table>
-</body>
-</html>
+            <ul class="list-group">
+
+                <?php foreach ($this->routesToAssign as $route) { ?>
+
+                    <li class="list-group-item p-4">
+                        <div class="row">Route <?= $route->route_id ?></div>
+                        <div class="row">
+                            <div class="col-8"></div>
+                            <div class="col-4">
+                                <a type="button" class="btn btn-primary" href="<?=SROOT?>StockKeeperHandler/assigntruck/<?= $route->route_id ?>">Assign</a>
+                            </div>
+                        </div>
+
+                    </li>
+
+                <?php } ?>
+
+            </ul>
+        </div>
+
+        <div id="dispatch" class="tab-pane fade">
+
+            <ul class="list-group">
+
+                <?php foreach ($this->routesToDispatch as $turn) { ?>
+
+                    <li class="list-group-item p-4">
+                        <div class="row">Route <?= $turn->route_id ?></div>
+                        <div class="row">
+                            <div class="col-8"></div>
+                            <div class="col-4">
+                                <a type="button" class="btn btn-primary" href="<?=SROOT?>StockKeeperHandler/dispatchtruck/<?= $turn->turn_id ?>/<?= $turn->route_id ?>">Dispatch</a>
+                            </div>
+                        </div>
+
+                    </li>
+
+                <?php } ?>
+
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-4 mb-4">
+        <div class="col-11">
+            <a type="button" class="btn btn-primary pl-5 pr-5" href="<?=SROOT?>StockKeeperHandler">Home</a>
+        </div>
+    </div>
+</div>
+
+<?php
+
+require_once 'app/views/includes/footer.php';

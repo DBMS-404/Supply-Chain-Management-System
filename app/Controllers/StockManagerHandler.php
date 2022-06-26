@@ -47,10 +47,16 @@ class StockManagerHandler extends Controller{
         $this->Item_orderModel->findbyOrderId($order_id);
         $this->TrainModel->findByTrainId($train_id);
         $new_capacity = $this->TrainModel->filled_capacity + $this->Item_orderModel->weight;
-        $this->TrainModel->update_capacity($this->TrainModel->train_id,$new_capacity);
-        $this->Item_orderModel->changeStatus($order_id,"dtrain");
-        $train_assignment = new Train_assignment();
-        $train_assignment->make_assignment($train_id,$order_id);
+        $this->TrainModel->beginTransaction();
+        try{
+            $this->TrainModel->update_capacity($this->TrainModel->train_id,$new_capacity);
+            $this->Item_orderModel->changeStatus($order_id,"dtrain");
+            $train_assignment = new Train_assignment();
+            $train_assignment->make_assignment($train_id,$order_id);
+        }catch (Exception $exception){
+            $this->TrainModel->rollBack();
+        }
+        $this->TrainModel->commit();
         Router::redirect("StockManagerHandler/vieworders");
 
     }

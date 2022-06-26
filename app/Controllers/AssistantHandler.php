@@ -19,4 +19,19 @@ class AssistantHandler extends Controller{
         $this->view->render('driver_assistant/shipped_orders');
     }
 
+    public function completeOneOrderAction($order_id){
+        $this->Item_orderModel->changeStatus($order_id, "delivered");
+        $this->view->orders = $this->Item_orderModel->getDtruckOrders();
+        $this->view->render('driver_assistant/shipped_orders');
+    }
+
+    public function sendLeaveAction() {
+        $user_id = User::currentLoggedInUser();
+        $employee_leave = new Employee_leave();
+        $employee_leave->saveLeave($_POST, $user_id);
+
+        $this->view->alert = 'Success';
+        $this->view->render('driver_assistant/applyLeave');
+    }
+
 }

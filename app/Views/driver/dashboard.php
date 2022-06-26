@@ -8,7 +8,10 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
-</head>w
+</head>
+<style>
+    <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
+</style>
 
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
@@ -37,16 +40,22 @@
             </div>
         </div>
     </header>
-    <footer class="bg-primary-gradient fixed-bottom">
+    <footer class="bg-primary-gradient">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
                 <p class="mb-0">Copyright © 2022 Team 404</p>
             </div>
         </div>
     </footer>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bold-and-bright.js"></script>
+    <script>
+        <?php include_once('assets/js/jquery.min.js'); ?>
+    </script>
+    <script>
+        <?php include_once('assets/bootstrap/js/bootstrap.min.js'); ?>
+    </script>
+    <script>
+        <?php include_once('assets/js/bold-and-bright.js'); ?>
+    </script>
 </body>
 
 </html>

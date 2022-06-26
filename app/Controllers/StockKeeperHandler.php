@@ -9,6 +9,7 @@ class StockKeeperHandler extends Controller{
         $this->load_model("Item_order");
         $this->load_model("Employee_leave");
         $this->load_model("Turn");
+        $this->load_model("Train");
         $this->load_model("Route");
     }
 
@@ -33,8 +34,10 @@ class StockKeeperHandler extends Controller{
         $this->view->render('stock_keeper/routes');
     }
 
-    public function markasrecievedAction($id){
-        $this->Item_orderModel->changeStatus($id, 'ctrain');
+    public function markasrecievedAction($order_id, $train_id, $weight){
+        $this->TrainModel->findByTrainId($train_id);
+        $new_filled_capacity = $this->TrainModel->filled_capacity - $weight;
+        $this->Stock_keeperModel->markAsRecieved($order_id, $train_id, $new_filled_capacity);
         Router::redirect("StockKeeperHandler/vieworders");
     }
 

@@ -1,48 +1,52 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Leaves</title>
-</head>
-<body>
+<?php
+
+$page_title = "Leaves";
+$orders_active = "";
+$leaves_active = "active";
+$routes_active = "";
+
+require_once 'app/views/includes/sk_header.php';
+?>
+
+<div class="container">
     <h2>Leave Requests</h2>
 
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Driver/Driver Assistant</th>
-            <th>Leave Date</th>
-            <th>View</th>
-        </tr>
-        <?php
+    <ul class="list-group">
+        <?php foreach ($this->leaves as $leave) { ?>
 
-        foreach ($this->leaves as $leave) {
-            ?>
-            <tr>
-                <td><?= $leave->first_name." ".$leave->last_name ?></td>
-                <td>
+            <li class="list-group-item p-4">
+                <div class="row"><?= $leave->first_name." ".$leave->last_name ?></div>
+                <div class="row">
                     <?php
-                        if (substr($leave->user_id,0,2)=="DR"){
-                            echo "Driver";
-                        }else{
-                            echo "Driver Assistant";
-                        }
+                    if (substr($leave->user_id,0,2)=="DR"){
+                        echo "Driver";
+                    }else{
+                        echo "Driver Assistant";
+                    }
                     ?>
-                </td>
+                </div>
+                <div class="row"><?= $leave->date ?></div>
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-4">
+                        <a type="button" class="btn btn-primary" href="<?=SROOT?>StockKeeperHandler/viewleavedetails/<?= $leave->leave_id ?>">View</a>
+                    </div>
+                </div>
 
-                <td><?= $leave->date ?></td>
-                <td>
-                    <a href="<?=SROOT?>StockKeeperHandler/viewleavedetails/<?= $leave->leave_id ?>">View</a>
-                </td>
-            </tr>
-            <?php
-        }
-        ?>
-    </table>
+            </li>
 
-    <a href="<?=SROOT?>StockKeeperHandler">Home</a>
-</body>
-</html>
+        <?php } ?>
+
+    </ul>
+
+    <div class="row mt-4 mb-4">
+        <div class="col-11">
+            <a type="button" class="btn btn-primary pl-5 pr-5" href="<?=SROOT?>StockKeeperHandler">Home</a>
+        </div>
+    </div>
+
+</div>
+
+<?php
+
+require_once 'app/views/includes/footer.php';

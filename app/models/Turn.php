@@ -38,7 +38,6 @@ class Turn extends Model {
 
         $this->_db->commit();
 
-
     }
 
 }
