@@ -1,9 +1,10 @@
-<?php 
-    $page = "Order ".$this->order->order_id;
+<?php
+$page = "Order " . $this->order->order_id;
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,16 +16,17 @@
         <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
     </style>
 </head>
+
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
-<nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
                 <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?=SROOT?>StockManagerHandler/viewinventory">Inventory</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?=SROOT?>LoginHandler/logout">Logout</a>
+                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>StockManagerHandler/viewinventory">Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>StockManagerHandler/vieworders">Orders</a></li>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -43,51 +45,60 @@
         </div>
     </header>
     <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?=SROOT?>StockManagerHandler">Home</a></li>
-            <li class="breadcrumb-item"><a href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= $page ?></li>
-        </ol>
-    </nav>
-    <div>
-        <span class="badge bg-info">
-            <h2>Order Weight: <?=$this->order->weight." g"?></h2>
-        </span>
-    </div>
-    <div class="table-div">
-        <table class="table">
-        <?php if (count($this->trains) > 0) {
-                foreach ($this->trains as $train) { ?>
-                    <tr>
-                        <td>
-                            <div>
-                                <i class="fa fa-train" aria-hidden="true"></i><?= " ".$train->train_name ?><br>
-                                <?= "Destination: ".$train->destination?><br>
-                                <?= "Arrival Day: ".$train->arrival_day ?><br>
-                                <?= "Arrival Time: ".$train->arrival_day?><br>
-                            </div><br><br>
-                        </td>
-                        <td>
-                            <h4>
-                                <span class="badge rounded-pill bg-success">
-                                    <?= "Remaining capacity: ".($train->capacity - $train->filled_capacity)." g"?>
-                                </span>
-                            </h4>
-                        </td>
-                        <td>
-                            <?php if (($train->capacity - $train->filled_capacity)>0 && 
-                            ($train->capacity - $train->filled_capacity - $this->order->weight)>= 0 ){?>
-                                <a role="button" class="btn btn-primary" href="<?=SROOT?>StockManagerHandler/make_assignment/<?=$this->order->order_id?>/<?=$train->train_id?>">Assign</a>
-                            <?php }?>
-                        </td>
-                    </tr>
-                <?php } ?>
-            <?php } else { ?>
-                <h1>No Trains schedules avialble</h1>
-            <?php } ?>
-        </table>
-    </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= SROOT ?>StockManagerHandler">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= SROOT ?>StockManagerHandler/vieworders">Orders</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><?= $page ?></li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-center">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card bg-light" style="width: 60vw; ">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Order Details</h5>
+                            <p class="card-text">Order Weight: <?= $this->order->weight . " g" ?> <br> Address: <?= $this->order->address ?></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <?php if (count($this->trains) > 0) {
+                                foreach ($this->trains as $train) { ?>
+                                    <li class="list-group-item">
+                                        <div class="row m-3">
+                                            <div class="col-sm-6 col-12">
+                                                <div>
+                                                    <i class="fa fa-train" aria-hidden="true"></i><?= " " . $train->train_name ?><br>
+                                                    <?= "Destination: " . $train->destination ?><br>
+                                                    <?= "Arrival Day: " . $train->arrival_day ?><br>
+                                                    <?= "Arrival Time: " . $train->arrival_time ?><br>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-12 align-self-center text-sm-end">
+                                                <?php if (($train->capacity - $train->filled_capacity) > 0 &&
+                                                    ($train->capacity - $train->filled_capacity - $this->order->weight) >= 0
+                                                ) { ?>
+                                                    <a role="button" class="btn btn-primary" href="<?= SROOT ?>StockManagerHandler/make_assignment/<?= $this->order->order_id ?>/<?= $train->train_id ?>">Assign</a>
+                                                    <br><br>
+                                                <?php } ?>
+                                                <div>
+                                                    <h5>
+                                                        <span class="badge bg-success">
+                                                            <?= "Remaining capacity: " . ($train->capacity - $train->filled_capacity) . " g" ?>
+                                                        </span>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <h1>No Trains schedules avialble</h1>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <footer class="bg-primary-gradient">
         <div class="container py-4 ">
@@ -106,4 +117,5 @@
         <?php include_once('assets/js/bold-and-bright.js'); ?>
     </script>
 </body>
+
 </html>

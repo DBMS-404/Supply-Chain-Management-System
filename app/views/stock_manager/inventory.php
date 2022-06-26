@@ -42,9 +42,9 @@
                 <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>StockManagerHandler/viewinventory">Inventory</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?=SROOT?>LoginHandler/logout">Logout</a>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>StockManagerHandler/viewinventory">Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>StockManagerHandler/vieworders">Orders</a></li>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -67,16 +67,16 @@
             <h1>Stocks</h1>
 
         </div>
-        <div class="row" style="width: 890.2px;">
-            <div class="col">
-                <a href="<?= SROOT ?>StockManagerHandler/manageStock" class="btn btn-sm btn-primary">Add Stock Item</a> <br><br>
+        <div class="row">
+            <div class="col-sm-3 col-12">
+                <a href="<?= SROOT ?>StockManagerHandler/manageStock" class="btn btn btn-info">Add Stock Item</a> <br><br>
             </div>
-            <div class="col">
-            <div class="input-group rounded">
-                <input class="form-control" type="text" id="input" onkeyup="search()" placeholder="Search by Item name">
-                <span class="input-group-text border-0" id="search-addon">
-                    <i class="fa fa-search"></i>
-                </span>
+            <div class="col-sm-3 col-12 offset-sm-6">
+                <div class="input-group rounded">
+                    <input class="form-control" type="text" id="input" onkeyup="search()" placeholder="Search by Item name">
+                    <span class="input-group-text border-0" id="search-addon">
+                        <i class="fa fa-search"></i>
+                    </span>
                 </div>
             </div>
         </div>
@@ -105,6 +105,7 @@
                 <h2>No items in the stock</h2>
             <?php } ?>
         </div>
+    </div>
     </div>
     <footer class="bg-primary-gradient">
         <div class="container py-4 ">
