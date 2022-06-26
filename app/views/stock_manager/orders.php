@@ -46,8 +46,8 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="<?=SROOT?>StockManagerHandler">
-                <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>StockManagerHandler/viewinventory">Inventory</a></li>
@@ -71,7 +71,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
         </div>
     </header>
     <div class="container">
-        <div class="m-4">
+        <div class="mb-4 mt-4">
             <div class="row">
                 <div class="col-sm-3 col-12">
                     <form action='<?= SROOT ?>StockManagerHandler/filterstatus' method='post'>
@@ -106,7 +106,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
             <div class="row" id="orders">
                 <?php if (count($this->orders) > 0) {
                     foreach ($this->orders as $item_order) { ?>
-                        <div class="col-sm-3 col-12 mb-4">
+                        <div class="col-md-3 col-12 mb-4">
                             <div class="card bg-light" style="height: 215px; width:19rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><div><?= "Order " . $item_order->order_id ?></div></h5>
