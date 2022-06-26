@@ -29,9 +29,11 @@ class AssistantHandler extends Controller{
         $this->view->render('driver_assistant/shipped_orders');
     }
 
-    public function completeOneOrderAction($order_id){
+    public function completeOneOrderAction($t_id, $order_id){
         $this->Item_orderModel->changeStatus($order_id, "delivered");
         $this->view->orders = $this->Item_orderModel->getDtruckOrders();
+        $this->view->t_id = $t_id;
+        $this->view->alert = 'Success';
         $this->view->render('driver_assistant/shipped_orders');
     }
 

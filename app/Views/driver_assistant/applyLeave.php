@@ -38,9 +38,6 @@ $today = date("Y-m-d");
                     <div class="text-center">
                         <p class="fw-bold text-success mb-2">Voted #1 Worldwide</p>
                         <h1 class="fw-bold">The best solution for you and your customers</h1>
-                        <?php if (isset($this->alert)) {
-                            echo $this->alert;
-                        } ?>
                     </div>
                 </div>
             </div>
@@ -70,7 +67,7 @@ $today = date("Y-m-d");
                                 <div class="mb-3">
                                     <textarea id="leave_reason" class="form-control" name="leave_reason" rows="6" placeholder="Reason"></textarea>
                                 </div>
-                                <div><button class="btn btn-primary shadow d-block w-100" type="submit">Apply </button></div>
+                                <div><button class="btn btn-success shadow d-block w-100" type="submit">Apply </button></div>
                             </form>
                         </div>
                     </div>
