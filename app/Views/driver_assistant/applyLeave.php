@@ -27,7 +27,7 @@ $today = date("Y-m-d");
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/turnCompletion">Turn Completion</a></li>
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
+                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
