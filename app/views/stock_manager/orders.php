@@ -13,20 +13,25 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <title>Orders</title>
     <script>
+        input = document.getElementById("input");
+        filter = input.value.toUpperCase();
+        orders = document.getElementById("orders");
+        h5 = orders.getElementsByTagName("h5");
+        console.log(h5);
         function search() {
             var input, filter, rooms, tr, th, i, txtValue;
             input = document.getElementById("input");
             filter = input.value.toUpperCase();
             orders = document.getElementById("orders");
-            tr = orders.getElementsByTagName("tr");
+            h5 = orders.getElementsByTagName("h5");
 
-            for (i = 0; i < tr.length; i++) {
-                th = tr[i].getElementsByTagName("div")[0];
+            for (i = 0; i < h5.length; i++) {
+                th = h5[i].getElementsByTagName("div")[0];
                 txtValue = th.textContent || th.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
+                    h5[i].parentElement.parentElement.parentElement.style.display = "";
                 } else {
-                    tr[i].style.display = "none";
+                    h5[i].parentElement.parentElement.parentElement.style.display = "none";
                 }
             }
         }
@@ -44,8 +49,8 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                 <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?=SROOT?>StockManagerHandler/viewinventory">Inventory</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>StockManagerHandler/viewinventory">Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>StockManagerHandler/vieworders">Orders</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
             </div>
         </div>
@@ -87,55 +92,49 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                 <input type="text" id="input" onkeyup="search()" placeholder="Search by order ID">
             </div>
         </div>
-        <div class="table-div">
-            <table class="table">
-                <th>
-                    Orders
-                </th>
-                <th></th>
-                <th></th>
-                <tbody id="orders">
-                    <?php if (count($this->orders) > 0) {
-                        foreach ($this->orders as $item_order) { ?>
-                            <tr class="order-id" style="width: 807.2px;">
-                                <td>
-                                    <div>
-                                        <?= "Order " . $item_order->order_id ?><br>
-                                        <?= $item_order->weight . " kg" ?><br>
-                                        <?= $item_order->address ?><br><br>
-                                    </div>
-                                </td>
-                                <td>
-                                    <?php if ($item_order->status == "new") { ?>
-                                        <a href="<?= SROOT ?>StockManagerHandler/assignto_train/<?= $item_order->order_id ?>" class="btn btn-primary">Assign</a>
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <form action='<?= SROOT ?>StockManagerHandler/changeStatus/<?= $item_order->order_id ?>' method='post'>
-                                        <select name='status' onchange='this.form.submit()' class="btn btn-info dropdown-toggle">
-                                            <?php
-                                            foreach ($statuses as $key => $value) {
-                                                if ($key !== "all") {
-                                                    if ($key === $item_order->status) {
-                                                        echo "<option value =" . $key . " selected= 'selected'>" . $value . "</option>";
-                                                    } else {
-                                                        echo "<option value=" . $key . ">" . $value . "</option>";
+        <div>
+            <div class="row d-flex justify-content-center" id="orders">
+                <?php if (count($this->orders) > 0) {
+                    foreach ($this->orders as $item_order) { ?>
+                        <div class="col-sm-4 col-12 m-2">
+                            <div class="card bg-light" style="height: 206.4px;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><div><?= "Order " . $item_order->order_id ?></div></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->weight . " g" ?></h6>
+                                    <p class="card-text"><?= $item_order->address ?></p>
+                                    <div class="row">
+                                        <div class="col-6 m-1">
+                                            <form action='<?= SROOT ?>StockManagerHandler/changeStatus/<?= $item_order->order_id ?>' method='post'>
+                                                <select name='status' onchange='this.form.submit()' class="btn btn-sm btn-info dropdown-toggle">
+                                                    <?php
+                                                    foreach ($statuses as $key => $value) {
+                                                        if ($key !== "all") {
+                                                            if ($key === $item_order->status) {
+                                                                echo "<option value =" . $key . " selected= 'selected'>" . $value . "</option>";
+                                                            } else {
+                                                                echo "<option value=" . $key . ">" . $value . "</option>";
+                                                            }
+                                                        }
                                                     }
-                                                }
-                                            }
 
-                                            ?>
-                                        </select>
-                                    </form>
-                                </td>
-
-                            </tr>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <h1>No orders available</h1>
+                                                    ?>
+                                                </select>
+                                            </form>
+                                        </div>
+                                        <div class="col-6 m-1">
+                                            <?php if ($item_order->status == "new") { ?>
+                                                <a href="<?= SROOT ?>StockManagerHandler/assignto_train/<?= $item_order->order_id ?>" class="btn btn-sm btn-primary">Assign</a>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <?php } ?>
-                </tbody>
-            </table>
+                <?php } else { ?>
+                    <h1>No orders available</h1>
+                <?php } ?>
+            </div>
         </div>
 
 

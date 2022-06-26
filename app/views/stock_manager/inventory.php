@@ -16,7 +16,7 @@
             tr = items.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
-                th = tr[i].getElementsByTagName("div")[0];
+                th = tr[i].getElementsByTagName("span")[0];
                 txtValue = th.textContent || th.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
@@ -79,7 +79,7 @@
                             <tr>
                                 <td>
                                     <div>
-                                        <?= $item->name ?><br>
+                                        <span><?= $item->name ?></span><br>
                                         <?= "Available quantity: " . $item->available_count ?><br>
                                         <?= "Unit price Rs." . $item->unit_price ?><br>
                                     </div><br>

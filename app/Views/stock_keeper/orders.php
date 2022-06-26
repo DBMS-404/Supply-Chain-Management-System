@@ -22,7 +22,7 @@
         foreach ($this->orders as $item_order) { ?>
                     <tr>
                         <td><?= $item_order->order_id ?></td>
-                        <td><?= $item_order->weight . " kg" ?></td>
+                        <td><?= $item_order->weight . " g" ?></td>
                         <td><?= $item_order->address ?></td>
                         <td>
                             <a href="<?=SROOT?>StockKeeperHandler/markasrecieved/<?= $item_order->order_id ?>">Mark As Received</a>

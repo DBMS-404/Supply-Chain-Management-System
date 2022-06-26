@@ -6,7 +6,7 @@ if ($_POST) {
 
 if (isset($this->edit_values)) {
     $values = $this->edit_values;
-    $page = "Edit item";
+    $page = $values['name'];
 }
 ?>
 

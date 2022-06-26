@@ -1,3 +1,7 @@
+<?php 
+    $page = "Order ".$this->order->order_id;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,11 +46,13 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?=SROOT?>StockManagerHandler">Home</a></li>
             <li class="breadcrumb-item"><a href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Train assignment</li>
+            <li class="breadcrumb-item active" aria-current="page"><?= $page ?></li>
         </ol>
     </nav>
     <div>
-        <h2>Order Weight: <?=$this->order->weight." kg"?></h2>
+        <span class="badge bg-info">
+            <h2>Order Weight: <?=$this->order->weight." g"?></h2>
+        </span>
     </div>
     <div class="table-div">
         <table class="table">
@@ -62,9 +68,11 @@
                             </div><br><br>
                         </td>
                         <td>
-                            <span class="badge rounded-pill bg-success">
-                                <?= "Remaining capacity: ".($train->capacity - $train->filled_capacity)?>
-                            </span>
+                            <h4>
+                                <span class="badge rounded-pill bg-success">
+                                    <?= "Remaining capacity: ".($train->capacity - $train->filled_capacity)." g"?>
+                                </span>
+                            </h4>
                         </td>
                         <td>
                             <?php if (($train->capacity - $train->filled_capacity)>0 && 
