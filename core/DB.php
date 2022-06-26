@@ -280,6 +280,10 @@ class DB
         $this->_pdo->commit();
     }
 
+    public function rollBack(){
+        $this->rollBack();
+    }
+
     public function error()
     {
         $this->_error;

@@ -30,11 +30,28 @@ class Item_order extends Model {
         $this->findFirst(['conditions' => 'order_id=?', 'bind' => [$id]]);
     }
 
-    public function getRouteIdsForDispatch(){
-        $sql = "SELECT DISTINCT route_id FROM item_order WHERE status = 'dtrain'";
+    public function getDtruckOrders(){
+        $sql = "SELECT order_id FROM assistant_order WHERE assistant_id=?";
+        $this->_db->query($sql,[User::currentLoggedInUser()]);
+        return $this->getOrdersByIds($this->_db->results());
+    }
+    
+    public function getOrdersByIds($order_ids){
+        $orders = [];
+        foreach ($order_ids as $id) {
+            $order = new Item_order();
+            $order->findbyOrderId($id->order_id);
+            $orders[] = $order;
+        }
+        return $orders;
+    }
 
-        $resultsQuery = $this->_db->query($sql);
+    public function getOrdersdDispatchedByTrainUsisngCityID($city_id){
+
+        $sql = "SELECT * FROM train_dispatched_orders WHERE city_id = ?";
+
         $results = [];
+        $resultsQuery = $this->_db->query($sql,[$city_id]);
 
         if (!$resultsQuery) return $results;
         return $resultsQuery->results();

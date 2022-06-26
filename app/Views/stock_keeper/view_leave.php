@@ -18,37 +18,37 @@
         <tr>
             <td>First Name</td>
             <td>
-                <input type="text" readonly value="<?= $leave_details->firstName ?>">
+                <input type="text" readonly value="<?= $leave_details->first_name ?>">
             </td>
         </tr>
         <tr>
             <td>Last Name</td>
             <td>
-                <input type="text" readonly value="<?= $leave_details->lastName ?>">
+                <input type="text" readonly value="<?= $leave_details->last_name ?>">
             </td>
         </tr>
         <tr>
             <td>Date</td>
             <td>
-                <input type="text" readonly value="<?= $leave_details->leaveDate ?>">
+                <input type="text" readonly value="<?= $leave_details->date ?>">
             </td>
         </tr>
         <tr>
             <td>City</td>
             <td>
-                <input type="text" readonly value="<?= $leave_details->city ?>">
+                <input type="text" readonly value="<?= $leave_details->city_name ?>">
             </td>
         </tr>
         <tr>
             <td>Reason</td>
             <td>
-                <input type="text" readonly value="<?= $leave_details->reason ?>">
+                <input type="text" readonly value="<?= $leave_details->leave_reason ?>">
             </td>
         </tr>
         <tr>
             <td>Telephone</td>
             <td>
-                <input type="text" readonly value="<?= $leave_details->mobile ?>">
+                <input type="text" readonly value="<?= $leave_details->mobile_no ?>">
             </td>
         </tr>
         <tr>
