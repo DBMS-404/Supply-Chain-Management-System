@@ -1,38 +1,50 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Orders</title>
-</head>
-<body>
+<?php
 
-    <table>
-        <tr>
-            <th>Order id</th>
-            <th>Weight</th>
-            <th>Address</th>
-            <th></th>
-        </tr>
+$page_title = "Orders";
+$orders_active = "active";
+$leaves_active = "";
+$routes_active = "";
 
-        <?php
+require_once 'app/views/includes/sk_header.php';
+?>
 
-        foreach ($this->orders as $item_order) { ?>
-                    <tr>
-                        <td><?= $item_order->order_id ?></td>
-                        <td><?= $item_order->weight . " g" ?></td>
-                        <td><?= $item_order->address ?></td>
-                        <td>
-                            <a href="<?=SROOT?>StockKeeperHandler/markasrecieved/<?= $item_order->order_id ?>">Mark As Received</a>
-                        </td>
-                    </tr>
-        <?php
-            }
-        ?>
+<div class="container">
+    <ul class="list-group">
+        <?php foreach ($this->orders as $item_order) { ?>
 
-    </table>
+        <li class="list-group-item p-4">
+            <div class="row">Order ID: <?= $item_order->order_id ?></div>
+            <div class="row">Train: <?= $item_order->train_name ?></div>
+            <div class="row">Weight: <?= $item_order->weight . " kg" ?></div>
+            <div class="row">Address: <?= $item_order->address ?></div>
+            <div class="row">
+                <div class="col-8"></div>
+                <div class="col-4">
+                    <a type="button" class="btn btn-primary" href="<?=SROOT?>StockKeeperHandler/markasrecieved/
+                        <?= $item_order->order_id ?>/<?= $item_order->train_id ?>/<?= $item_order->weight ?>">Mark As Received</a>
+                </div>
+            </div>
 
-</body>
-</html>
+        </li>
+
+        <?php } ?>
+
+    </ul>
+
+    <div class="row mt-4 mb-4">
+        <div class="col-11">
+            <a type="button" class="btn btn-primary pl-5 pr-5" href="<?=SROOT?>StockKeeperHandler">Home</a>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<?php
+
+require_once 'app/views/includes/footer.php';
