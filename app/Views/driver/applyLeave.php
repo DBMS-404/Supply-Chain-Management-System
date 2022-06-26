@@ -38,9 +38,6 @@ $today = date("Y-m-d");
                     <div class="text-center">
                         <p class="fw-bold text-success mb-2">Voted #1 Worldwide</p>
                         <h1 class="fw-bold">The best solution for you and your customers</h1>
-                        <?php if (isset($this->alert)) {
-                            echo $this->alert;
-                        } ?>
                     </div>
                 </div>
             </div>
@@ -48,13 +45,19 @@ $today = date("Y-m-d");
     </header>
     <section class="py-5">
         <div class="container">
-            <div class="row mb-5">
+            <div class="row mb-3">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <h2 class="fw-bold">Apply for Leaves</h2>
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8 col-xl-6">
+                    <?php if (isset($this->alert)) { ?>
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <strong>Success! </strong><br> Your leave application has successfully being sent.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php } ?>
                     <div>
                         <form class="p-3 p-xl-4" method="post" action="<?= SROOT ?>DriverHandler/sendLeave">
                             <div class="mb-3">
