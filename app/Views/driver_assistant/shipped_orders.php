@@ -53,7 +53,7 @@
                             <div class="card-body">
                                 <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
                                 <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
-                                <p class="card-text"><?= $item_order->weight . " kg" ?></p>
+                                <p class="card-text"><?= $item_order->weight . " g" ?></p>
                                 <a href="<?=SROOT?>AssistantHandler/completeOneOrder/<?=$item_order->order_id?>" class="btn btn-outline-success btn-sm">Delivered</a>
                             </div>
                         </div>
