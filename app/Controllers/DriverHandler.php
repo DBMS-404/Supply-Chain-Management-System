@@ -20,6 +20,16 @@ class DriverHandler extends Controller{
     }
 
     public function turnCompletionAction() {
+        $driver_id = User::currentLoggedInUser();
+        $turn = new Turn();
+        $results = $turn->getOngoingTurn($driver_id);
+        if ($results === []) {
+            $this->view->ongoingTurns = 0;
+        }else{
+            $this->view->ongoingTurns = $results;
+        }
+        $this->DriverModel = new Driver();
+        $this->view->remainingOrders = $this->DriverModel->getRemainingOrders($driver_id);
         $this->view->render('driver/turnCompletion');
     }
 
