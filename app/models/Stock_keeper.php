@@ -54,7 +54,7 @@ class Stock_keeper extends Model {
     }
 
     public function getRouteIdsForAssign(){
-        $sql = "SELECT DISTINCT route_id FROM order_details WHERE city_id = ? AND status = 'dtrain' AND route_id NOT IN(SELECT route_id FROM turns_to_dispatch)";
+        $sql = "SELECT DISTINCT route_id FROM order_details WHERE city_id = ? AND status = 'ctrain' AND route_id NOT IN(SELECT route_id FROM turns_to_dispatch)";
 
         $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
         $results = [];
@@ -72,6 +72,24 @@ class Stock_keeper extends Model {
         if (!$resultsQuery) return $results;
         return $resultsQuery->results();
 
+    }
+
+    public function markAsRecieved($order_id, $train_id, $new_filled_capacity){
+
+        $sql1 = "update item_order set status='ctrain' where order_id=?";
+        $sql2 = "update train set filled_capacity=? where train_id=?";
+
+
+        $this->_db->beginTransaction();
+
+        try{
+            $this->_db->query($sql1,[$order_id]);
+            $this->_db->query($sql2,[$new_filled_capacity, $train_id]);
+        }catch (Exception $e){
+            $this->_db->rollBack();
+        }
+
+        $this->_db->commit();
     }
 
 }
