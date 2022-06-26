@@ -12,6 +12,7 @@ class StockManagerHandler extends Controller{
     }
 
     public function indexAction() {
+        Router::redirect("StockManagerHandler/viewinventory");
         $this->view->render('stock_manager/dashboard');
     }
 
