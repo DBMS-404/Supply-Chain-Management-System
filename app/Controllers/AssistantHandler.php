@@ -18,6 +18,7 @@ class AssistantHandler extends Controller{
         foreach ($this->view->turns as $key) {
             $key->route_map = $this->RouteModel->getRouteMap($key->route_id)->route_map;
             $key->truck_no = $this->TruckModel->getTruckNo($key->truck_id)->truck_no;
+            $key->avg_time = $this->RouteModel->getRouteMap($key->route_id)->maximum_completion_time;
         }
         $this->view->render('driver_assistant/dashboard');
     }
