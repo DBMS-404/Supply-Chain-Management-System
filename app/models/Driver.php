@@ -8,11 +8,39 @@ class Driver extends Model {
         parent::__construct($table);
     }
 
+    
+    public function getOngoingTurn($driver_id){
+        $sql = "SELECT * FROM turn WHERE turn_end_time is null and turn_start_time is not null and driver_id = ? ";
+        $resultsQuery = $this->_db->query($sql,[$driver_id]);
+        return $resultsQuery->results();
+        
+    }
+
     public function getRemainingOrders($driver_id){
         $sql = "SELECT COUNT(driver_id) AS CountDriver FROM driver_assistant_order WHERE driver_id = ? ";
         $resultsQuery = $this->_db->query($sql,[$driver_id]);
         $result = $resultsQuery->results();
         return $result[0]-> CountDriver;
     }
+
+    public function getRouteMap ($route_id){
+        $sql = "SELECT route_map FROM route  WHERE  route_id = ? ";
+        $resultsQuery = $this->_db->query($sql,[$route_id]);
+        $result = $resultsQuery->results();
+        return $result[0]-> route_map;
+
+    }
+
+    public function recordTurnCompletion($turn_id){
+        date_default_timezone_set('Asia/Colombo');
+        $turn_end_time  = date("Y-m-d H:i:s");
+
+        $sql1 = "UPDATE turn SET turn_end_time=? where turn_id=?";
+
+        $this->_db->query($sql1,[$turn_end_time,$turn_id]);
+
+    }
+
+
 
 }

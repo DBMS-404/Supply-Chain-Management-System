@@ -39,7 +39,6 @@
     </header>
     <section>
         <div class="container">
-
                 <?php if (count($this->orders) > 0) { ?>
                     <div class="row m-3">
                     <iframe src="<?= $this->orders[0]->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
