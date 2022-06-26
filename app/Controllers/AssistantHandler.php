@@ -35,6 +35,10 @@ class AssistantHandler extends Controller{
         $this->view->render('driver_assistant/shipped_orders');
     }
 
+    public function applyLeaveAction() {
+        $this->view->render('driver_assistant/applyLeave');
+    }
+
     public function sendLeaveAction() {
         $user_id = User::currentLoggedInUser();
         $employee_leave = new Employee_leave();
