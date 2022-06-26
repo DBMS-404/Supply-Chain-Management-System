@@ -31,7 +31,7 @@ class Item_order extends Model {
     }
 
     public function getDtruckOrders(){
-        $sql = "SELECT order_id FROM assistant_order WHERE assistant_id=?";
+        $sql = "SELECT order_id FROM driver_assistant_order WHERE assistant_id=?";
         $this->_db->query($sql,[User::currentLoggedInUser()]);
         return $this->getOrdersByIds($this->_db->results());
     }
