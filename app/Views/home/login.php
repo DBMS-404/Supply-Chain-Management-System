@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 </head>
 <style>
     <?php include_once('assets/bootstrap/css/bootstrap.min.css');
@@ -32,7 +33,7 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2 mx-auto d-flex justify-content-center" style="max-width: 900px;">
                 <div class="col mb-4">
-                    <div><a href="#"><img class="rounded img-fluid shadow w-100 fit-cover" src="assets/img/login.jpg" height="150px" /></a>
+                    <div><a href="#"><img class="rounded img-fluid shadow w-100 fit-cover" src="https://www.getmax.ae/wp-content/uploads/2021/07/Supply-chain-managemetn.svg" height="150px" /></a>
                         <div class="py-4">
                             <form class="p-3 p-xl-4" action="<?= SROOT ?>LoginHandler/login" method="post">
                                 <div class="mb-3">
