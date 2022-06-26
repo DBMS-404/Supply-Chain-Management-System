@@ -47,6 +47,13 @@ class Item_order extends Model {
         return $orders;
     }
 
+    public function getcountofType($type){
+        if ($type==='all'){
+            return count($this->getallOrders());
+        }
+        return count($this->getorderofstatus($type));
+    }
+
     public function getOrdersdDispatchedByTrainUsisngCityID($city_id){
 
         $sql = "SELECT * FROM train_dispatched_orders WHERE city_id = ?";

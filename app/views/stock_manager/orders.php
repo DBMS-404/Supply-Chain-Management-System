@@ -78,9 +78,9 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                         <?php
                         foreach ($statuses as $key => $value) {
                             if ($key === $this->filter) {
-                                echo "<option value =" . $key . " selected= 'selected'>" . $value . "</option>";
+                                echo "<option value =" . $key . " selected= 'selected'>" . $value." (" .$this->counts[$key].")". "</option>";
                             } else {
-                                echo "<option value=" . $key . ">" . $value . "</option>";
+                                echo "<option value=" . $key . ">" . $value ." (" .$this->counts[$key].")". "</option>";
                             }
                         }
 
@@ -124,6 +124,8 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                                         <div class="col-6 m-1">
                                             <?php if ($item_order->status == "new") { ?>
                                                 <a href="<?= SROOT ?>StockManagerHandler/assignto_train/<?= $item_order->order_id ?>" class="btn btn-sm btn-primary">Assign</a>
+                                            <?php }else { ?>
+                                                <button type="button" class="btn btn-sm btn-primary" disabled>Assign</button>
                                             <?php } ?>
                                         </div>
                                     </div>

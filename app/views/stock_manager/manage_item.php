@@ -59,21 +59,23 @@ if (isset($this->edit_values)) {
                 <li class="breadcrumb-item active" aria-current="page"><?=$page?></li>
             </ol>
         </nav>
-        <h1>Manage stock</h1>
-        <div class="Appcontainer">
-            <form class="form-horizontal" action="<?= SROOT ?>StockManagerHandler/manageStock/<?= $this->item_id ?>" method="post">
-                <label>Item Name: </label>
-                <input class="form-control" type="text" name="name" value="<?= ($values['name'] ?? "") ?>" required> <br><br>
-                <label>Quantity: </label>
-                <input class="form-control" type="text" name="available_count" value="<?= ($values['available_count'] ?? "") ?>" required> <br><br>
-                <label>Unit price: </label>
-                <input class="form-control" type="text" name="unit_price" value="<?= ($values['unit_price'] ?? "") ?>" required> <br><br>
-                <input class="btn btn-success" type="submit" value="Submit">
+        <div class="row d-flex justify-content-center">
+            <h1>Manage stock</h1>
+            <div class="col-md-8 col-xl-6">
+                <span class='danger' style="color:red;">
+                    <?= $this->displayErrors ?? "" ?>
+                </span>
+                <form class="p-3 p-xl-4" action="<?= SROOT ?>StockManagerHandler/manageStock/<?= $this->item_id ?>" method="post">
+                    <label>Item Name: </label>
+                    <input class="form-control" type="text" name="name" value="<?= ($values['name'] ?? "") ?>" required> <br><br>
+                    <label>Quantity: </label>
+                    <input class="form-control" type="text" name="available_count" value="<?= ($values['available_count'] ?? "") ?>" required> <br><br>
+                    <label>Unit price: </label>
+                    <input class="form-control" type="text" name="unit_price" value="<?= ($values['unit_price'] ?? "") ?>" required> <br><br>
+                    <input class="btn btn-success" type="submit" value="Submit">
 
-            </form>
-            <span class='bg-danger'>
-                <?= $this->displayErrors ?? "" ?>
-            </span>
+                </form>
+            </div>
         </div>
     </div>
     <footer class="bg-primary-gradient">
