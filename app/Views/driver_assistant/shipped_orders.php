@@ -17,7 +17,7 @@
                 <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>AssistantHandler/vieworders">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>AssistantHandler">Turn <?=$this->t_id ?></a></li>
                     <li class="nav-item"><a class="nav-link" href="">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
@@ -39,6 +39,15 @@
     </header>
     <section>
         <div class="container">
+            <div class="row m-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="<?= SROOT ?>AssistantHandler">Turns</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Turn <?=$this->t_id ?></li>
+                    </ol>
+                </nav>
+            </div>
+
             <?php if (count($this->orders) > 0) { ?>
                 <div class="row m-3">
                     <iframe src="<?= $this->orders[0]->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -49,7 +58,7 @@
                 <div class="row m-1">
                     <?php foreach ($this->orders as $item_order) { ?>
                         <div class="col-sm-3 col-12 m-2">
-                            <div class="card bg-light" style="width: 18rem;">
+                            <div class="card bg-light shadow-lg" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>

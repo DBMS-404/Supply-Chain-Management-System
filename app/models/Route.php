@@ -17,4 +17,10 @@ class Route extends Model {
         return $skObj[0]->maximum_completion_time;
     }
 
+    public function getRouteMap($id){
+        $route = new Route();
+        $route->findFirst(['conditions' => 'route_id=?', 'bind' => [$id]]);
+        return $route;
+    }
+
 }
