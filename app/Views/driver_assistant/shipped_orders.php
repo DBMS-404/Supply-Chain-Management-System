@@ -55,9 +55,9 @@
                 <div class="row m-3">
                     <h3>Packages In Your Truck</h3>
                 </div>
-                <div class="row m-1">
+                <div class="row m-3">
                     <?php foreach ($this->orders as $item_order) { ?>
-                        <div class="col-sm-3 col-12 m-2">
+                        <div class="col-sm-3 col-12 mb-2">
                             <div class="card bg-light shadow-lg" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>

@@ -27,7 +27,7 @@
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>AssistantHandler">Turns</a></li>
-                        <li class="nav-item"><a class="nav-link" href="">Apply Leave</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>AssistantHandler/applyLeave">Apply Leave</a></li>
                     </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="row">
 
                     <?php if (count($this->turns) > 0) { ?>
-                        <div class="row">
+                        <div class="row m-2">
                             <h3>Assigned Turns</h3>
                         </div>
                         <div class="row">
@@ -70,7 +70,7 @@
                                             <p class="card-text"><i class="fa fa-truck" aria-hidden="true"></i> <?= "Truck No: " . $turn->truck_no ?><br>
                                             <i class="fa fa-clock-o" aria-hidden="true"></i> <?= "Maximum Avg. Completion Time: " . $turn->avg_time." Hours" ?></p>
                                             <?php if ($turn->turn_start_time) { ?><a href="<?= SROOT ?>AssistantHandler/vieworders/<?= $turn->turn_id ?>" class="btn btn-outline-info btn-sm">View Turn</a><?php }else{ ?>
-                                            <a href="<?= SROOT ?>AssistantHandler/vieworders/<?= $turn->turn_id ?>" class="btn btn-dark btn-sm disabled">Next Turn</a>
+                                            <a href="<?= SROOT ?>AssistantHandler/vieworders/<?= $turn->turn_id ?>" class="btn btn-dark btn-sm disabled">Not started</a>
                                             <?php } ?>
                                         </div>
                                     </div>
