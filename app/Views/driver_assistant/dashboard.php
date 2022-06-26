@@ -11,13 +11,13 @@
 </head>
 
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
-<nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png"/></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png" /></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="<?=SROOT?>AssistantHandler/vieworders">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>AssistantHandler">Turns</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="signup.html">Logout</a>
             </div>
@@ -37,7 +37,42 @@
             </div>
         </div>
     </header>
-    <footer class="bg-primary-gradient fixed-bottom">
+    <section>
+
+        <div class="container">
+            <div class="row">
+
+                <?php if (count($this->turns) > 0) { ?>
+                    <div class="row">
+                        <h3>Assigned Turns</h3>
+                    </div>
+                    <div class="row">
+                        <?php foreach ($this->turns as $turn) {
+                        ?>
+                            <div class="col-sm-6 col-12 mt-3 mb-3">
+                                <div class="card bg-light shadow-lg">
+                                    <div class="card-body">
+                                        <div class="row mb-2">
+                                            <iframe src="<?=$turn->route_map ?>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                        <h5 class="card-title"><?= "Turn " . $turn->turn_id ?></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><span class="badge bg-info"><?= $turn->turn_start_time ? "Ongoing Turn" : "Not Yet Started" ?></span></h6>
+                                        <h6 class="card-subtitle mb-2 text-muted"><?= $turn->turn_start_time ? "Started Time : " . $turn->turn_start_time : "Scheduled Time " . $turn->scheduled_date . " " . $turn->scheduled_time ?></h6>
+                                        <p class="card-text"><i class="fa fa-truck" aria-hidden="true"></i><?= "Truck No: ".$turn->truck_no ?></p>
+                                        <?php if($turn->turn_start_time){ ?><a href="<?= SROOT ?>AssistantHandler/vieworders/<?= $turn->turn_id ?>" class="btn btn-outline-info btn-sm disabled">View Turn</a><?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <h1>No Turns Assigned for You</h1>
+                    <?php } ?>
+
+                    </div>
+
+            </div>
+    </section>
+    <footer class="bg-primary-gradient">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
                 <p class="mb-0">Copyright © 2022 Team 404</p>
