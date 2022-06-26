@@ -38,7 +38,14 @@ class Turn extends Model {
 
         $this->_db->commit();
 
+    }
 
+    public function getOngoingTurn($driver_id){
+
+        $sql = "SELECT * FROM turn WHERE turn_end_time is null and turn_start_time is not null and driver_id = ? ";
+        $resultsQuery = $this->_db->query($sql,[$driver_id]);
+        return $resultsQuery->results();
+        
     }
 
 }
