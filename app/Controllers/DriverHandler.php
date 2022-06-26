@@ -10,7 +10,9 @@ class DriverHandler extends Controller{
 
     public function indexAction() {
         //unsetSessionExcept();   
-        $this->view->render('driver/turnCompletion');
+        $this->view->render('driver/applyLeave');
+
+
     }
 
     public function applyLeaveAction() {
@@ -19,5 +21,14 @@ class DriverHandler extends Controller{
 
     public function turnCompletionAction() {
         $this->view->render('driver/turnCompletion');
+    }
+
+    public function sendLeaveAction() {
+        $user_id = User::currentLoggedInUser();
+        $employee_leave = new Employee_leave();
+        $employee_leave->saveLeave($_POST, $user_id);
+
+        $this->view->alert = 'Success';
+        $this->view->render('driver/applyLeave');
     }
 }

@@ -47,4 +47,10 @@ class Employee_leave extends Model {
         $this->_db->query($sql,[$status,$id]);
     }
 
+    public function saveLeave($params, $user_id){
+        $params['user_id'] =$user_id;
+        $params['status'] =0;
+        $this->assign($params);
+        $this->save(); 
+    }
 }

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Home - Brand</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
 </head>
@@ -30,6 +30,9 @@
                     <div class="text-center">
                         <p class="fw-bold text-success mb-2">Voted #1 Worldwide</p>
                         <h1 class="fw-bold">The best solution for you and your customers</h1>
+                        <?php if (isset($this->alert)) {
+                            echo $this->alert;
+                        }?>
                     </div>
                 </div>
             </div>
@@ -45,12 +48,12 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-8 col-xl-6">
                 <div>
-                    <form class="p-3 p-xl-4" method="post">
+                    <form class="p-3 p-xl-4" method="post" action="<?=SROOT?>DriverHandler/sendLeave">
                         <div class="mb-3">
                             <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" />
                         </div>
                         <div class="mb-3">
-                            <textarea id="reason" class="form-control" name="reason" rows="6" placeholder="Reason"></textarea>
+                            <textarea id="leave_reason" class="form-control" name="leave_reason" rows="6" placeholder="Reason"></textarea>
                         </div>
                         <div><button class="btn btn-primary shadow d-block w-100" type="submit">Apply </button></div>
                     </form>
