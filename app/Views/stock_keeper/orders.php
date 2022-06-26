@@ -14,6 +14,7 @@ require_once 'app/views/includes/sk_header.php';
 
         <li class="list-group-item p-4">
             <div class="row">Order ID: <?= $item_order->order_id ?></div>
+            <div class="row">Train: <?= $item_order->train_name ?></div>
             <div class="row">Weight: <?= $item_order->weight . " kg" ?></div>
             <div class="row">Address: <?= $item_order->address ?></div>
             <div class="row">
