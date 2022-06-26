@@ -17,13 +17,23 @@
                 <span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="assets/img/logo-modified.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>AssistantHandler">Turn <?=$this->t_id ?></a></li>
-                    <li class="nav-item"><a class="nav-link" href="">Apply Leave</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>AssistantHandler/vieworders/<?= $this->t_id ?>">Turn <?= $this->t_id ?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>AssistantHandler/applyLeave">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
     <header class="bg-primary-gradient pt-5">
+        <?php if (isset($this->alert)) { ?>
+            <div class="row">
+                <div class="col-md-4 offset-md-8 mt-3">
+                    <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
+                        <strong>Success! </strong><br> Order Successfully Delivered!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
         <div class="container pt-4 pt-xl-5">
             <div class="row pt-5">
                 <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto">
@@ -43,7 +53,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active"><a href="<?= SROOT ?>AssistantHandler">Turns</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Turn <?=$this->t_id ?></li>
+                        <li class="breadcrumb-item active" aria-current="page">Turn <?= $this->t_id ?></li>
                     </ol>
                 </nav>
             </div>
@@ -57,13 +67,13 @@
                 </div>
                 <div class="row m-3">
                     <?php foreach ($this->orders as $item_order) { ?>
-                        <div class="col-sm-3 col-12 mb-4">
-                            <div class="card bg-light shadow-lg" style="width: 18rem;">
+                        <div class="col-md-3 col-12 mb-4">
+                            <div class="card bg-light shadow-lg" style="width: 18vw;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
                                     <p class="card-text"><?= $item_order->weight . " g" ?></p>
-                                    <a href="<?= SROOT ?>AssistantHandler/completeOneOrder/<?= $item_order->order_id ?>" class="btn btn-outline-success btn-sm">Delivered</a>
+                                    <a href="<?= SROOT ?>AssistantHandler/completeOneOrder/<?= $this->t_id ?>/<?= $item_order->order_id ?>" class="btn btn-outline-success btn-sm">Delivered</a>
                                 </div>
                             </div>
                         </div>
