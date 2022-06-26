@@ -68,7 +68,7 @@
                 <div class="row m-3">
                     <?php foreach ($this->orders as $item_order) { ?>
                         <div class="col-md-3 col-12 mb-4">
-                            <div class="card bg-light shadow-lg" style="width: 18vw;">
+                            <div class="card bg-light shadow-lg" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
