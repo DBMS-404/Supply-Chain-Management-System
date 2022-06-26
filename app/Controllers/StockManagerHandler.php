@@ -16,11 +16,19 @@ class StockManagerHandler extends Controller{
     }
 
     public function viewordersAction(){
+        $statuses = ['all', 'new', 'dtrain', 'ctrain', 'dtruck', 'delivered'];
+        foreach ($statuses as $value) {
+            $this->view->counts[$value] = $this->Item_orderModel->getcountofType($value);
+        }
         $this->view->orders = $this->Item_orderModel->getallOrders();
         $this->view->render('stock_manager/orders');
     }
 
     public function filterstatusAction(){
+        $statuses = ['all', 'new', 'dtrain', 'ctrain', 'dtruck', 'delivered'];
+        foreach ($statuses as $value) {
+            $this->view->counts[$value] = $this->Item_orderModel->getcountofType($value);
+        }
         if ($_POST['filter-status'] === 'all'){
             $this->view->orders = $this->Item_orderModel->getallOrders();
             $this->view->render('stock_manager/orders');
