@@ -53,7 +53,7 @@ class Validate
                             $t = explode(',', $rule_value);
                             $table = $t[0];
                             $id = $t[1];
-                            $query = $this->_db->query("SELECT * FROM {$table} WHERE id != ? AND {$item} = ?", [$id, $value]);
+                            $query = $this->_db->query("SELECT * FROM {$table} WHERE train_id != ? AND {$item} = ?", [$id, $value]);
                             if ($query->count()) {
                                 $this->addError(["{$display} is already exists. please choose another {$display}", $item]);
                             }

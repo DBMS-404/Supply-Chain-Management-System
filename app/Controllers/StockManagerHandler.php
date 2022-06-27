@@ -95,6 +95,8 @@ class StockManagerHandler extends Controller{
                     ]);
                 if ($validaton->passed()){
                     $this->ItemModel->updateItem($id,$_POST);
+                    $_SESSION['status'] = 'edited';
+                    $_SESSION['item'] = $_POST['name'];
                     Router::redirect("StockManagerHandler/viewinventory");
                 }else {
                     $this->view->displayErrors = $validaton->displayErrors();
@@ -126,6 +128,8 @@ class StockManagerHandler extends Controller{
                     ]);
                 if ($validaton->passed()){
                     $this->ItemModel->addItem($_POST);
+                    $_SESSION['status'] = 'added';
+                    $_SESSION['item'] = $_POST['name'];
                     Router::redirect("StockManagerHandler/viewinventory");
                 }else {
                     $this->view->displayErrors = $validaton->displayErrors();
@@ -138,6 +142,9 @@ class StockManagerHandler extends Controller{
     }
 
     public function deleteAction($id){
+        $this->ItemModel->findbyitemId($id);
+        $_SESSION['status'] = 'deleted';
+        $_SESSION['item'] = $this->ItemModel->name;
         $this->ItemModel->delete($id);
         Router::redirect("StockManagerHandler/viewinventory");
     }

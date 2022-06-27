@@ -11,10 +11,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <title>Orders</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
 </head>
 <style>
     <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
@@ -51,18 +52,28 @@
 
 <section>
     <div class="container">
-        <h2>Orders Received From Train</h2>
+        <div class="row">
+            <h2>Orders Received From Train</h2>
+        </div>
         <ul class="list-group">
             <?php foreach ($this->orders as $item_order) { ?>
 
                 <li class="list-group-item p-4">
                     <div class="row"><h4><strong>Order ID: <?= $item_order->order_id ?></strong></h4></div>
-                    <div class="row">
-                            <p>Train: <?= $item_order->train_name ?>
-                        <br />
-                            Weight: <?= $item_order->weight . " kg" ?>
-                        <br/>
-                            Address: <?= $item_order->address ?></p></div>
+                    <div class="row mt-2 mb-3">
+                        <p class="col-sm-4 m-0">
+                            <i class="fa fa-train me-2" aria-hidden="true"></i>
+                            <?= $item_order->train_name ?>
+                        </p>
+                        <p class="col-sm-4 m-0">
+                            <i class="fa fa-envelope me-2" aria-hidden="true"></i>
+                            <?= $item_order->address ?>
+                        </p>
+                        <p class="col-sm-4 m-0">
+                            <i class="fa fa-shopping-cart me-2" aria-hidden="true"></i>
+                            <?= $item_order->weight . " kg" ?>
+                        </p>
+                    </div>
                     <div class="row">
                         <div class="col-8"></div>
                         <div class="col-4">

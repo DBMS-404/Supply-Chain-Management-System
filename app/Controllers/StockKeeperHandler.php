@@ -89,4 +89,9 @@ class StockKeeperHandler extends Controller{
         $this->TurnModel->dispatchTruck($turn_id, $route_id);
         Router::redirect("StockKeeperHandler/viewroutes");
     }
+
+    public function cancelturnAction($turn_id){
+        $this->TurnModel->cancelTurn($turn_id);
+        Router::redirect("StockKeeperHandler/viewroutes");
+    }
 }

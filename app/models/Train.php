@@ -31,6 +31,7 @@ class Train extends Model {
     }
 
     public function getValues(){
+        $values['train_id'] = $this->train_id;
         $values['train_name'] = $this->train_name;
         $values['arrival_day'] = $this->arrival_day;
         $values['arrival_time'] = $this->arrival_time;

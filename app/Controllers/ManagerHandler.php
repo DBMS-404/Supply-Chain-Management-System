@@ -11,8 +11,9 @@ class ManagerHandler extends Controller
 
     public function indexAction()
     {
-        //unsetSessionExcept();   
-        $this->view->render('manager/dashboard');
+        //unsetSessionExcept();
+        $this->view->trains = $this->TrainModel->gettrains();   
+        $this->view->render('manager/trainSchedule');
     }
 
     public function viewTrainScheduleAction()
@@ -36,7 +37,12 @@ class ManagerHandler extends Controller
                 'capacity' => [
                     'display' => "Maximum Capacity",
                     'is_numeric' => true
+                ],
+                'train_name' =>[
+                    'display' => "Train Name",
+                    'unique_update' => 'train,'.$id
                 ]
+
             ]);
             
             if ($validaton->passed()) {
@@ -69,6 +75,10 @@ class ManagerHandler extends Controller
                 'capacity' => [
                     'display' => "Maximum Capacity",
                     'is_numeric' => true
+                ],
+                'train_name' =>[
+                    'display' => "Train Name",
+                    'unique' => 'train'
                 ]
             ]);
             
