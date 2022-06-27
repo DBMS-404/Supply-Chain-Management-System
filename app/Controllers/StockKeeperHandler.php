@@ -14,13 +14,13 @@ class StockKeeperHandler extends Controller{
     }
 
     public function indexAction() {
-        //unsetSessionExcept();   
+        $this->view->orders = $this->Item_orderModel->getOrdersdDispatchedByTrainUsisngCityID($this->Stock_keeperModel->getCity());
         $this->view->render('stock_keeper/dashboard');
     }
 
     public function viewordersAction(){
         $this->view->orders = $this->Item_orderModel->getOrdersdDispatchedByTrainUsisngCityID($this->Stock_keeperModel->getCity());
-        $this->view->render('stock_keeper/orders');
+        $this->view->render('stock_keeper/dashboard');
     }
 
     public function viewleavesAction(){
@@ -73,7 +73,7 @@ class StockKeeperHandler extends Controller{
 
         if ($_POST){
             if(!isset($_POST['truck']) || !isset($_POST['driver']) || !isset($_POST['driver_assistant'])){
-                $_SESSION['error'] = "Set all values and try again";
+                $_SESSION['error'] = "Set all fields and try again";
                 Router::redirect("StockKeeperHandler/assigntruck/$route_id");
             }else{
                 $this->TurnModel->addTurn($route_id, $_POST['truck'], $_POST['driver'], $_POST['driver_assistant']);
