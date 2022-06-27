@@ -82,6 +82,29 @@
                     <h1>No orders available</h1>
                 <?php } ?>
                 </div>
+
+                <?php if (count($this->d_orders) > 0) { ?>
+                <div class="row m-3">
+                    <h3>Delivered Packages</h3>
+                </div>
+                <div class="row m-3">
+                    <?php foreach ($this->d_orders as $item_order) { ?>
+                        <div class="col-md-3 col-12 mb-4">
+                            <div class="card bg-light shadow-lg" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
+                                    <h5><span class="badge bg-success">Delivered at <?= substr($item_order->delivered_time, -8) ?></span></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
+                                    <p class="card-text"><?= $item_order->weight . " g" ?><br>
+                                    </p> 
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php } else { ?>
+                    <h1>No Delivered Orders</h1>
+                <?php } ?>
+                </div>
         </div>
     </section>
     <footer class="bg-primary-gradient">

@@ -7,6 +7,7 @@ class AssistantHandler extends Controller{
         $this->load_model("User");
         $this->load_model('Driver_assistant');
         $this->load_model("Item_order");
+        $this->load_model("Turn_order");
         $this->load_model("Turn");
         $this->load_model("Route");
         $this->load_model("Truck");
@@ -26,6 +27,7 @@ class AssistantHandler extends Controller{
     public function viewordersAction($t_id){
         $this->view->t_id = $t_id;
         $this->view->orders = $this->Item_orderModel->getDtruckOrders();
+        $this->view->d_orders = $this->Turn_orderModel->getDelOrders($t_id); 
         $this->view->render('driver_assistant/shipped_orders');
     }
 
@@ -34,6 +36,7 @@ class AssistantHandler extends Controller{
         $this->view->orders = $this->Item_orderModel->getDtruckOrders();
         $this->view->t_id = $t_id;
         $this->view->alert = 'Success';
+        $this->view->d_orders = $this->Turn_orderModel->getDelOrders($t_id);
         $this->view->render('driver_assistant/shipped_orders');
     }
 
