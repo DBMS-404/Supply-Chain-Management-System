@@ -51,8 +51,10 @@
 
 <section>
 
-<div class="container">
-    <h2>Routes</h2>
+<div class="container col-10">
+    <div class="row">
+        <h2>Routes</h2>
+    </div>
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -72,7 +74,10 @@
                 <?php foreach ($this->routesToAssign as $route) { ?>
 
                     <li class="list-group-item p-4">
-                        <div class="row">Route <?= $route->route_id ?></div>
+                        <div class="row"><h4><strong>Route <?= $route->route_id ?></strong></h4></div>
+                        <div class="row">
+                            <p>From <strong><?= $route->start_city_name ?></strong> to  <strong><?= $route->end_city_name ?></strong></p>
+                        </div>
                         <div class="row">
                             <div class="col-8"></div>
                             <div class="col-4">
@@ -94,7 +99,14 @@
                 <?php foreach ($this->routesToDispatch as $turn) { ?>
 
                     <li class="list-group-item p-4">
-                        <div class="row">Route <?= $turn->route_id ?></div>
+                        <div class="row"><h4><strong>Route <?= $turn->route_id ?></strong></h4></div>
+                        <div class="row">
+                            <p>
+                                Truck No: <?= $turn->truck_no ?><br />
+                                Driver Assistant: <?= $turn->assistant_name ?><br />
+                                Driver: <?= $turn->driver_name ?>
+                            </p>
+                        </div>
                         <div class="row">
                             <div class="col-8"></div>
                             <div class="col-4">

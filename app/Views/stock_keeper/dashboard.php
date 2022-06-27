@@ -51,14 +51,18 @@
 
 <section>
     <div class="container">
+        <h2>Orders Received From Train</h2>
         <ul class="list-group">
             <?php foreach ($this->orders as $item_order) { ?>
 
                 <li class="list-group-item p-4">
-                    <div class="row">Order ID: <?= $item_order->order_id ?></div>
-                    <div class="row">Train: <?= $item_order->train_name ?></div>
-                    <div class="row">Weight: <?= $item_order->weight . " kg" ?></div>
-                    <div class="row">Address: <?= $item_order->address ?></div>
+                    <div class="row"><h4><strong>Order ID: <?= $item_order->order_id ?></strong></h4></div>
+                    <div class="row">
+                            <p>Train: <?= $item_order->train_name ?>
+                        <br />
+                            Weight: <?= $item_order->weight . " kg" ?>
+                        <br/>
+                            Address: <?= $item_order->address ?></p></div>
                     <div class="row">
                         <div class="col-8"></div>
                         <div class="col-4">

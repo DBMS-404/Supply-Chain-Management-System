@@ -54,7 +54,7 @@ class Stock_keeper extends Model {
     }
 
     public function getRouteIdsForAssign(){
-        $sql = "SELECT DISTINCT route_id FROM order_details WHERE city_id = ? AND status = 'ctrain' AND route_id NOT IN(SELECT route_id FROM turns_to_dispatch)";
+        $sql = "SELECT * FROM routes_to_assign WHERE city=?";
 
         $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
         $results = [];

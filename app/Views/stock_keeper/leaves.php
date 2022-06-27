@@ -58,17 +58,17 @@
         <?php foreach ($this->leaves as $leave) { ?>
 
             <li class="list-group-item p-4">
-                <div class="row"><?= $leave->first_name." ".$leave->last_name ?></div>
-                <div class="row">
+                <div class="row"><h4><strong><?= $leave->first_name." ".$leave->last_name ?></strong></h4></div>
+                <div class="row"><p>
                     <?php
                     if (substr($leave->user_id,0,2)=="DR"){
                         echo "Driver";
                     }else{
                         echo "Driver Assistant";
                     }
-                    ?>
-                </div>
-                <div class="row"><?= $leave->date ?></div>
+                    ?> - <em><?= $leave->user_id ?></em><br />
+
+                <?= $leave->date ?></p></div>
                 <div class="row">
                     <div class="col-8"></div>
                     <div class="col-4">
