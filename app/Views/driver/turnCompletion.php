@@ -1,5 +1,5 @@
-<?php 
-    redirectToHandler('dr');
+<?php
+redirectToHandler('dr');
 ?>
 
 <!DOCTYPE html>
@@ -46,16 +46,16 @@
     <section class="py-5">
         <div class="container py-5">
             <div class="mx-auto" style="max-width: 900px;">
-                <?php if (isset($this->route_map)) { ?>
-                    <div class="row m-3">
-                        <h3><i class="fa fa-truck" aria-hidden="true"></i> Ongoing Turn</h3>
-                        <iframe src="<?= $this->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                <?php } ?>
-
-                <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
+                <div class="row d-flex justify-content-center">
                     <div class="col mb-4">
-                        <div class="card bg-primary-light">
+                        <div class="card bg-primary-light mt-2">
+                            <?php if (isset($this->route_map)) { ?>
+                                <div class="row m-3">
+                                    <h3><i class="fa fa-truck" aria-hidden="true"></i> Ongoing Turn : Turn <?php echo $this->ongoingTurns[0]->turn_id ?></h3>
+                                    <br>
+                                    <iframe src="<?= $this->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            <?php } ?>
                             <div class="card-body text-center px-4 py-5 px-md-5">
                                 <p class="fw-bold text-primary card-text mb-2">
                                     <?php if ($this->remainingOrders === '0') {
