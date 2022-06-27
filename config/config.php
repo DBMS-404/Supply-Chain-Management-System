@@ -1,7 +1,7 @@
 <?php 
 
 define('DEFAULT_CONTROLLER','Home');// default controller
-define('SROOT','/Supply-Chain-Management-System/');
+define('SROOT','/scms/');
 
 define('DEFAULT_LAYOUT','default');
 define('SITE_TITLE','SCMC');
