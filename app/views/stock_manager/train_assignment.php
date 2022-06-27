@@ -72,9 +72,9 @@ $page = "Order " . $this->order->order_id;
                                             <div class="col-sm-6 col-12">
                                                 <div>
                                                     <i class="fa fa-train" aria-hidden="true"></i><?= " " . $train->train_name ?><br>
-                                                    <?= "Destination: " . $train->destination ?><br>
-                                                    <?= "Arrival Day: " . $train->arrival_day ?><br>
-                                                    <?= "Arrival Time: " . $train->arrival_time ?><br>
+                                                    <i class="fa fa-map-marker" aria-hidden="true"></i><?= " Destination: " . $train->destination ?><br>
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i><?= " Arrival Day: " . $train->arrival_day ?><br>
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i><?= " Arrival Time: " . $train->arrival_time ?><br>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-12 align-self-center text-sm-end">
