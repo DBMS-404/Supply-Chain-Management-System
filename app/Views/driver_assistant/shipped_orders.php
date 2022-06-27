@@ -59,52 +59,76 @@
             </div>
 
             <?php if (count($this->orders) > 0) { ?>
-                <div class="row m-3">
+                <div class="card" style="border: 1px solid #c0c7c4;">
+                <div class="row ms-3 mt-3">
+                        <h3>Route Map</h3>
+                    </div>
+                <div class="row mb-3 ms-3 me-3">
                     <iframe src="<?= $this->orders[0]->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                <div class="row m-3">
-                    <h3>Packages In Your Truck</h3>
                 </div>
-                <div class="row m-3">
-                    <?php foreach ($this->orders as $item_order) { ?>
-                        <div class="col-md-3 col-12 mb-4">
-                            <div class="card bg-light shadow-lg" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
-                                    <p class="card-text"><?= $item_order->weight . " g" ?></p>
-                                    <a href="<?= SROOT ?>AssistantHandler/completeOneOrder/<?= $this->t_id ?>/<?= $item_order->order_id ?>" class="btn btn-outline-success btn-sm">Delivered</a>
+                <div class="card" style="border: 1px solid #c0c7c4;">
+                    <div class="row m-3">
+                        <h3>Packages In Your Truck</h3>
+                    </div>
+                    <div class="row m-3">
+                        <?php foreach ($this->orders as $item_order) { ?>
+                            <div class="col-lg-4 col-12 mb-5">
+                                <div class="card bg-light shadow-lg" style="width: 19rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
+                                        <p class="card-text"><?= $item_order->weight . " g" ?></p>
+                                        <a href="<?= SROOT ?>AssistantHandler/completeOneOrder/<?= $this->t_id ?>/<?= $item_order->order_id ?>" class="btn btn-outline-success btn-sm">Confirm Delivery</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php } ?>
-                <?php } else { ?>
-                    <h1>No orders available</h1>
-                <?php } ?>
+                        <?php } ?>
+                    </div>
                 </div>
-
-                <?php if (count($this->d_orders) > 0) { ?>
+            <?php } else { ?>
+                <div class="card" style="border: 1px solid #c0c7c4;">
+                <div class="row m-3">
+                    <h3>Packages In Your Truck</h3>
+                    <div class="col ms-3">
+                        <h4 style="color: #6d7d76;">All Packages are Delivered</h4>
+                    </div>
+                </div>
+                </div>
+            <?php } ?>
+        <?php if (count($this->d_orders) > 0) { ?>
+            <div class="card card-body" style="border: 1px solid #c0c7c4;">
                 <div class="row m-3">
                     <h3>Delivered Packages</h3>
                 </div>
                 <div class="row m-3">
                     <?php foreach ($this->d_orders as $item_order) { ?>
-                        <div class="col-md-3 col-12 mb-4">
-                            <div class="card bg-light shadow-lg" style="width: 18rem;">
+                        <div class="col-lg-4 col-12 mb-5">
+                            <div class="card bg-light shadow-lg" style="width: 19rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
                                     <h5><span class="badge bg-success">Delivered at <?= substr($item_order->delivered_time, -8) ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
                                     <p class="card-text"><?= $item_order->weight . " g" ?><br>
-                                    </p> 
+                                    </p>
                                 </div>
                             </div>
                         </div>
+
                     <?php } ?>
-                <?php } else { ?>
-                    <h1>No Delivered Orders</h1>
-                <?php } ?>
                 </div>
+            </div>
+        <?php } else { ?>
+            <div class="card" style="border: 1px solid #c0c7c4;">
+                <div class="row m-3">
+                    <h3>Delivered Packages</h3>
+                    <div class="col ms-3">
+                        <h4 style="color: #6d7d76;">No Delivered Packages</h4>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
         </div>
     </section>
     <footer class="bg-primary-gradient">
