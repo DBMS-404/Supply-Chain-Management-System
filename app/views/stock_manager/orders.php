@@ -57,6 +57,27 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
         </div>
     </nav>
     <header class="bg-primary-gradient pt-5">
+        <?php if (isset($_SESSION['alert']) && $_SESSION['alert']===true) { ?>
+                <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
+                            <strong>Success! </strong><br> Order Successfully Assigned to a Train!
+                            <?php unset($_SESSION['alert']);?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php }elseif (isset($_SESSION['alert']) && $_SESSION['alert']===false) { ?>
+                <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-danger alert-dismissible fade show shadow-lg" role="alert">
+                            <strong>Failed! </strong><br> Error in Order Assignment!
+                            <?php unset($_SESSION['alert']);?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php } ?>
         <div class="container pt-4 pt-xl-5">
             <div class="row pt-5">
                 <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto">

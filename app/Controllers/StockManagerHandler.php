@@ -63,8 +63,10 @@ class StockManagerHandler extends Controller{
             $train_assignment = new Train_assignment();
             $train_assignment->make_assignment($train_id,$order_id);
             $this->TrainModel->commit();
+            $_SESSION['alert'] = true;
         }catch (Exception $exception){
             $this->TrainModel->rollBack();
+            $_SESSION['alert'] = false;
         }
         Router::redirect("StockManagerHandler/vieworders");
 
