@@ -53,6 +53,40 @@
         </div>
     </nav>
     <header class="bg-primary-gradient pt-5">
+        <?php if (isset($_SESSION['status']) && $_SESSION['status']==='added') { ?>
+                <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
+                            Successfully Added <strong><?= $_SESSION['item']; ?></strong> to stocks
+                            <?php unset($_SESSION['status']);
+                                  unset($_SESSION['item'])?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php }elseif (isset($_SESSION['status']) && $_SESSION['status']==='deleted') { ?>
+                <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-danger alert-dismissible fade show shadow-lg" role="alert">
+                            Successfully deleted <strong><?= $_SESSION['item']; ?></strong> from stocks
+                            <?php unset($_SESSION['status']);
+                                  unset($_SESSION['item'])?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php }elseif (isset($_SESSION['status']) && $_SESSION['status']==='edited') { ?>
+            <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-info alert-dismissible fade show shadow-lg" role="alert">
+                            Successfully Edited the Stocks Details of <strong><?= $_SESSION['item']; ?></strong>
+                            <?php unset($_SESSION['status']);
+                                  unset($_SESSION['item'])?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php }?>
         <div class="container pt-4 pt-xl-5">
             <div class="row pt-5">
                 <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto">
@@ -98,8 +132,8 @@
                                         <?= "Unit price Rs." . $item->unit_price ?><br>
                                     </div><br>
                                 </td>
-                                <td><a class="btn btn-sm btn-danger" href="<?= SROOT ?>StockManagerHandler/delete/<?= $item->item_id ?>">Delete</a></td>
-                                <td><a class="btn btn-sm btn-primary" href="<?= SROOT ?>StockManagerHandler/manageStock/<?= $item->item_id ?>">Edit</a></td>
+                                <td><a class="btn btn-sm btn-danger" href="<?= SROOT ?>StockManagerHandler/delete/<?= $item->item_id ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                <td><a class="btn btn-sm btn-primary" href="<?= SROOT ?>StockManagerHandler/manageStock/<?= $item->item_id ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                             </tr>
                         <?php } ?>
                     </tbody>
