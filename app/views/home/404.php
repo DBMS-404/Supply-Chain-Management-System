@@ -1,17 +1,23 @@
-<?php 
-    redirectToHandler('mn');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <title>404 : Page Not Found</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <style>
+        <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
+        /* #main {
+            height: 50vh;
+        } */
+        body {
+    background: #dedede;
+}
+.page-wrap {
+    min-height: 55vh;
+}
+    </style>
 </head>
 
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
@@ -21,8 +27,7 @@
                 <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png" /></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>/ManagerHandler/viewTrainSchedule">Train Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link" href="">Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>LoginHandler/redirectToHandler">Home</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
@@ -41,6 +46,19 @@
             </div>
         </div>
     </header>
+    <section>
+    <div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">404</span>
+                <div class="mb-4 lead">The page you are looking for was not found.</div>
+                <a href="<?= SROOT ?>LoginHandler/redirectToHandler" class="btn btn-link">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+    </section>
     <footer class="bg-primary-gradient fixed-bottom">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
@@ -48,9 +66,15 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bold-and-bright.js"></script>
+    <script>
+        <?php include_once('assets/js/jquery.min.js'); ?>
+    </script>
+    <script>
+        <?php include_once('assets/bootstrap/js/bootstrap.min.js'); ?>
+    </script>
+    <script>
+        <?php include_once('assets/js/bold-and-bright.js'); ?>
+    </script>
 </body>
 
 </html>

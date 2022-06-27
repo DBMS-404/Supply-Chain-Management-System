@@ -23,7 +23,8 @@ class Router
         if (method_exists($controller, $action)) {
             call_user_func_array([$dispacth, $action], $queryParams);
         } else {
-            dnd("Not exist. ".$action);
+            include(ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'404'.'.php');
+            die();
         }
     }
 

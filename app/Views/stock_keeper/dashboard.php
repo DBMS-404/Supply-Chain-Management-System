@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('sk');
+?>
+
 <!doctype html>
 <html lang="en">
 <head>

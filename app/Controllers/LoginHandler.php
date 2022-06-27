@@ -55,4 +55,19 @@ class LoginHandler extends Controller
         $this->UserModel->logout();
         Router::redirect('home/index');
     }
+
+    public function redirectToHandlerAction(){
+        if (!isset($_SESSION['user_id'])){
+            Router::redirect("Home");
+        }
+        $handlers = [
+            "DR"=>"DriverHandler",
+            "DA"=>"AssistantHandler",
+            "SK"=>"StockKeeperHandler",
+            "MN"=>"ManagerHandler",
+            "SM"=>"StockManagerHandler"];
+        $user_type = strtoupper(substr(User::currentLoggedInUser(), 0, 2));
+        Router::redirect($handlers[$user_type]);
+
+    }
 }

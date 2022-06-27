@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('mn');
+?>
+
 <?php
 $this->filter = $this->filter ?? "all";
 $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'ctrain' => "Collected from train", 'dtruck' => "Dispatched to truck", 'delivered' => "Delivered"];

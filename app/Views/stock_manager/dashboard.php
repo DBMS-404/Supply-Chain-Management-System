@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('sm');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

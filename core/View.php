@@ -17,7 +17,7 @@
             if (file_exists(ROOT.DS.'app'.DS.'views'.DS.$viewString.'.php')){
                 include(ROOT.DS.'app'.DS.'views'.DS.$viewString.'.php');
             }else{
-                // include(ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'404'.'.php');
+                include(ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'404'.'.php');
                 die();
             }
 

@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('dr');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

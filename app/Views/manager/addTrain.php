@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('mn');
+?>
+
 <?php
 if ($_POST) {
     $values = posted_values($_POST);

@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('da');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('sk');
+?>
+
 <?php
     $leave_details = $this->leave;
 ?>

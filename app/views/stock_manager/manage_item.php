@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('sm');
+?>
+
 <?php
 $page = "Add Item";
 if ($_POST) {

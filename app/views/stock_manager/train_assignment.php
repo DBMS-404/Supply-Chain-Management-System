@@ -1,3 +1,7 @@
+<?php 
+    redirectToHandler('sm');
+?>
+
 <?php
 $page = "Order " . $this->order->order_id;
 ?>
