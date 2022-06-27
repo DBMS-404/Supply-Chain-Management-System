@@ -1,5 +1,5 @@
-<?php 
-    redirectToHandler('da');
+<?php
+redirectToHandler('da');
 ?>
 
 <?php
@@ -65,13 +65,17 @@ $today = date("Y-m-d");
                     <div>
                         <div>
                             <form class="p-3 p-xl-4" method="post" action="<?= SROOT ?>AssistantHandler/sendLeave">
-                                <div class="mb-3">
-                                    <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" min=<?= $today ?> />
+                                <div class="form-floating mb-3">
+                                    <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" min=<?= $today ?> id="floatingInput">
+                                    <label for="floatingInput">Date </label>
                                 </div>
-                                <div class="mb-3">
-                                    <textarea id="leave_reason" class="form-control" name="leave_reason" rows="6" placeholder="Reason"></textarea>
+                                <div class="form-floating">
+                                    <textarea class="form-control" name="leave_reason" style="height: 25vh" placeholder="Reason" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Reason</label>
                                 </div>
-                                <div><button class="btn btn-success shadow d-block w-100" type="submit">Apply </button></div>
+                                <div class="mt-3">
+                                    <button class="btn btn-primary shadow d-block w-100" type="submit">Apply </button>
+                                </div>
                             </form>
                         </div>
                     </div>

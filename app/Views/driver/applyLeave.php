@@ -1,5 +1,5 @@
-<?php 
-    redirectToHandler('dr');
+<?php
+redirectToHandler('dr');
 ?>
 
 <?php
@@ -26,7 +26,7 @@ $today = date("Y-m-d");
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <span class="bs-icon-sm bs-icon-circle  shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"/></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <span class="bs-icon-sm bs-icon-circle  shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png" /></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/turnCompletion">Turn Completion</a></li>
@@ -64,13 +64,17 @@ $today = date("Y-m-d");
                     <?php } ?>
                     <div>
                         <form class="p-3 p-xl-4" method="post" action="<?= SROOT ?>DriverHandler/sendLeave">
-                            <div class="mb-3">
-                                <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" min=<?= $today ?> />
+                            <div class="form-floating mb-3">
+                                <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" min=<?= $today ?> id="floatingInput">
+                                <label for="floatingInput">Date </label>
                             </div>
-                            <div class="mb-3">
-                                <textarea id="leave_reason" class="form-control" name="leave_reason" rows="6" placeholder="Reason"></textarea>
+                            <div class="form-floating">
+                                <textarea class="form-control" name="leave_reason" style="height: 25vh" placeholder="Reason" id="floatingTextarea"></textarea>
+                                <label for="floatingTextarea">Reason</label>
                             </div>
-                            <div><button class="btn btn-primary shadow d-block w-100" type="submit">Apply </button></div>
+                            <div class="mt-3">
+                                <button class="btn btn-primary shadow d-block w-100" type="submit">Apply </button>
+                            </div>
                         </form>
                     </div>
                 </div>
