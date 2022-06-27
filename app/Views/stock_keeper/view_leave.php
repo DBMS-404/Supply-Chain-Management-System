@@ -15,10 +15,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <title>View Leave</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
 </head>
 <style>
     <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
@@ -63,47 +63,46 @@
         </nav>
     </div>
 
-    <div class="container border col-sm-8 p-4 align-items-center">
-        <h1>Leave Application</h1>
+    <div class="container border col-sm-7 p-4 align-items-center border-success border-3 rounded-3">
+        <h1 class="display-5 text-center">Leave Application</h1>
 
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">First Name</label>
-            <div class="col-sm-8">
-                <input class="w-75" type="text" readonly value="<?= $leave_details->first_name ?>">
+        <div class="form-group row ms-5 mt-5">
+            <label class="col-sm-3 col-form-label">First Name</label>
+            <div class="col-sm-9 d-inline-flex align-items-center">
+                <input class="w-100  me-5" type="text" readonly value="<?= $leave_details->first_name ?>">
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Last Name</label>
-            <div class="col-sm-8">
-                <input class="w-75" type="text" readonly value="<?= $leave_details->last_name ?>">
+        <div class="form-group row ms-5">
+            <label class="col-sm-3 col-form-label">Last Name</label>
+            <div class="col-sm-9 d-inline-flex align-items-center">
+                <input class="w-100  me-5" type="text" readonly value="<?= $leave_details->last_name ?>">
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Date</label>
-            <div class="col-sm-8">
-                <input class="w-75" type="text" readonly value="<?= $leave_details->date ?>">
+        <div class="form-group row ms-5">
+            <label class="col-sm-3 col-form-label">Date</label>
+            <div class="col-sm-9 d-inline-flex align-items-center">
+                <input class="w-100  me-5" type="text" readonly value="<?= $leave_details->date ?>">
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">City</label>
-            <div class="col-sm-8">
-                <input class="w-75" type="text" readonly value="<?= $leave_details->city_name ?>">
+        <div class="form-group row ms-5">
+            <label class="col-sm-3 col-form-label">City</label>
+            <div class="col-sm-9 d-inline-flex align-items-center">
+                <input class="w-100  me-5" type="text" readonly value="<?= $leave_details->city_name ?>">
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Reason</label>
-            <div class="col-sm-8">
-                <textarea class="form-control w-75" rows="5"><?= $leave_details->leave_reason ?></textarea>
-            </div>
-
-        </div>
-        <div class="form-group row mt-2">
-            <label class="col-sm-4 col-form-label">Telephone</label>
-            <div class="col-sm-8">
-                <input class="w-75" type="text" readonly value="<?= $leave_details->mobile_no ?>">
+        <div class="form-group row ms-5 mt-2">
+            <label class="col-sm-3 col-form-label">Reason</label>
+            <div class="col-sm-9 d-inline-flex align-items-center">
+                <textarea class="form-control w-100  me-5" rows="5" readonly><?= $leave_details->leave_reason ?></textarea>
             </div>
         </div>
-        <div class="form-group row mt-2">
+        <div class="form-group row mt-2 ms-5">
+            <label class="col-sm-3 col-form-label">Telephone</label>
+            <div class="col-sm-9 d-inline-flex align-items-center">
+                <input class="w-100  me-5" type="text" readonly value="<?= $leave_details->mobile_no ?>">
+            </div>
+        </div>
+        <div class="form-group row mt-4 mb-3">
             <div class="col-sm-3"></div>
             <div class="btn-group col-sm-6 d-flex align-items-center justify-content-center">
                 <a type="button" class="btn btn-success" href="<?=SROOT?>StockKeeperHandler/acceptleave/<?= $leave_details->leave_id ?>">Accept</a>
