@@ -109,7 +109,7 @@
             </div>
         </div>
 
-        <div class="form-group row mt-2">
+        <div class="form-group row mt-3">
             <div class="col-sm-4"></div>
             <div class="btn-group col-sm-4 d-flex align-items-center justify-content-center">
                 <input class="btn btn-primary" type="submit" value="Assign">

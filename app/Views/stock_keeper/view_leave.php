@@ -64,7 +64,7 @@
     </div>
 
     <div class="container border col-sm-7 p-4 align-items-center border-success border-3 rounded-3">
-        <h1 class="display-5 text-center">Leave Application</h1>
+        <h1 class="display-5 text-center" style="font-family: sans-serif">Leave Application</h1>
 
         <div class="form-group row ms-5 mt-5">
             <label class="col-sm-3 col-form-label">First Name</label>

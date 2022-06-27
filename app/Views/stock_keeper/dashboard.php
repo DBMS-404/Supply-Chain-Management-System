@@ -53,14 +53,18 @@
 <section>
     <div class="container">
         <div class="row">
-            <h2>Orders Received From Train</h2>
+            <h2 style="font-family: sans-serif">Orders Received From Train</h2>
         </div>
         <ul class="list-group">
             <?php foreach ($this->orders as $item_order) { ?>
 
                 <li class="list-group-item p-4">
-                    <div class="row"><h4><strong>Order ID: <?= $item_order->order_id ?></strong></h4></div>
-                    <div class="row mt-2 mb-3">
+                    <div class="row"><h4><strong>
+                                <i class="fa fa-shopping-bag me-2" aria-hidden="true"></i>
+                                Order: <?= $item_order->order_id ?>
+                            </strong></h4>
+                    </div>
+                    <div class="row mt-3 mb-3">
                         <p class="col-sm-4 m-0">
                             <i class="fa fa-train me-2" aria-hidden="true"></i>
                             <?= $item_order->train_name ?>

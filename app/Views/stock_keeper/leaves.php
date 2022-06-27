@@ -53,7 +53,7 @@
 <section>
 
 <div class="container">
-    <h2>Leave Requests</h2>
+    <h2 style="font-family: sans-serif">Leave Requests</h2>
 
     <ul class="list-group">
         <?php foreach ($this->leaves as $leave) { ?>
@@ -61,7 +61,7 @@
             <li class="list-group-item p-4">
                 <div class="row"><h4><strong><?= $leave->first_name." ".$leave->last_name ?></strong></h4></div>
                 <div class="row">
-                    <p class="col-sm-5 m-0 d-inline-flex align-items-center">
+                    <p class="col-sm-3 m-0 d-inline-flex align-items-center">
                         <i class="fa fa-user me-2" aria-hidden="true"></i>
                         <?php
                         if (substr($leave->user_id,0,2)=="DR"){
@@ -69,9 +69,13 @@
                         }else{
                             echo "Driver Assistant";
                         }
-                        ?> - <em><?= $leave->user_id ?></em>
+                        ?>
                     </p>
-                    <p class="col-sm-4 m-0 d-inline-flex align-items-center">
+                    <p class="col-sm-3 m-0 d-inline-flex align-items-center">
+                        <i class="fa fa-id-card me-2" aria-hidden="true"></i>
+                        <?= $leave->user_id ?>
+                    </p>
+                    <p class="col-sm-3 m-0 d-inline-flex align-items-center">
                         <i class="fa fa-calendar me-2" aria-hidden="true"></i>
                         <?= $leave->date ?>
                     </p>
@@ -80,6 +84,7 @@
                     </div>
 
                 </div>
+
 
             </li>
 

@@ -20,6 +20,10 @@
 </head>
 <style>
     <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
+    .nav-tabs .nav-item .active{
+        background-color: #009c67;
+        color: white;
+    }
 </style>
 
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
@@ -55,7 +59,7 @@
 
 <div class="container col-10">
     <div class="row">
-        <h2>Routes</h2>
+        <h2 style="font-family: sans-serif">Routes</h2>
     </div>
 
     <ul class="nav nav-tabs">
@@ -76,14 +80,19 @@
                 <?php foreach ($this->routesToAssign as $route) { ?>
 
                     <li class="list-group-item p-4">
-                        <div class="row"><h4><strong>Route <?= $route->route_id ?></strong></h4></div>
+                        <div class="row">
+                            <h4><strong>
+                                    <i class="fa fa-road me-2" aria-hidden="true"></i>
+                                    Route <?= $route->route_id ?>
+                            </strong></h4>
+                        </div>
                         <div class="row mt-3">
                             <p class="col-sm-5 m-0 d-inline-flex align-items-center">
-                                <i class="fa fa-bus me-2" aria-hidden="true"></i>
+                                <i class="fa fa-map-marker me-2" aria-hidden="true"></i>
                                 From: <?= $route->start_city_name ?>
                             </p>
                             <p class="col-sm-4 m-0 d-inline-flex align-items-center">
-                                <i class="fa fa-bus me-2" aria-hidden="true"></i>
+                                <i class="fa fa-map-marker me-2" aria-hidden="true"></i>
                                 To: <?= $route->end_city_name ?>
                             </p>
                             <div class="col-sm-3">
@@ -104,7 +113,11 @@
                 <?php foreach ($this->routesToDispatch as $turn) { ?>
 
                     <li class="list-group-item p-4">
-                        <div class="row"><h4><strong>Route <?= $turn->route_id ?></strong></h4></div>
+                        <div class="row">
+                            <h4><strong>
+                                    <i class="fa fa-road me-2" aria-hidden="true"></i>
+                                    Route <?= $turn->route_id ?>
+                            </strong></h4></div>
                         <div class="row mt-3">
                             <p class="col-sm-4 m-0">
                                 <i class="fa fa-truck me-2" aria-hidden="true"></i>
@@ -121,11 +134,11 @@
                         </div>
                         <div class="row">
                             <p class="col-sm-4 m-0">
-                                <i class="fa fa-bus me-2" aria-hidden="true"></i>
+                                <i class="fa fa-map-marker me-2" aria-hidden="true"></i>
                                 From: <?= $turn->start_city_name ?>
                             </p>
                             <p class="col-sm-4 m-0">
-                                <i class="fa fa-bus me-2" aria-hidden="true"></i>
+                                <i class="fa fa-map-marker me-2" aria-hidden="true"></i>
                                 To: <?= $turn->end_city_name ?>
                             </p>
                         </div>
