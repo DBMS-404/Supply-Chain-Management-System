@@ -47,4 +47,9 @@ class Turn extends Model {
         
     }
 
+    public function cancelTurn($turn_id){
+        $sql = "delete from turn where turn_id=?";
+        $this->_db->query($sql,[$turn_id]);
+    }
+
 }

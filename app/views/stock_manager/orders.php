@@ -143,11 +143,12 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                                                 <select name='status' onchange='this.form.submit()' class="form-select">
                                                     <?php
                                                     foreach ($statuses as $key => $value) {
+                                                        $arg = ($key === 'new') ? '':' disabled ';
                                                         if ($key !== "all") {
                                                             if ($key === $item_order->status) {
-                                                                echo "<option value =" . $key . " selected= 'selected'>" . $value . "</option>";
+                                                                echo "<option value =" . $key . " selected= 'selected'".$arg.">" . $value . "</option>";
                                                             } else {
-                                                                echo "<option value=" . $key . ">" . $value . "</option>";
+                                                                echo "<option value=" . $key . $arg.">" . $value . "</option>";
                                                             }
                                                         }
                                                     }

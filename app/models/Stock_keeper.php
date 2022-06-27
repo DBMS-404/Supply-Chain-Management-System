@@ -54,7 +54,9 @@ class Stock_keeper extends Model {
     }
 
     public function getRouteIdsForAssign(){
-        $sql = "SELECT * FROM routes_to_assign WHERE city=?";
+        $sql = "SELECT route_id, start_city_name, end_city_name, city FROM item_order 
+                    INNER JOIN route_details using(route_id) WHERE city=? AND status = 'ctrain' AND 
+                    route_id NOT IN(SELECT route_id FROM turns_to_dispatch)";
 
         $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
         $results = [];
@@ -65,7 +67,8 @@ class Stock_keeper extends Model {
 
     public function getTurnsToDispatch(){
 
-        $sql = "SELECT * FROM turns_to_dispatch WHERE city_id = ? ";
+        $sql = "SELECT turn_id, route_id, driver_name, assistant_name, truck_no, start_city_name, end_city_name 
+                    FROM turns_to_dispatch INNER JOIN route_details using(route_id) WHERE city_id = ? ";
         $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
         $results = [];
 
