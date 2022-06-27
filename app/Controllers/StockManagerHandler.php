@@ -91,6 +91,10 @@ class StockManagerHandler extends Controller{
                     'unit_price'=>[
                         'display' => "Unit Price",
                         'is_numeric'=>true
+                    ],
+                    'name'=>[
+                        'display'=>'Item Name',
+                        'unique_update'=>'item,'.$id
                     ]
                     ]);
                 if ($validaton->passed()){
