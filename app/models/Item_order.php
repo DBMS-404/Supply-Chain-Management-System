@@ -53,16 +53,5 @@ class Item_order extends Model {
         }
         return count($this->getorderofstatus($type));
     }
-
-    public function getOrdersdDispatchedByTrainUsisngCityID($city_id){
-
-        $sql = "SELECT * FROM train_dispatched_orders WHERE city_id = ?";
-
-        $results = [];
-        $resultsQuery = $this->_db->query($sql,[$city_id]);
-
-        if (!$resultsQuery) return $results;
-        return $resultsQuery->results();
-    }
     
 }

@@ -14,13 +14,16 @@ class StockKeeperHandler extends Controller{
     }
 
     public function indexAction() {
-        $this->view->orders = $this->Item_orderModel->getOrdersdDispatchedByTrainUsisngCityID($this->Stock_keeperModel->getCity());
-        $this->view->render('stock_keeper/dashboard');
-    }
+        $this->view->orders = $this->Stock_keeperModel->getOrdersdDispatchedByTrainToCity();
 
-    public function viewordersAction(){
-        $this->view->orders = $this->Item_orderModel->getOrdersdDispatchedByTrainUsisngCityID($this->Stock_keeperModel->getCity());
-        $this->view->render('stock_keeper/dashboard');
+        $trains = ['all' => "All"];
+
+        foreach ($this->view->orders as $item_order){
+            $trains[$item_order->train_id] = $item_order->train_name;
+        }
+        $_SESSION['trains'] = $trains;
+
+        Router::redirect("StockKeeperHandler/filtertrains");
     }
 
     public function viewleavesAction(){
@@ -93,5 +96,23 @@ class StockKeeperHandler extends Controller{
     public function cancelturnAction($turn_id){
         $this->TurnModel->cancelTurn($turn_id);
         Router::redirect("StockKeeperHandler/viewroutes");
+    }
+
+    public function filtertrainsAction(){
+        $trains = array_keys($_SESSION['trains']);
+
+        $_POST['filter-status'] = $_POST['filter-status'] ?? "all";
+
+        foreach ($trains as $value) {
+            $this->view->counts[$value] = $this->Stock_keeperModel->getCountOfTrainOrders($value);
+        }
+        if ($_POST['filter-status'] === 'all'){
+            $this->view->orders = $this->Stock_keeperModel->getOrdersdDispatchedByTrainToCity();
+            $this->view->render('stock_keeper/dashboard');
+        }else {
+            $this->view->filter = $_POST['filter-status'];
+            $this->view->orders = $this->Stock_keeperModel->getOrdersdDispatchedByTrainToCityByTrain($_POST['filter-status']);
+            $this->view->render('stock_keeper/dashboard');
+        }
     }
 }

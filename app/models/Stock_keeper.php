@@ -95,4 +95,33 @@ class Stock_keeper extends Model {
         $this->_db->commit();
     }
 
+    public function getCountOfTrainOrders($train){
+        if ($train==='all'){
+            return count($this->getOrdersdDispatchedByTrainToCity());
+        }
+        return count($this->getOrdersdDispatchedByTrainToCityByTrain($train));
+    }
+
+    public function getOrdersdDispatchedByTrainToCity(){
+
+        $sql = "SELECT * FROM train_dispatched_orders WHERE city_id = ?";
+
+        $results = [];
+        $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
+
+        if (!$resultsQuery) return $results;
+        return $resultsQuery->results();
+    }
+
+    public function getOrdersdDispatchedByTrainToCityByTrain($train_id){
+
+        $sql = "SELECT * FROM train_dispatched_orders WHERE city_id = ? AND train_id=?";
+
+        $results = [];
+        $resultsQuery = $this->_db->query($sql,[$this->getCity(), $train_id]);
+
+        if (!$resultsQuery) return $results;
+        return $resultsQuery->results();
+    }
+
 }

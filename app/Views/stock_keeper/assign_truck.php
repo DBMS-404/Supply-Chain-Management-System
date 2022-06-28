@@ -51,14 +51,21 @@
 
 <section>
 
-    <div class="row m-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="<?= SROOT ?>StockKeeperHandler/viewroutes">Trucks</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Route <?= $this->route_id ?></li>
-            </ol>
-        </nav>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-11">
+            <div class="row m-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="<?= SROOT ?>StockKeeperHandler/viewroutes">Trucks</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Route <?= $this->route_id ?></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
     </div>
+
+
 
     <div class="container border col-sm-8 p-4 align-items-center">
 
