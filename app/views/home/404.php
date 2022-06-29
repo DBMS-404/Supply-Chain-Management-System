@@ -8,15 +8,23 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <style>
         <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
+
         /* #main {
             height: 50vh;
         } */
-        body {
-    background: #dedede;
-}
-.page-wrap {
-    min-height: 55vh;
-}
+        section {
+            padding: 20vw;
+            
+            
+        }
+
+        .page-wrap {
+            min-height: 55vh;
+            background: #dedede;
+            border-radius: 10px;
+            border: #dedede solid 1px;
+            
+        }
     </style>
 </head>
 
@@ -46,20 +54,20 @@
             </div>
         </div>
     </header>
-    <section>
-    <div class="page-wrap d-flex flex-row align-items-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 text-center">
-                <span class="display-1 d-block">404</span>
-                <div class="mb-4 lead">The page you are looking for was not found.</div>
-                <a href="<?= SROOT ?>LoginHandler/redirectToHandler" class="btn btn-link">Back to Home</a>
+    <section class="py-5">
+        <div class="page-wrap d-flex flex-row align-items-center shadow">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <span class="display-1 d-block"><strong>404</strong></span>
+                        <div class="mb-4 lead">The page you are looking for was not found.</div>
+                        <a href="<?= SROOT ?>LoginHandler/redirectToHandler" class="btn btn-link">Back to Home</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     </section>
-    <footer class="bg-primary-gradient fixed-bottom">
+    <footer class="bg-primary-gradient ">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
                 <p class="mb-0">Copyright © 2022 Team 404</p>
