@@ -50,7 +50,7 @@
     </div>
 </header>
 
-<section>
+<section class="py-5">
 
 <div class="container">
     <h2 style="font-family: sans-serif">Leave Requests</h2>

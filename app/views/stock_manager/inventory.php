@@ -121,18 +121,19 @@
         <br>
         <div class="table-div">
             <?php if (count($this->inventory) > 0) { ?>
-                <table class="table">
+                <table class="table align-middle">
                     <tbody id="items">
                         <?php foreach ($this->inventory as $item) { ?>
                             <tr>
                                 <td>
+                                <br>
                                     <div>
                                         <span><?= $item->name ?></span><br>
                                         <?= "Available quantity: " . $item->available_count ?><br>
                                         <?= "Unit price Rs." . $item->unit_price ?><br>
                                     </div><br>
                                 </td>
-                                <td><a class="btn btn-sm btn-danger" href="<?= SROOT ?>StockManagerHandler/delete/<?= $item->item_id ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                <td ><a class="btn btn-sm btn-danger" href="<?= SROOT ?>StockManagerHandler/delete/<?= $item->item_id ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                                 <td><a class="btn btn-sm btn-primary" href="<?= SROOT ?>StockManagerHandler/manageStock/<?= $item->item_id ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                             </tr>
                         <?php } ?>
