@@ -939,7 +939,7 @@ DELIMITER $$
 --
 -- Events
 --
-CREATE DEFINER=`root`@`localhost` EVENT `Reset_turn_count` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE driver_assistant SET cons_turn_count = 1$$
+CREATE DEFINER=`root`@`localhost` EVENT `Reset_turn_count` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE driver_assistant SET cons_turn_count = 0$$
 
 CREATE DEFINER=`root`@`localhost` EVENT `Reset_last_arrival_time` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE employee SET last_arrival_time = '00:00:00'$$
 
