@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 03, 2022 at 09:16 AM
+-- Generation Time: Jul 03, 2022 at 10:38 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -640,7 +640,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `driver_assistant_order`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY INVOKER VIEW `driver_assistant_order`  AS SELECT `o`.`order_id` AS `order_id`, `t`.`assistant_id` AS `assistant_id`, `t`.`driver_id` AS `driver_id`, (select `r`.`route_map` from `route` `r` where `r`.`route_id` = `t`.`route_id` limit 1) AS `route_map` FROM (`item_order` `o` join `turn` `t`) WHERE `o`.`status` = 'dtruck' AND `o`.`route_id` = `t`.`route_id``route_id`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `driver_assistant_order`  AS SELECT `o`.`order_id` AS `order_id`, `t`.`assistant_id` AS `assistant_id`, `t`.`driver_id` AS `driver_id`, (select `r`.`route_map` from `route` `r` where `r`.`route_id` = `t`.`route_id` limit 1) AS `route_map` FROM (`item_order` `o` join `turn` `t`) WHERE `o`.`status` = 'dtruck' AND `o`.`route_id` = `t`.`route_id` ;
 
 -- --------------------------------------------------------
 
@@ -694,7 +694,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `turns_to_dispatch`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `turns_to_dispatch`  AS SELECT `turn`.`turn_id` AS `turn_id`, `turn`.`driver_id` AS `driver_id`, `turn`.`assistant_id` AS `assistant_id`, `turn`.`route_id` AS `route_id`, `turn`.`truck_id` AS `truck_id`, `city_assignment`.`city_id` AS `city_id`, concat(`d_user`.`first_name`,' ',`d_user`.`last_name`) AS `driver_name`, concat(`da_user`.`first_name`,' ',`da_user`.`last_name`) AS `assistant_name`, `truck`.`truck_no` AS `truck_no` FROM ((((`turn` join `user` `d_user` on(`d_user`.`user_id` = `turn`.`driver_id`)) join `user` `da_user` on(`da_user`.`user_id` = `turn`.`assistant_id`)) join `truck` on(`turn`.`truck_id` = `truck`.`truck_id`)) join `city_assignment` on(`turn`.`route_id` = `city_assignment`.`route_id`)) WHERE `turn`.`turn_start_time` is nullnull  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `turns_to_dispatch`  AS SELECT `turn`.`turn_id` AS `turn_id`, `turn`.`driver_id` AS `driver_id`, `turn`.`assistant_id` AS `assistant_id`, `turn`.`route_id` AS `route_id`, `turn`.`truck_id` AS `truck_id`, `city_assignment`.`city_id` AS `city_id`, concat(`d_user`.`first_name`,' ',`d_user`.`last_name`) AS `driver_name`, concat(`da_user`.`first_name`,' ',`da_user`.`last_name`) AS `assistant_name`, `truck`.`truck_no` AS `truck_no` FROM ((((`turn` join `user` `d_user` on(`d_user`.`user_id` = `turn`.`driver_id`)) join `user` `da_user` on(`da_user`.`user_id` = `turn`.`assistant_id`)) join `truck` on(`turn`.`truck_id` = `truck`.`truck_id`)) join `city_assignment` on(`turn`.`route_id` = `city_assignment`.`route_id`)) WHERE `turn`.`turn_start_time` is null  ;
 
 --
 -- Indexes for dumped tables
