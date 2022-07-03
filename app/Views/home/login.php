@@ -1,3 +1,9 @@
+<?php 
+Session::delete();
+User::$currentLoggedInUser = null;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
