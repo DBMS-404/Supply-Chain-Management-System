@@ -1,5 +1,5 @@
-<?php 
-    redirectToHandler('dr');
+<?php
+redirectToHandler('dr');
 ?>
 
 <!DOCTYPE html>
@@ -21,10 +21,10 @@
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="<?= SROOT ?>LoginHandler/redirectToHandler">
-                <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"/></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png" /></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/turnCompletion">Turn Completion</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/turnCompletion">Turn</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
@@ -44,6 +44,45 @@
             </div>
         </div>
     </header>
+    <section class="py-5">
+
+        <div class="container">
+            <div class="row">
+
+                <?php if (count($this->turns) > 0) { ?>
+                    <div class="row m-2">
+                        <h3>Assigned Turns</h3>
+                    </div>
+                    <div class="row">
+                        <?php foreach ($this->turns as $turn) {
+                        ?>
+                            <div class="col-sm-6 col-12 mt-3 mb-3">
+                                <div class="card bg-light shadow-lg">
+                                    <div class="card-body">
+                                        <div class="row mb-2">
+                                            <iframe src="<?= $turn->route_map ?>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                        <h5 class="card-title"><?= "Turn " . $turn->turn_id ?></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><span class="badge bg-info"><?= $turn->turn_start_time ? "Ongoing Turn" : "Not Yet Started" ?></span></h6>
+                                        <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> <?= $turn->turn_start_time ? "Started Time : " . $turn->turn_start_time : "Scheduled Time " . $turn->scheduled_date . " " . $turn->scheduled_time ?></h6>
+                                        <p class="card-text"><i class="fa fa-truck" aria-hidden="true"></i> <?= "Truck No: " . $turn->truck_no ?><br>
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i> <?= "Maximum Avg. Completion Time: " . $turn->avg_time . " Hours" ?>
+                                        </p>
+                                        <?php if ($turn->turn_start_time) { ?><a href="<?= SROOT ?>DriverHandler/turnCompletion" class="btn btn-outline-info btn-sm">View Turn</a><?php } else { ?>
+                                            <button class="btn btn-dark btn-sm disabled">Not started</button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <h1>No Turns Assigned for You</h1>
+                    <?php } ?>
+
+                    </div>
+
+            </div>
+    </section>
     <footer class="bg-primary-gradient">
         <div class="container py-4 ">
             <div class="text-muted d-flex justify-content-between align-items-center">
