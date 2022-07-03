@@ -27,7 +27,7 @@ class StockKeeperHandler extends Controller{
     }
 
     public function viewleavesAction(){
-        $this->view->leaves = $this->Employee_leaveModel->getleavebystatusandcity(0, $this->Stock_keeperModel->getCity() );
+        $this->view->leaves = $this->Employee_leaveModel->getLeavesByStatusAndCity(0, $this->Stock_keeperModel->getCity() );
         $this->view->render('stock_keeper/leaves');
     }
 
@@ -45,7 +45,7 @@ class StockKeeperHandler extends Controller{
     }
 
     public function viewleavedetailsAction($id){
-        $this->view->leave = $this->Employee_leaveModel->getleavebyid($id);
+        $this->view->leave = $this->Employee_leaveModel->getLeaveById($id);
         $this->view->render('stock_keeper/view_leave');
 
     }

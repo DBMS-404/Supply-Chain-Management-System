@@ -20,7 +20,8 @@ class Stock_keeper extends Model {
 
     public function getAvailableTrucks(){
 
-        $sql = "SELECT * FROM available_trucks WHERE city_id = ? ";
+        $sql = "SELECT distinct truck.* FROM truck WHERE city_id = ? AND truck_id 
+                    NOT IN (SELECT DISTINCT truck_id FROM turns_in_progress)";
         $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
         $results = [];
 
