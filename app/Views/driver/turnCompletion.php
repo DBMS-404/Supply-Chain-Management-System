@@ -8,7 +8,7 @@ redirectToHandler('dr');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
+    <title>Ongoing Turn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
@@ -28,7 +28,11 @@ redirectToHandler('dr');
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/turnCompletion">Ongoing Turn</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/viewTurns">Turns</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
+                    
+                </ul>
+                <a class="fw-light fs-5"><span style="margin-right: 5px;"><i class="fa fa-user" aria-hidden="true"></i> <?php print_r($_SESSION['user_id']); ?></span></a>
+                <div  class="d-lg-none mb-3"></div>
+                <a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>

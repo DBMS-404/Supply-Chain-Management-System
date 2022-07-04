@@ -30,7 +30,10 @@ $page = "Order " . $this->order->order_id;
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>StockManagerHandler/viewinventory">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>StockManagerHandler/vieworders">Orders</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
+                </ul>
+                <a class="fw-light fs-5"><span style="margin-right: 5px;"><i class="fa fa-user" aria-hidden="true"></i> <?php print_r($_SESSION['user_id']); ?></span></a>
+                <div  class="d-lg-none mb-3"></div>
+                <a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>

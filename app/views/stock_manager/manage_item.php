@@ -22,6 +22,7 @@ if (isset($this->edit_values)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Manage Stock</title>
     <style>
         <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
@@ -37,7 +38,10 @@ if (isset($this->edit_values)) {
                 <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link active" href="<?=SROOT?>StockManagerHandler/viewinventory">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?=SROOT?>StockManagerHandler/vieworders">Orders</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?=SROOT?>LoginHandler/logout">Logout</a>
+                </ul>
+                <a class="fw-light fs-5"><span style="margin-right: 5px;"><i class="fa fa-user" aria-hidden="true"></i> <?php print_r($_SESSION['user_id']); ?></span></a>
+                <div  class="d-lg-none mb-3"></div>
+                <a class="btn btn-primary btn-sm shadow" role="button" href="<?=SROOT?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
