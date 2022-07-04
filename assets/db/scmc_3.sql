@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2022 at 09:37 AM
+-- Generation Time: Jul 04, 2022 at 01:17 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.11
 
@@ -323,7 +323,7 @@ CREATE TABLE `item_order` (
 
 INSERT INTO `item_order` (`order_id`, `user_id`, `route_id`, `date`, `status`, `address`, `weight`) VALUES
 (1, 'CR1', 1, '2022-02-12', 'delivered', 'Badulla rd, Bandarawela', 5500),
-(2, 'CR2', 1, '2022-06-25', 'dtruck', 'Katubedda, Moratuwa', 930),
+(2, 'CR2', 1, '2022-06-25', 'delivered', 'Katubedda, Moratuwa', 930),
 (3, 'CR1', 3, '2022-09-23', 'new', 'Kandy rd, Kadawatha', 3058),
 (4, 'CR1', 1, '2022-04-23', 'dtruck', 'Katubedda, Moratuwa', 980),
 (5, 'CR2', 1, '2022-06-25', 'dtruck', 'Katubedda, Moratuwa', 100),
@@ -336,6 +336,7 @@ INSERT INTO `item_order` (`order_id`, `user_id`, `route_id`, `date`, `status`, `
 --
 DELIMITER $$
 CREATE TRIGGER `after_status_change` AFTER UPDATE ON `item_order` FOR EACH ROW IF new.status='new' and old.status ='dtrain' THEN
+		UPDATE train set filled_capacity = (select filled_capacity from train where train_id = (SELECT train_id from train_assignment where order_id = old.order_id)) -  old.weight where train_id in (SELECT train_id from train_assignment where order_id = old.order_id);
     	DELETE from train_assignment where order_id = old.order_id;
     end if
 $$
@@ -410,7 +411,7 @@ CREATE TABLE `stock_keeper` (
 --
 
 INSERT INTO `stock_keeper` (`user_id`, `city`) VALUES
-('SK1', '1'),
+('SK1', '4'),
 ('SK2', '2');
 
 -- --------------------------------------------------------
@@ -436,7 +437,8 @@ CREATE TABLE `train` (
 
 INSERT INTO `train` (`train_id`, `train_name`, `arrival_day`, `arrival_time`, `destination`, `capacity`, `filled_capacity`, `is_deleted`) VALUES
 (112344, 'Udarata Manike', '2022-06-16', '03:58:03', 'Matara', 10000, 8848, 0),
-(1123245, 'Yal devii', '2022-06-16', '03:58:03', 'Jaffna', 10000, 3448, 0);
+(1123245, 'Yal devii', '2022-06-16', '03:58:03', 'Jaffna', 10000, 3478, 0),
+(1123246, 'Petrol Devi', '2022-07-05', '02:11:00', 'Anuradhapura', 1000000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -587,7 +589,8 @@ CREATE TABLE `turn_order` (
 --
 
 INSERT INTO `turn_order` (`order_id`, `turn_id`, `delivered_time`) VALUES
-(1, 1, '2022-06-27 04:04:18');
+(1, 1, '2022-06-27 04:04:18'),
+(2, 1, '2022-07-04 10:54:19');
 
 -- --------------------------------------------------------
 
@@ -865,7 +868,7 @@ ALTER TABLE `route`
 -- AUTO_INCREMENT for table `train`
 --
 ALTER TABLE `train`
-  MODIFY `train_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1123246;
+  MODIFY `train_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1123247;
 
 --
 -- AUTO_INCREMENT for table `turn`
