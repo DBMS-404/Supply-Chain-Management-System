@@ -29,7 +29,8 @@ $today = date("Y-m-d");
                 <span class="bs-icon-sm bs-icon-circle  shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png" /></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/turnCompletion">Turn</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/turnCompletion">Ongoing Turn</a></li>
+                    <li class="nav-item"><a class="nav-link " href="<?= SROOT ?>DriverHandler/viewTurns">Turns</a></li>
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
@@ -49,10 +50,8 @@ $today = date("Y-m-d");
     </header>
     <section class="py-5">
         <div class="container">
-            <div class="row mb-3">
-                <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2 class="fw-bold">Apply for Leaves</h2>
-                </div>
+            <div class="row m-2">
+                <h3>Apply for Leaves</h3>
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8 col-xl-6">
@@ -62,7 +61,7 @@ $today = date("Y-m-d");
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php } ?>
-                    <div>
+                    <div class="card bg-primary-light mt-2">
                         <form class="p-3 p-xl-4" method="post" action="<?= SROOT ?>DriverHandler/sendLeave">
                             <div class="form-floating mb-3">
                                 <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" min=<?= $today ?> id="floatingInput">

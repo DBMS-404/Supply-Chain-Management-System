@@ -49,10 +49,8 @@ $today = date("Y-m-d");
     </header>
     <section class="py-5">
         <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2 class="fw-bold">Apply for Leaves</h2>
-                </div>
+            <div class="row m-2">
+                <h3>Apply for Leaves</h3>
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8 col-xl-6">
@@ -63,7 +61,7 @@ $today = date("Y-m-d");
                         </div>
                     <?php } ?>
                     <div>
-                        <div>
+                        <div class="card bg-primary-light mt-2">
                             <form class="p-3 p-xl-4" method="post" action="<?= SROOT ?>AssistantHandler/sendLeave">
                                 <div class="form-floating mb-3">
                                     <input id="date" class="form-control" type="text" onfocus="(this.type='date')" name="date" placeholder="Date" min=<?= $today ?> id="floatingInput">
