@@ -83,7 +83,7 @@ class ManagerHandler extends Controller
             ]);
             
             if ($validaton->passed()) {
-                $this->TrainModel->updateTrain($id, $_POST);
+                $this->TrainModel->addTrain($_POST);
                 Router::redirect("ManagerHandler/viewTrainSchedule");    
             }else {
                 $this->view->displayErrors = $validaton->displayErrors();
@@ -94,5 +94,9 @@ class ManagerHandler extends Controller
         }else {
             $this->view->render("manager/addTrain");
         }
+    }
+
+    public function generateReportAction(){
+        $this->view->render('manager/generatereport');
     }
 }

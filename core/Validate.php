@@ -46,7 +46,7 @@ class Validate
                                 $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ?", [$value]);
                             }
                             if ($check->count()) {
-                                $this->addError(["{$display} is already exists. please choose another {$display}", $item]);
+                                $this->addError(["{$display} already exists. please choose another {$display}", $item]);
                             }
                             break;
                         case 'unique_update':

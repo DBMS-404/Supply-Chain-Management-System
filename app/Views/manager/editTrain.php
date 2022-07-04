@@ -55,6 +55,7 @@ if (isset($this->edit_values)) {
         </div>
     </header>
     <div class="container">
+
         <div class="m-3">
             <h1>Edit Train Details</h1>
         </div>
