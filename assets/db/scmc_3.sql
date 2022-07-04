@@ -949,6 +949,8 @@ CREATE DEFINER=`root`@`localhost` EVENT `Reset_turn_count` ON SCHEDULE EVERY 1 D
 
 CREATE DEFINER=`root`@`localhost` EVENT `Reset_last_arrival_time` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE employee SET last_arrival_time = '00:00:00'$$
 
+CREATE DEFINER=`root`@`localhost` EVENT `Reset_weekly_worked_hours` ON SCHEDULE EVERY 1 WEEK STARTS '2022-07-04 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE employee SET weekly_worked_hours = 0$$
+
 DELIMITER ;
 COMMIT;
 
