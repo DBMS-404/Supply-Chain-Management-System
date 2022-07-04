@@ -44,4 +44,11 @@ class Train extends Model {
     public function findbytrainId($id){
         $this->findFirst(['conditions' => 'train_id=? and is_deleted=?', 'bind' => [$id,0]]);
     }
+
+    public function addTrain($params){
+        $params['is_deleted'] = 0;
+        $params['filled_capacity'] = 0;
+        $this->assign($params);
+        $this->save();
+    }
 }
