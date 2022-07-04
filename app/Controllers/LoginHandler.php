@@ -39,7 +39,7 @@ class LoginHandler extends Controller
                 }
                 
             } else {
-                $this->view->errcreditionals = '<li> Wrong Creditionals </li>';
+                $this->view->errcreditionals = 'Invalid UserID or Password !';
                 $this->view->render('home/login');
                 
             }
