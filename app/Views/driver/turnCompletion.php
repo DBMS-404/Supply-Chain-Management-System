@@ -1,5 +1,5 @@
-<?php 
-    redirectToHandler('dr');
+<?php
+redirectToHandler('dr');
 ?>
 
 <!DOCTYPE html>
@@ -21,11 +21,11 @@
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/">
+            <a class="navbar-brand d-flex align-items-center" href="<?= SROOT ?>LoginHandler/redirectToHandler">
                 <span class="bs-icon-sm bs-icon-circle shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png" /></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/turnCompletion">Turn Completion</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler">Turn</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
@@ -45,17 +45,25 @@
     </header>
     <section class="py-5">
         <div class="container py-5">
+            <div class="row m-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="<?= SROOT ?>DriverHandler">Turns</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Turn <?= $this->ongoingTurns[0]->turn_id ?> </li>
+                    </ol>
+                </nav>
+            </div>
             <div class="mx-auto" style="max-width: 900px;">
-                <?php if (isset($this->route_map)) { ?>
-                    <div class="row m-3">
-                        <h3><i class="fa fa-truck" aria-hidden="true"></i> Ongoing Turn</h3>
-                        <iframe src="<?= $this->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                <?php } ?>
-
-                <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
+                <div class="row d-flex justify-content-center">
                     <div class="col mb-4">
-                        <div class="card bg-primary-light">
+                        <div class="card bg-primary-light mt-2">
+                            <?php if (isset($this->route_map)) { ?>
+                                <div class="row m-3">
+                                    <h3><i class="fa fa-truck" aria-hidden="true"></i> Ongoing Turn : Route Map </h3>
+                                    <br>
+                                    <iframe src="<?= $this->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            <?php } ?>
                             <div class="card-body text-center px-4 py-5 px-md-5">
                                 <p class="fw-bold text-primary card-text mb-2">
                                     <?php if ($this->remainingOrders === '0') {
@@ -72,13 +80,18 @@
                                         echo ' orders remaining to be delivered';
                                     } ?>
                                 </h5>
-                                <?php if ($this->ongoingTurns != 0) { ?>
-                                    <a href="<?= SROOT ?>DriverHandler/recordTurnCompletion/<?= $this->ongoingTurns[0]->turn_id ?>">
-                                        <button class="btn btn-primary btn-lg" type="button" <?php if ($this->remainingOrders != '0') {
-                                                                                                    echo 'disabled';
-                                                                                                } ?>>TURN COMPLETED</button>
-                                    </a>
-                                <?php } ?>
+                                <?php if ($this->ongoingTurns != 0) {
+                                    if ($this->remainingOrders != '0') { ?>
+                                        <button class="btn btn-primary btn-lg" type="button" disabled>TURN COMPLETED</button>
+
+                                    <?php   } else { ?>
+                                        <a href="<?= SROOT ?>DriverHandler/recordTurnCompletion/<?= $this->ongoingTurns[0]->turn_id ?>">
+                                            <button class="btn btn-primary btn-lg" type="button">TURN COMPLETED</button>
+                                        </a>
+                                <?php }
+                                } ?>
+
+
                             </div>
                         </div>
                     </div>

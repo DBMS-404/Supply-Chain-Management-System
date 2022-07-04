@@ -20,7 +20,8 @@ class Stock_keeper extends Model {
 
     public function getAvailableTrucks(){
 
-        $sql = "SELECT * FROM available_trucks WHERE city_id = ? ";
+        $sql = "SELECT distinct truck.* FROM truck WHERE city_id = ? AND truck_id 
+                    NOT IN (SELECT DISTINCT truck_id FROM turns_in_progress)";
         $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
         $results = [];
 
@@ -93,6 +94,35 @@ class Stock_keeper extends Model {
         }
 
         $this->_db->commit();
+    }
+
+    public function getCountOfTrainOrders($train){
+        if ($train==='all'){
+            return count($this->getOrdersdDispatchedByTrainToCity());
+        }
+        return count($this->getOrdersdDispatchedByTrainToCityByTrain($train));
+    }
+
+    public function getOrdersdDispatchedByTrainToCity(){
+
+        $sql = "SELECT * FROM train_dispatched_orders WHERE city_id = ?";
+
+        $results = [];
+        $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
+
+        if (!$resultsQuery) return $results;
+        return $resultsQuery->results();
+    }
+
+    public function getOrdersdDispatchedByTrainToCityByTrain($train_id){
+
+        $sql = "SELECT * FROM train_dispatched_orders WHERE city_id = ? AND train_id=?";
+
+        $results = [];
+        $resultsQuery = $this->_db->query($sql,[$this->getCity(), $train_id]);
+
+        if (!$resultsQuery) return $results;
+        return $resultsQuery->results();
     }
 
 }

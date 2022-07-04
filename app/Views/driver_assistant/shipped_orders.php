@@ -1,5 +1,5 @@
-<?php 
-    redirectToHandler('da');
+<?php
+redirectToHandler('da');
 ?>
 
 <html lang="en">
@@ -17,7 +17,7 @@
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/">
+            <a class="navbar-brand d-flex align-items-center" href="<?= SROOT ?>LoginHandler/redirectToHandler">
                 <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </header>
-    <section>
+    <section class="py-5">
         <div class="container">
             <div class="row m-3">
                 <nav aria-label="breadcrumb">
@@ -63,15 +63,15 @@
             </div>
 
             <?php if (count($this->orders) > 0) { ?>
-                <div class="card" style="border: 1px solid #c0c7c4;">
-                <div class="row ms-3 mt-3">
+                <div class="card" style="border: 1px solid #c0c7c4; border-radius: 0px;border-top-left-radius: 10px;border-top-right-radius: 10px;">
+                    <div class="row ms-3 mt-3">
                         <h3>Route Map</h3>
                     </div>
-                <div class="row mb-3 ms-3 me-3">
-                    <iframe src="<?= $this->orders[0]->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="row mb-3 ms-3 me-3">
+                        <iframe src="<?= $this->orders[0]->route_map ?>" width="400" height="300" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
-                </div>
-                <div class="card" style="border: 1px solid #c0c7c4;">
+                <div class="card" style="border: 1px solid #c0c7c4; border-radius: 0px;">
                     <div class="row m-3">
                         <h3>Packages In Your Truck</h3>
                     </div>
@@ -91,47 +91,47 @@
                     </div>
                 </div>
             <?php } else { ?>
-                <div class="card" style="border: 1px solid #c0c7c4;">
-                <div class="row m-3">
-                    <h3>Packages In Your Truck</h3>
-                    <div class="col ms-3">
-                        <h4 style="color: #6d7d76;">All Packages are Delivered</h4>
+                <div class="card" style="border: 1px solid #c0c7c4; border-radius: 0px;border-top-left-radius: 10px;border-top-right-radius: 10px;">
+                    <div class="row m-3">
+                        <h3>Packages In Your Truck</h3>
+                        <div class="col ms-3">
+                            <h4 style="color: #6d7d76;">All Packages are Delivered</h4>
+                        </div>
                     </div>
-                </div>
                 </div>
             <?php } ?>
-        <?php if (count($this->d_orders) > 0) { ?>
-            <div class="card card-body" style="border: 1px solid #c0c7c4;">
-                <div class="row m-3">
-                    <h3>Delivered Packages</h3>
-                </div>
-                <div class="row m-3">
-                    <?php foreach ($this->d_orders as $item_order) { ?>
-                        <div class="col-lg-4 col-12 mb-5">
-                            <div class="card bg-light shadow-lg" style="width: 19rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
-                                    <h5><span class="badge bg-success">Delivered at <?= substr($item_order->delivered_time, -8) ?></span></h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
-                                    <p class="card-text"><?= $item_order->weight . " g" ?><br>
-                                    </p>
+            <?php if (count($this->d_orders) > 0) { ?>
+                <div class="card card-body" style="border: 1px solid #c0c7c4; border-radius: 0px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;">
+                    <div class="row m-3">
+                        <h3>Delivered Packages</h3>
+                    </div>
+                    <div class="row m-3">
+                        <?php foreach ($this->d_orders as $item_order) { ?>
+                            <div class="col-lg-4 col-12 mb-5">
+                                <div class="card bg-light shadow-lg" style="width: 19rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= "Order " . $item_order->order_id ?></h5>
+                                        <h5><span class="badge bg-success">Delivered at <?= substr($item_order->delivered_time, -8) ?></span></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->address ?></h6>
+                                        <p class="card-text"><?= $item_order->weight . " g" ?><br>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    <?php } ?>
-                </div>
-            </div>
-        <?php } else { ?>
-            <div class="card" style="border: 1px solid #c0c7c4;">
-                <div class="row m-3">
-                    <h3>Delivered Packages</h3>
-                    <div class="col ms-3">
-                        <h4 style="color: #6d7d76;">No Delivered Packages</h4>
+                        <?php } ?>
                     </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } else { ?>
+                <div class="card" style="border: 1px solid #c0c7c4; border-radius: 0px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;">
+                    <div class="row m-3">
+                        <h3>Delivered Packages</h3>
+                        <div class="col ms-3">
+                            <h4 style="color: #6d7d76;">No Delivered Packages</h4>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
 
         </div>
     </section>

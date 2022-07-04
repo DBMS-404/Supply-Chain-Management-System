@@ -6,11 +6,20 @@ class DriverHandler extends Controller{
         parent::__construct($controller,$action);
         $this->load_model("User");
         $this->load_model('Driver');
+        $this->load_model("Turn");
+        $this->load_model("Route");
+        $this->load_model("Truck");
     }
 
     public function indexAction() {
-        //unsetSessionExcept();   
-        $this->turnCompletionAction();
+        //unsetSessionExcept();
+        $this->view->turns = $this->TurnModel->findbyDriverId(User::currentLoggedInUser());
+        foreach ($this->view->turns as $key) {
+            $key->route_map = $this->RouteModel->getRouteMap($key->route_id)->route_map;
+            $key->truck_no = $this->TruckModel->getTruckNo($key->truck_id)->truck_no;
+            $key->avg_time = $this->RouteModel->getRouteMap($key->route_id)->maximum_completion_time;
+        }
+        $this->view->render('driver/dashboard');   
 
     }
 

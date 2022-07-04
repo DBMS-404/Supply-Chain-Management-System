@@ -47,6 +47,11 @@ class Turn extends Model {
         
     }
 
+    public function findbyDriverId($id){
+        return $this->find(['conditions' => 'driver_id=? AND turn_end_time IS NULL', 'bind' => [$id]]);
+        
+    }
+
     public function cancelTurn($turn_id){
         $sql = "delete from turn where turn_id=?";
         $this->_db->query($sql,[$turn_id]);
