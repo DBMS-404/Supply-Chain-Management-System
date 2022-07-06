@@ -77,47 +77,55 @@
                                     <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
                                     <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
                                     <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
-                                    <?php }?> </h5>               
-                <div class="row">
-                <?php if (count($this->details[0])>0) {$x=0 ?>
-                    
-                        <?php foreach ($this->details[0] as $customer) {$x++ 
-                        ?>
-                            <div class="col-sm-4 col-12 mt-3 mb-3">
-                                <div class="card bg-light shadow-lg">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-9">
-                                                <h5 class="card-title">Customer Name : <?= $customer->first_name." ".$customer->last_name ?></h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">Customer ID : <?= $customer->user_id ?></h6>
+                                    <?php }?> </h5>    
+                <?php if(isset($this->displayErrors)){?>
+                    <br><br>
+                    <span class="text-danger"><h5><?=$this->displayErrors?></h5></span>
+                        </div>
+                    </div>
+
+                <?php } else {?>
+                    <div class="row">
+                    <?php if (count($this->details[0])>0) {$x=0 ?>
+                        
+                            <?php foreach ($this->details[0] as $customer) {$x++ 
+                            ?>
+                                <div class="col-sm-4 col-12 mt-3 mb-3">
+                                    <div class="card bg-light shadow-lg">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <h5 class="card-title">Customer Name : <?= $customer->first_name." ".$customer->last_name ?></h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Customer ID : <?= $customer->user_id ?></h6>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <h4><span class="badge bg-danger"><?= $x ?></span></h4>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <h4><span class="badge bg-danger"><?= $x ?></span></h4>
-                                            </div>
+                                            
+                                            <hr>
+                                            <p class="card-text"><?= "Number of Orders : " . $customer->order_count ?>
+                                            <div class="progress">
+                                                <?php $classes=["","bg-success", "bg-secondary"];
+                                                $s=0;?>
+                                                <?php foreach($this->details[1][$x-1] as $statusVal) {?> 
+                                                    <?php $val=round(($statusVal->status_count/$customer->order_count)*100,2); ?>
+                                                    <div class="progress-bar <?=$classes[$s]?>" role="progressbar" style="width: <?= $val?>%" aria-valuenow="<?= $val?>" aria-valuemin="0" aria-valuemax="100"><?=$statusVal->status."-".$statusVal->status_count?></div>
+                                                <?php $s++;} ?>
+                                            </div><br>
+                                            <?= "Total Weight : " . $customer->tot_weight." grams" ?>
+                                            </p>
                                         </div>
-                                        
-                                        <hr>
-                                        <p class="card-text"><?= "Number of Orders : " . $customer->order_count ?>
-                                        <div class="progress">
-                                            <?php $classes=["","bg-success", "bg-secondary"];
-                                            $s=0;?>
-                                            <?php foreach($this->details[1][$x-1] as $statusVal) {?> 
-                                                <?php $val=round(($statusVal->status_count/$customer->order_count)*100,2); ?>
-                                                <div class="progress-bar <?=$classes[$s]?>" role="progressbar" style="width: <?= $val?>%" aria-valuenow="<?= $val?>" aria-valuemin="0" aria-valuemax="100"><?=$statusVal->status."-".$statusVal->status_count?></div>
-                                            <?php $s++;} ?>
-                                        </div><br>
-                                        <?= "Total Weight : " . $customer->tot_weight." grams" ?>
-                                        </p>
                                     </div>
                                 </div>
-                            </div>
-                        <?php } ?>
-                        <?php } else { ?>
-                            <h5>No customers have placed orders within the selscted time period</h5>
-                        <?php } ?>
-                </div>
-            </div>
-        </div><br><br>
+                            <?php } ?>
+                            <?php } else { ?>
+                                <h5>No customers have placed orders within the selscted time period</h5>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div><br><br>
+                <?php }?>
     </div>
     <footer class="bg-primary-gradient">
         <div class="container py-4 ">

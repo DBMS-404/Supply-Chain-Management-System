@@ -74,122 +74,135 @@
 
         <div class="row">
             <div class="row m-2">
-                <h3>Used Hours of Trucks</h3>
-                <h5 class='text-muted'>Time Range : <?php if($this->first_date=="" and $this->second_date==""){?>All Time   
-                                            <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
-                                            <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
-                                            <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
-                                            <?php }?> </h5>
-
-                <?php if (count($this->trucks) > 0) {$x=0 ?>
-                    <?php foreach ($this->trucks as $truck) {$x++ 
-                    ?>
-                    <div class="col-sm-4 col-12 mt-3 mb-3">
-                        <div class="card bg-light shadow-lg">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-9">
-                                        <h5 class="card-title">Truck ID : <?= $truck->truck_no ?></button></h5>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <h4><span class="badge bg-danger"><?= $x ?></span></h4>
-                                    </div>
-                                </div>
-                                
-                                <hr>
-                                <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
-                                <p class="card-text"> <?= "Total Working Hours : ".$truck->tot_time ?><br>
-                                <?= "City : " . $truck->name ?>
-                                </p>
-                            </div>
+                <?php if(isset($this->displayErrors)){?>
+                        <br><br>
+                        <h5 class='text-muted'>Time Range : <?php if($this->first_date=="" and $this->second_date==""){?>All Time   
+                                                <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
+                                                <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
+                                                <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
+                                                <?php }?> </h5>
+                        <span class="text-danger"><h5><?=$this->displayErrors?></h5></span>
                         </div>
                     </div>
-                    <?php } ?>
-                    <?php } else { ?>
-                    <br>
-                        <h5>No trucks have been used within the selected time period</h5>
-                    <?php } ?>
-            </div>
-        </div>
-        <br><br>
-        
-        <div class="row">
-            <div class="row m-2">
-                <h3>Working Hours of Drivers</h3>
-                <h5 class='text-muted'>Time Range : <?php if($this->first_date=="" and $this->second_date==""){?>All Time   
-                                            <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
-                                            <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
-                                            <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
-                                            <?php }?> </h5>
 
-                <?php if (count($this->drivers) > 0) {$y=0 ?>
-                    <?php foreach ($this->drivers as $driver) {$y++ 
-                    ?>
-                    <div class="col-sm-4 col-12 mt-3 mb-3">
-                        <div class="card bg-light shadow-lg">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-9">
-                                        <h5 class="card-title">Driver Name : <?= $driver->first_name." ".$driver->last_name ?></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Driver ID : <?= $driver->driver_id ?></h6>
+                <?php } else {?>
+                    <h3>Used Hours of Trucks</h3>
+                    <h5 class='text-muted'>Time Range : <?php if($this->first_date=="" and $this->second_date==""){?>All Time   
+                                                <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
+                                                <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
+                                                <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
+                                                <?php }?> </h5>
+                    
+                    <?php if (count($this->trucks) > 0) {$x=0 ?>
+                        <?php foreach ($this->trucks as $truck) {$x++ 
+                        ?>
+                        <div class="col-sm-4 col-12 mt-3 mb-3">
+                            <div class="card bg-light shadow-lg">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h5 class="card-title">Truck ID : <?= $truck->truck_no ?></button></h5>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h4><span class="badge bg-danger"><?= $x ?></span></h4>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <h4><span class="badge bg-success"><?= $y ?></span></h4>
-                                    </div>
+                                    
+                                    <hr>
+                                    <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
+                                    <p class="card-text"> <?= "Total Working Hours : ".$truck->tot_time ?><br>
+                                    <?= "City : " . $truck->name ?>
+                                    </p>
                                 </div>
-                                
-                                <hr>
-                                <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
-                                <p class="card-text"> Total Working Hours : <?= $driver->tot_time ?><br></p>
                             </div>
                         </div>
-                    </div>
-                    <?php } ?>
-                    <?php } else { ?>
-                        <h5>No drivers have been worked within the selected time period</h5>
-                    <?php } ?>
+                        <?php } ?>
+                        <?php } else { ?>
+                        <br>
+                            <h5>No trucks have been used within the selected time period</h5>
+                        <?php } ?>
+                </div>
             </div>
-        </div> 
-        <br><br>
+            <br><br>
+            
+            <div class="row">
+                <div class="row m-2">
+                    <h3>Working Hours of Drivers</h3>
+                    <h5 class='text-muted'>Time Range : <?php if($this->first_date=="" and $this->second_date==""){?>All Time   
+                                                <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
+                                                <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
+                                                <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
+                                                <?php }?> </h5>
 
-        <div class="row">
-            <div class="row m-2">
-                <h3>Working Hours of Driver Assistants</h3>
-                <h5 class='text-muted'>Time Range : <?php if($this->first_date=="" and $this->second_date==""){?>All Time   
-                                            <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
-                                            <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
-                                            <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
-                                            <?php }?> </h5>
-
-                <?php if (count($this->assistants)>0) {$z=0 ?>
-                    <?php foreach ($this->assistants as $assistant) {$z++ 
-                    ?>
-                    <div class="col-sm-4 col-12 mt-3 mb-3">
-                        <div class="card bg-light shadow-lg">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-9">
-                                        <h5 class="card-title">Driver Assistant Name : <?= $assistant->first_name." ".$assistant->last_name ?></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Driver Assistant ID : <?= $assistant->assistant_id ?></h6>
+                    <?php if (count($this->drivers) > 0) {$y=0 ?>
+                        <?php foreach ($this->drivers as $driver) {$y++ 
+                        ?>
+                        <div class="col-sm-4 col-12 mt-3 mb-3">
+                            <div class="card bg-light shadow-lg">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h5 class="card-title">Driver Name : <?= $driver->first_name." ".$driver->last_name ?></h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Driver ID : <?= $driver->driver_id ?></h6>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h4><span class="badge bg-success"><?= $y ?></span></h4>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <h4><span class="badge bg-info"><?= $y ?></span></h4>
-                                    </div>
+                                    
+                                    <hr>
+                                    <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
+                                    <p class="card-text"> Total Working Hours : <?= $driver->tot_time ?><br></p>
                                 </div>
-                                
-                                <hr>
-                                <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
-                                <p class="card-text">Total Working Hours : <?= $assistant->tot_time ?><br></p>
                             </div>
                         </div>
-                    </div>
-                    <?php } ?>
-                    <?php } else { ?>
-                        <h5>No driver assistants have been worked within the selected time period</h5>
-                    <?php } ?>
-            </div>
-        </div> 
-        <br><br>
+                        <?php } ?>
+                        <?php } else { ?>
+                            <h5>No drivers have been worked within the selected time period</h5>
+                        <?php } ?>
+                </div>
+            </div> 
+            <br><br>
+
+            <div class="row">
+                <div class="row m-2">
+                    <h3>Working Hours of Driver Assistants</h3>
+                    <h5 class='text-muted'>Time Range : <?php if($this->first_date=="" and $this->second_date==""){?>All Time   
+                                                <?php }elseif($this->first_date=="" and $this->second_date!=""){?>Until <?=$this->second_date?>
+                                                <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
+                                                <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
+                                                <?php }?> </h5>
+
+                    <?php if (count($this->assistants)>0) {$z=0 ?>
+                        <?php foreach ($this->assistants as $assistant) {$z++ 
+                        ?>
+                        <div class="col-sm-4 col-12 mt-3 mb-3">
+                            <div class="card bg-light shadow-lg">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h5 class="card-title">Driver Assistant Name : <?= $assistant->first_name." ".$assistant->last_name ?></h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Driver Assistant ID : <?= $assistant->assistant_id ?></h6>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h4><span class="badge bg-info"><?= $y ?></span></h4>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
+                                    <p class="card-text">Total Working Hours : <?= $assistant->tot_time ?><br></p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                        <?php } else { ?>
+                            <h5>No driver assistants have been worked within the selected time period</h5>
+                        <?php } ?>
+                </div>
+            </div> 
+            <br><br>
+            <?php }?>
     </div>
     <footer class="bg-primary-gradient">
         <div class="container py-4 ">

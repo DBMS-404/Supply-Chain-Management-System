@@ -103,13 +103,30 @@ class ManagerHandler extends Controller
 
     public function generateReportAction($type='10', $flag="0"){
         //dnd($_POST);
+        $validate=true;
+        $validaton = new Validate();
         if($_POST){
+
+            
+
             if($flag==="0"){
                 $first_date="";
                 $second_date="";
             }else{
                 $first_date=$_POST['first_date'];
                 $second_date=$_POST['second_date'];
+                if($first_date!="" and $second_date!=""){
+                    $validaton->check($_POST, [
+                        'first_date' => [
+                            'display' => "Entered Time Period",
+                            'time_period' => $_POST['second_date']
+                        ]
+                    ]);
+                    if(!$validaton->passed()){
+                        $validate=false;
+                        $this->view->displayErrors = $validaton->displayErrors();
+                    }
+                }
             }
 
             if($type=='10'){
@@ -117,23 +134,28 @@ class ManagerHandler extends Controller
             }
             switch($type){
                 case 1:
-                    
-                    $this->view->items = $this->ItemModel->highestOrderedItems($first_date,$second_date);
+                    if($validate){
+                        $this->view->items = $this->ItemModel->highestOrderedItems($first_date,$second_date);
+                    }
                     $this->view->first_date = $first_date;
                     $this->view->second_date = $second_date;
                     //dnd($this->view->items);
                     $this->view->render('manager/itemsReport');
                     break;
                 case 2:
-                    $this->view->trucks = $this->TruckModel->getWorkingHours($first_date,$second_date);
-                    $this->view->drivers = $this->DriverModel->getWorkingHours($first_date,$second_date);
-                    $this->view->assistants = $this->Driver_assistantModel->getWorkingHours($first_date,$second_date); 
+                    if($validate){
+                        $this->view->trucks = $this->TruckModel->getWorkingHours($first_date,$second_date);
+                        $this->view->drivers = $this->DriverModel->getWorkingHours($first_date,$second_date);
+                        $this->view->assistants = $this->Driver_assistantModel->getWorkingHours($first_date,$second_date);     
+                    }
                     $this->view->first_date = $first_date;
                     $this->view->second_date = $second_date;                  
                     $this-> view->render('manager/workingHours');
                     break;
                 case 3:
-                    $this->view->details= $this->Item_orderModel->getCustomerOrderDetailsAction($first_date,$second_date);
+                    if($validate){
+                        $this->view->details= $this->Item_orderModel->getCustomerOrderDetailsAction($first_date,$second_date);
+                    }
                     $this->view->first_date = $first_date;
                     $this->view->second_date = $second_date;                  
                     $this->view->render('manager/customerOrderDetails');

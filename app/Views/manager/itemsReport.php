@@ -79,75 +79,47 @@
                                         <?php }elseif($this->first_date!="" and $this->second_date==""){?>From <?=$this->first_date?>
                                         <?php }else{?>From <?=$this->first_date?> to <?=$this->second_date?>
                                         <?php }?> </h5>
-            
-            <?php if (count($this->items) > 0) {$x=0 ?>
-                <div class="row">
-                    <?php foreach ($this->items as $item) {$x++ 
-                    ?>
-                        <div class="col-sm-4 col-12 mt-3 mb-3">
-                            <div class="card bg-light shadow-lg">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-9">
-                                            <h5 class="card-title">Item : <?= $item->name ?></button></h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">Item ID : <?= $item->item_id?></h6>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <h4><span class="badge bg-danger"><?= $x ?></span></h4>
-                                        </div>
-                                    </div>
-                                    
-                                    <hr>
-                                    <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
-                                    <p class="card-text"><?= "Sold amount : " . $item->item_count ?><br>
-                                    <?= "Unit price : Rs." . $item->unit_price ?>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                    <?php } else { ?>
-                        <h5>No Items are sold in the selected Time Period</h5>
-                    <?php } ?>
-
+            <?php if(isset($this->displayErrors)){?>
+                <br><br>
+                <span class="text-danger"><h5><?=$this->displayErrors?></h5></span>
+                    </div>
                 </div>
-            </div>
-        </div>       
-        <!-- <div class="m-3">
-            <h4>Showing items with most orders from "" to ""</h4>
-        </div> -->
-        <!-- <div class="table-div">
-            <?php if (count($this->items)) {$x=0?>
-                <div class="row">
-                    <table class="table align-middle">
-                        <tbody id="items">
-                            <?php foreach ($this->items as $item) {$x++ ?>
-                                <tr style="width: 807.2px;">
-                                    <div class=row>
-                                    <br>
-                                        <div class='col-sm-1 text-center'>
-                                            <button type='button' class='btn btn-danger'><?= $x ?></button>
-                                        </div>
-                                        <div class='col-sm-3'>
-                                            <span>Item ID : <?= $item->item_id ?></span><br>
-                                            <span>Item Name : <?= $item->name ?></span><br>
-                                            <?= "Sold amount : " . $item->item_count ?><br>
-                                            <?= "Unit price : Rs." . $item->unit_price ?><br>
-                                            <br><br>
+
+            <?php } else {?>
+                <?php if (count($this->items) > 0) {$x=0 ?>
+                    <div class="row">
+                        <?php foreach ($this->items as $item) {$x++ 
+                        ?>
+                            <div class="col-sm-4 col-12 mt-3 mb-3">
+                                <div class="card bg-light shadow-lg">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-9">
+                                                <h5 class="card-title">Item : <?= $item->name ?></button></h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">Item ID : <?= $item->item_id?></h6>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <h4><span class="badge bg-danger"><?= $x ?></span></h4>
+                                            </div>
                                         </div>
                                         
-                                    </div>                            
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-                
+                                        <hr>
+                                        <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
+                                        <p class="card-text"><?= "Sold amount : " . $item->item_count ?><br>
+                                        <?= "Unit price : Rs." . $item->unit_price ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <?php } else { ?>
+                            <h5>No Items are sold in the selected Time Period</h5>
+                        <?php } ?>
 
-            <?php } else { ?>
-                <h2>No items are sold in the selected time period</h2>
-            <?php } ?>
-        </div> -->
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
     <footer class="bg-primary-gradient">
         <div class="container py-4 ">

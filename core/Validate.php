@@ -89,6 +89,11 @@ class Validate
                                 $this->addError(["{$display} does not exists. please check the {$display} again.", $item]);
                             }
                             break;
+                        case 'time_period':
+                            if ($_POST[$item]> $rule_value) {
+                                $this->addError(["{$display} is invalid. Second date should be after the First Date!"]);
+                            }
+                            break;
                     }
                 }
             }
