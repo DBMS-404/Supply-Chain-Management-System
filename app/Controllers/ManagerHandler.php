@@ -7,6 +7,11 @@ class ManagerHandler extends Controller
         parent::__construct($controller, $action);
         $this->load_model("User");
         $this->load_model("Train");
+        $this->load_model("Item");
+        $this->load_model('Truck');
+        $this->load_model('Driver');
+        $this->load_model('Driver_assistant');
+        $this->load_model('Item_order');
     }
 
     public function indexAction()
@@ -96,7 +101,51 @@ class ManagerHandler extends Controller
         }
     }
 
-    public function generateReportAction(){
-        $this->view->render('manager/generatereport');
+    public function generateReportAction($type='10', $flag="0"){
+        //dnd($_POST);
+        if($_POST){
+            if($flag==="0"){
+                $first_date="";
+                $second_date="";
+            }else{
+                $first_date=$_POST['first_date'];
+                $second_date=$_POST['second_date'];
+            }
+
+            if($type=='10'){
+                $type=$_POST['report_type'];
+            }
+            switch($type){
+                case 1:
+                    
+                    $this->view->items = $this->ItemModel->highestOrderedItems($first_date,$second_date);
+                    $this->view->first_date = $first_date;
+                    $this->view->second_date = $second_date;
+                    //dnd($this->view->items);
+                    $this->view->render('manager/itemsReport');
+                    break;
+                case 2:
+                    $this->view->trucks = $this->TruckModel->getWorkingHours($first_date,$second_date);
+                    $this->view->drivers = $this->DriverModel->getWorkingHours($first_date,$second_date);
+                    $this->view->assistants = $this->Driver_assistantModel->getWorkingHours($first_date,$second_date); 
+                    $this->view->first_date = $first_date;
+                    $this->view->second_date = $second_date;                  
+                    $this-> view->render('manager/workingHours');
+                    break;
+                case 3:
+                    $this->view->details= $this->Item_orderModel->getCustomerOrderDetailsAction($first_date,$second_date);
+                    $this->view->first_date = $first_date;
+                    $this->view->second_date = $second_date;                  
+                    $this->view->render('manager/customerOrderDetails');
+                    break;
+                default:
+                    $this->view->render('manager/generateReport');
+                    break;
+            }
+            
+        }
+        else{
+            $this->view->render('manager/generateReport');
+        }
     }
 }

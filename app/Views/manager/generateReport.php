@@ -24,9 +24,12 @@
                 <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>/ManagerHandler/viewTrainSchedule">Train Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="">Reports</a></li>
-                </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
+                <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>ManagerHandler/viewTrainSchedule">Train Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT?>ManagerHandler/generateReport">Reports</a></li>
+                </ul>
+                <a class="fw-light fs-5"><span style="margin-right: 5px;"><i class="fa fa-user" aria-hidden="true"></i> <?php print_r($_SESSION['user_id']); ?></span></a>
+                <div  class="d-lg-none mb-3"></div>
+                <a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
     </nav>
@@ -50,14 +53,14 @@
         </div>
         <hr>
         <div>
-        <form class="p-3 p-xl-4" action="" method="post">
+        <form class="p-3 p-xl-4" action="<?= SROOT ?>ManagerHandler/generateReport" method="post">
                 <div class='row mb-2'>
                     <div class=col-sm-3>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" aria-label="Default select example" name='report_type'>
                             <option selected>Select the Report Type</option>
-                            <option value="1">Report 1</option>
-                            <option value="2">Report 2</option>
-                            <option value="3">Report 3</option>
+                            <option value="1">Items Report</option>
+                            <option value="2">Working Hours and Used Hours</option>
+                            <option value="3">Customer Order Report</option>
                         </select>
                     </div>
                 </div>

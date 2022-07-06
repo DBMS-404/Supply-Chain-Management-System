@@ -22,6 +22,7 @@ if (isset($this->edit_values)) {
     <title>EditTrainDetails</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         <?php include_once('assets/bootstrap/css/bootstrap.min.css'); ?>
     </style>
@@ -34,8 +35,8 @@ if (isset($this->edit_values)) {
                 <span class="bs-icon-sm bs-icon-circle   shadow d-flex justify-content-center align-items-center me-2 bs-icon"><img class="img-fluid" src="https://static.wixstatic.com/media/dcfc03_6c7b355ab8c0449c9583b19c1badbeb1~mv2.png/v1/fill/w_338,h_328,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Artboard%207%20copy%203.png"></span><span>Supply Chain Management System</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>/ManagerHandler/viewTrainSchedule">Train Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link" href="">Reports</a></li>
+                <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>ManagerHandler/viewTrainSchedule">Train Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= SROOT?>ManagerHandler/generateReport">Reports</a></li>
                 </ul><a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
@@ -55,7 +56,13 @@ if (isset($this->edit_values)) {
         </div>
     </header>
     <div class="container">
-
+        <br>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="<?= SROOT ?>ManagerHandler/viewTrainSchedule">Train Schedule</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Train</li>
+            </ol>
+        </nav>
         <div class="m-3">
             <h1>Edit Train Details</h1>
         </div>

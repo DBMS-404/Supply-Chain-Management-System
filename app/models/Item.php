@@ -42,5 +42,43 @@ class Item extends Model {
     public function delete($id){
         $sql = "update item set is_deleted=? where item_id=?";
         $this->_db->query($sql,[1,$id]);
-    } 
+    }
+    
+    public function highestOrderedItems($first_date, $second_date){
+        if($first_date=="" and $second_date==""){
+            $q = "";
+        }elseif($first_date=="" and $second_date!=""){
+            $q = " where item_order.date <= '".$second_date."'";
+        }elseif($first_date!="" and $second_date==""){
+            $q=" where item_order.date >= '".$first_date."'";
+        }else{
+            $q=" where item_order.date <= '".$second_date."'  and item_order.date >= '".$first_date."'";
+        }
+
+        $sql= "select item_id, name, item_count, unit_price
+        from(select item_id, count(item_id) as item_count
+            from (select *
+            from item_assignment
+            where item_assignment.order_id in (select order_id
+                                               from item_order".$q.")) as item_assignment_new group by item_id) as item_count_table left outer join item using(item_id)
+        order by item_count
+        limit 5;";
+        //dnd($sql);
+        // $sql= "select item_id, name, item_count, unit_price
+        // from(select item_id, count(item_id) as item_count
+        //     from item_assignment     
+        //     group by item_id) as item_count_table left outer join item using(item_id)
+        // order by item_count
+        // limit 5;";
+
+        
+        if($this->_db->query($sql)){
+            $resultsQuery = $this->_db->results();
+        }
+
+
+        return $resultsQuery;
+
+        
+    }
 }

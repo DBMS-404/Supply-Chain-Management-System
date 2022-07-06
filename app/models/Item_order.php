@@ -53,5 +53,49 @@ class Item_order extends Model {
         }
         return count($this->getorderofstatus($type));
     }
+
+    public function getCustomerOrderDetailsAction($first_date, $second_date){
+        $q="";$r="";$s="";
+        if($first_date=="" and $second_date==""){
+        }elseif($first_date=="" and $second_date!=""){
+            $q =" item_order.date <= '".$second_date."'";
+            $r=" where";
+            $s=" and";
+        }elseif($first_date!="" and $second_date==""){
+            $q=" item_order.date >= '".$first_date."'";
+            $r=" where";
+            $s=" and";
+        }else{
+            $q=" item_order.date <= '".$second_date."'  and item_order.date >= '".$first_date."'";
+            $r=" where";
+            $s=" and";
+        }
+
+        $resultsQuery=[];
+        $sql ="select user_id, first_name, last_name, count(user_id)  as order_count, sum(weight) as tot_weight
+        from item_order left outer join user using(user_id)".$r.$q.
+        " group by user_id
+        order by order_count;";
+
+        if($this->_db->query($sql)){
+            $resultsQuery = $this->_db->results();
+        }
+        //dnd($resultsQuery);
+        $statusQuery=[];
+        foreach($resultsQuery as $user){
+            $sql1="select status, count(status) as status_count
+            from item_order
+            where user_id='".$user->user_id."'".$s.$q.
+            " group by status
+            order by status_count desc;";
+            //dnd($sql1);
+            if($this->_db->query($sql1)){    
+                //$temp=(array)$user;
+                //dnd(array_push($temp,$this->_db->results()));
+                array_push($statusQuery,$this->_db->results());
+            }    
+        }
+        return [$resultsQuery,$statusQuery];
+    }
     
 }

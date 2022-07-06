@@ -41,6 +41,32 @@ class Driver extends Model {
 
     }
 
+    public function getWorkingHours($first_date, $second_date){
+        if($first_date=="" and $second_date==""){
+            $q = "";
+        }elseif($first_date=="" and $second_date!=""){
+            $q = " and turn.scheduled_date <= '".$second_date."'";
+        }elseif($first_date!="" and $second_date==""){
+            $q=" and turn.scheduled_date >= '".$first_date."'";
+        }else{
+            $q=" and turn.scheduled_date <= '".$second_date."' and turn.scheduled_date >= '".$first_date."'";
+        }
+        $resultsQuery=[];
+        $sql="select driver_id, user.first_name, user.last_name, driver_hours.tot_time
+        from (select driver_id, HOUR(sum(TIMEDIFF(turn_start_time, turn_end_time))) as tot_time
+                     from turn
+                     where turn_end_time is not null".$q.
+                     " group by driver_id
+                     order by tot_time) as driver_hours,user
+        where user.user_id = driver_hours.driver_id;";
+        if($this->_db->query($sql)){
+            $resultsQuery = $this->_db->results();
+        }
+
+
+        return $resultsQuery;
+    }
+
 
 
 }
