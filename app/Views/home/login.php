@@ -1,4 +1,4 @@
-<?php 
+<?php
 Session::delete();
 User::$currentLoggedInUser = null;
 
@@ -37,6 +37,12 @@ User::$currentLoggedInUser = null;
                     <div><a href="#"><img class="rounded img-fluid shadow w-100 fit-cover" src="https://www.getmax.ae/wp-content/uploads/2021/07/Supply-chain-managemetn.svg" height="150px" /></a>
                         <div class="py-4">
                             <form class="p-3 p-xl-4" action="<?= SROOT ?>LoginHandler/login" method="post">
+                                <?php if (isset($this->errcreditionals)) {  ?>
+                                    <div class="row justify-content-center">
+                                        <p class="fst-italic fw-bolder fs-5" style="color: #f93154";><?= $this->errcreditionals ?></p>
+
+                                    </div>
+                                <?php } ?>
                                 <div class="form-floating mb-3">
                                     <input name="user_id" class="form-control" type="text" placeholder="User ID" id="floatingInput">
                                     <label for="floatingInput">User ID</label>
@@ -44,7 +50,6 @@ User::$currentLoggedInUser = null;
                                 <div class="form-floating">
                                     <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                                     <label for="floatingPassword">Password</label>
-                                    <span class="error">
                                 </div>
                                 <div class="mt-3">
                                     <button class="btn btn-primary shadow d-block w-100" type="submit">Login </button>

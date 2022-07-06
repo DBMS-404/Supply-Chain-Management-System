@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2022 at 09:37 AM
+-- Generation Time: Jul 04, 2022 at 07:58 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.11
 
@@ -328,14 +328,15 @@ INSERT INTO `item_order` (`order_id`, `user_id`, `route_id`, `date`, `status`, `
 (4, 'CR1', 1, '2022-04-23', 'dtruck', 'Katubedda, Moratuwa', 980),
 (5, 'CR2', 1, '2022-06-25', 'dtruck', 'Katubedda, Moratuwa', 100),
 (6, 'CR2', 3, '2022-06-25', 'dtruck', 'Katubedda, Moratuwa', 50),
-(7, 'CR2', 2, '2022-06-25', 'ctrain', 'Katubedda, Moratuwa', 40),
-(8, 'CR2', 2, '2022-06-25', 'new', 'Katubedda, Moratuwa', 30);
+(7, 'CR2', 2, '2022-06-25', 'dtrain', 'Katubedda, Moratuwa', 40),
+(8, 'CR2', 1, '2022-06-25', 'new', 'Katubedda, Moratuwa', 30);
 
 --
 -- Triggers `item_order`
 --
 DELIMITER $$
 CREATE TRIGGER `after_status_change` AFTER UPDATE ON `item_order` FOR EACH ROW IF new.status='new' and old.status ='dtrain' THEN
+		UPDATE train set filled_capacity = (select filled_capacity from train where train_id = (SELECT train_id from train_assignment where order_id = old.order_id)) -  old.weight where train_id in (SELECT train_id from train_assignment where order_id = old.order_id);
     	DELETE from train_assignment where order_id = old.order_id;
     end if
 $$
@@ -435,8 +436,8 @@ CREATE TABLE `train` (
 --
 
 INSERT INTO `train` (`train_id`, `train_name`, `arrival_day`, `arrival_time`, `destination`, `capacity`, `filled_capacity`, `is_deleted`) VALUES
-(112344, 'Udarata Manike', '2022-06-16', '03:58:03', 'Matara', 10000, 8848, 0),
-(1123245, 'Yal devii', '2022-06-16', '03:58:03', 'Jaffna', 10000, 3448, 0);
+(112344, 'Udarata Manike', '2022-06-16', '03:58:03', 'Matara', 10000, 8828, 0),
+(1123245, 'Yal devii', '2022-06-16', '03:58:03', 'Jaffna', 10000, 3348, 0);
 
 -- --------------------------------------------------------
 
@@ -460,9 +461,9 @@ INSERT INTO `train_assignment` (`assigned_date`, `assigned_time`, `train_id`, `o
 ('2022-06-26', '15:51:16', 112344, 3),
 ('2022-06-27', '02:02:59', 112344, 5),
 ('2022-06-26', '16:13:59', 112344, 6),
+('2022-07-04', '23:22:14', 112344, 7),
 ('2022-06-26', '15:51:39', 1123245, 3),
-('2022-06-27', '02:10:55', 1123245, 5),
-('2022-06-26', '16:15:07', 1123245, 7);
+('2022-06-27', '02:10:55', 1123245, 5);
 
 -- --------------------------------------------------------
 
@@ -681,7 +682,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `train_dispatched_orders`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `train_dispatched_orders`  AS SELECT `item_order`.`order_id` AS `order_id`, `item_order`.`user_id` AS `user_id`, `item_order`.`route_id` AS `route_id`, `item_order`.`date` AS `date`, `item_order`.`status` AS `status`, `item_order`.`address` AS `address`, `item_order`.`weight` AS `weight`, `city_assignment`.`city_id` AS `city_id`, `train_assignment`.`train_id` AS `train_id`, `train`.`train_name` AS `train_name` FROM (((`item_order` join `city_assignment` on(`item_order`.`route_id` = `city_assignment`.`route_id`)) join `train_assignment` on(`item_order`.`order_id` = `train_assignment`.`order_id`)) join `train` on(`train_assignment`.`train_id` = `train`.`train_id`)) WHERE `item_order`.`status` = 'dtrain\'dtrain' ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `train_dispatched_orders`  AS SELECT `item_order`.`order_id` AS `order_id`, `item_order`.`user_id` AS `user_id`, `item_order`.`route_id` AS `route_id`, `item_order`.`date` AS `date`, `item_order`.`status` AS `status`, `item_order`.`address` AS `address`, `item_order`.`weight` AS `weight`, `city_assignment`.`city_id` AS `city_id`, `train_assignment`.`train_id` AS `train_id`, `train`.`train_name` AS `train_name` FROM (((`item_order` join `city_assignment` on(`item_order`.`route_id` = `city_assignment`.`route_id`)) join `train_assignment` on(`item_order`.`order_id` = `train_assignment`.`order_id`)) join `train` on(`train_assignment`.`train_id` = `train`.`train_id`)) WHERE `item_order`.`status` = 'dtrain' ;
 
 -- --------------------------------------------------------
 
@@ -947,6 +948,8 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` EVENT `Reset_turn_count` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE driver_assistant SET cons_turn_count = 0$$
 
 CREATE DEFINER=`root`@`localhost` EVENT `Reset_last_arrival_time` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE employee SET last_arrival_time = '00:00:00'$$
+
+CREATE DEFINER=`root`@`localhost` EVENT `Reset_weekly_worked_hours` ON SCHEDULE EVERY 1 WEEK STARTS '2022-07-04 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE employee SET weekly_worked_hours = 0$$
 
 DELIMITER ;
 COMMIT;
