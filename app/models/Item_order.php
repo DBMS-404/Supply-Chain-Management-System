@@ -127,7 +127,7 @@ class Item_order extends Model {
         $t="";
         if($city!="0"){
             $t=" where";
-            $cityQ=" start_city='".$city."' or end_city='".$city."'";
+            $cityQ=" start_city='".$city."'";
         }
 
         

@@ -91,7 +91,7 @@
                         <select class="form-select"  name='route'>
                             <option value="0" selected>All routes</option>
                             <?php foreach($this->routes as $route){ ?>
-                                <option value="<?= $route->route_id ?>"><?= $route->route_id ?></option>
+                                <option value="<?= $route->route_id ?>">Route <?= $route->route_id ?></option>
                             <?php }?>
                         </select>
                     </div>
