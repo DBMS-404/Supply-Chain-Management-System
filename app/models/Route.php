@@ -23,4 +23,9 @@ class Route extends Model {
         return $route;
     }
 
+    public function getAllRoutes(){
+        $this->_db->query("select route_id from route order by route_id;");
+        return $this->_db->results();
+    }
+
 }

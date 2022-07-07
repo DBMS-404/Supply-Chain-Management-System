@@ -57,7 +57,7 @@
                 </ol>
             </nav>
         </div>
-        <form action="<?= SROOT ?>ManagerHandler/generateReport/3/1" method='post'>
+        <form action="<?= SROOT ?>ManagerHandler/generateReport/3" method='post'>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="from-floating input-group">

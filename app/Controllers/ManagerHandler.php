@@ -12,6 +12,8 @@ class ManagerHandler extends Controller
         $this->load_model('Driver');
         $this->load_model('Driver_assistant');
         $this->load_model('Item_order');
+        $this->load_model('Route');
+        $this->load_model('City');
     }
 
     public function indexAction()
@@ -101,33 +103,27 @@ class ManagerHandler extends Controller
         }
     }
 
-    public function generateReportAction($type='10', $flag="0"){
+    public function generateReportAction($type='10'){
         //dnd($_POST);
         $validate=true;
         $validaton = new Validate();
-        if($_POST){
+        if($_POST){         
 
-            
-
-            if($flag==="0"){
-                $first_date="";
-                $second_date="";
-            }else{
-                $first_date=$_POST['first_date'];
-                $second_date=$_POST['second_date'];
-                if($first_date!="" and $second_date!=""){
-                    $validaton->check($_POST, [
-                        'first_date' => [
-                            'display' => "Entered Time Period",
-                            'time_period' => $_POST['second_date']
-                        ]
-                    ]);
-                    if(!$validaton->passed()){
-                        $validate=false;
-                        $this->view->displayErrors = $validaton->displayErrors();
-                    }
+            $first_date=(isset($_POST['first_date']))?$_POST['first_date']:"";
+            $second_date=(isset($_POST['second_date']))?$_POST['second_date']:"";
+            if($first_date!="" and $second_date!=""){
+                $validaton->check($_POST, [
+                    'first_date' => [
+                        'display' => "Entered Time Period",
+                        'time_period' => $_POST['second_date']
+                    ]
+                ]);
+                if(!$validaton->passed()){
+                    $validate=false;
+                    $this->view->displayErrors = $validaton->displayErrors();
                 }
             }
+            
 
             if($type=='10'){
                 $type=$_POST['report_type'];
@@ -159,6 +155,49 @@ class ManagerHandler extends Controller
                     $this->view->first_date = $first_date;
                     $this->view->second_date = $second_date;                  
                     $this->view->render('manager/customerOrderDetails');
+                    break;
+                case 4:
+
+                    $time_period=(isset($_POST['time_period']))? $_POST['time_period']: 0;
+                    switch($time_period){
+                        case 0:
+                            $first_date="";
+                            $second_date="";
+                            break;
+                        case 1:
+                            $first_date=date("Y")."-01-01";
+                            $second_date=date("Y")."-03-31";
+                            break;
+                        case 2:
+                            $first_date=date("Y")."-04-01";
+                            $second_date=date("Y")."-06-30";
+                            break;
+                        case 3:
+                            $first_date=date("Y")."-07-01";
+                            $second_date=date("Y")."-09-30";
+                            break;
+                        case 4:
+                            $first_date=date("Y")."-10-01";
+                            $second_date=date("Y")."-12-31";
+                            break;
+
+                    }
+                    $this->view->first_date = $first_date;
+                    $this->view->second_date = $second_date;
+                    $this->view->time_period = $time_period;
+                    $route = (isset($_POST['route']))? $_POST['route']  :"0";
+                    $city_id = (isset($_POST['city']))? explode('-',$_POST['city'])[0] : "0";
+                    $city_name = (isset($_POST['city']))? explode('-',$_POST['city'])[1] : "All Cities";
+                    //dnd($this->view->first_date.",".$this->view->second_date.",".$route.",".$city);
+                    if($validate){
+                        $this->view->orders = $this->Item_orderModel->getAllOrderDetails($first_date,$second_date,$route,$city_id);
+                    }
+                    //dnd($this->view->orders);
+                    $this->view->route = ($route!='0')? $route  :"All Routes";
+                    $this->view->city = $city_name;
+                    $this->view->routes = $this->RouteModel->getAllRoutes();
+                    $this->view->cities = $this->CityModel->getAllCities();
+                    $this->view->render('manager/sales_report');
                     break;
                 default:
                     $this->view->render('manager/generateReport');

@@ -58,7 +58,7 @@
                 </ol>
             </nav>
         </div>
-        <form action="<?= SROOT ?>ManagerHandler/generateReport/2/1" method='post'>
+        <form action="<?= SROOT ?>ManagerHandler/generateReport/2" method='post'>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="from-floating input-group">
@@ -110,7 +110,7 @@
                                     
                                     <hr>
                                     <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
-                                    <p class="card-text"> <?= "Total Working Hours : ".$truck->tot_time ?><br>
+                                    <p class="card-text"> <?= "Total Used Hours : ".$truck->tot_time ?><br>
                                     <?= "City : " . $truck->name ?>
                                     </p>
                                 </div>

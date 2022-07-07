@@ -53,14 +53,15 @@
         </div>
         <hr>
         <div>
-        <form class="p-3 p-xl-4" action="<?= SROOT ?>ManagerHandler/generateReport" method="post">
+            <form class="p-3 p-xl-4" action="<?= SROOT ?>ManagerHandler/generateReport" method="post">
                 <div class='row mb-2'>
                     <div class=col-sm-3>
-                        <select class="form-select" aria-label="Default select example" name='report_type'>
+                        <select class="form-select" aria-label="Report Type" name='report_type'>
                             <option selected>Select the Report Type</option>
                             <option value="1">Items Report</option>
                             <option value="2">Working Hours and Used Hours</option>
                             <option value="3">Customer Order Report</option>
+                            <option value="4">Sales Report</option>
                         </select>
                     </div>
                 </div>
