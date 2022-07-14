@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2022 at 07:46 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Jul 07, 2022 at 09:05 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Functions
 --
-CREATE DEFINER=`` FUNCTION `calc_tot_price` (`order_id` INT(11)) RETURNS INT(11)  BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `calc_tot_price` (`order_id` INT(11)) RETURNS INT(11) BEGIN
     DECLARE tot_price INT;
     select sum(item_price) into @tot_price
     from(select item_id, item_quantity, item.unit_price*item_quantity as item_price
@@ -453,7 +453,8 @@ CREATE TABLE `train` (
 
 INSERT INTO `train` (`train_id`, `train_name`, `arrival_day`, `arrival_time`, `destination`, `capacity`, `filled_capacity`, `is_deleted`) VALUES
 (112344, 'Udarata Manike', '2022-06-16', '03:58:03', 'Matara', 10000, 8828, 0),
-(1123245, 'Yal devii', '2022-06-16', '03:58:03', 'Jaffna', 10000, 3348, 0);
+(1123245, 'Yal devii', '2022-06-16', '03:58:03', 'Jaffna', 10000, 3348, 0),
+(1123246, 'Petrol Devi', '2022-07-08', '01:02:00', 'Colombo', 12000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -644,7 +645,7 @@ INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `password`) VALUES
 --
 DROP TABLE IF EXISTS `available_assistants`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `available_assistants`  AS SELECT `driver_assistant`.`user_id` AS `user_id`, `user`.`first_name` AS `first_name`, `user`.`last_name` AS `last_name`, `employee`.`mobile_no` AS `mobile_no`, `employee`.`weekly_worked_hours` AS `weekly_worked_hours`, `employee`.`city` AS `city` FROM ((`driver_assistant` join `employee` on(`driver_assistant`.`user_id` = `employee`.`user_id`)) join `user` on(`driver_assistant`.`user_id` = `user`.`user_id`)) WHERE !(`driver_assistant`.`user_id` in (select `leaved_employees_today`.`user_id` from `leaved_employees_today`)) AND (`driver_assistant`.`cons_turn_count` < 2 OR `driver_assistant`.`cons_turn_count` = 2 AND hour(timediff(cast(convert_tz(current_timestamp(),'+00:00','+05:30') as time),`employee`.`last_arrival_time`)) > 0)  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `available_assistants`  AS SELECT `driver_assistant`.`user_id` AS `user_id`, `user`.`first_name` AS `first_name`, `user`.`last_name` AS `last_name`, `employee`.`mobile_no` AS `mobile_no`, `employee`.`weekly_worked_hours` AS `weekly_worked_hours`, `employee`.`city` AS `city` FROM ((`driver_assistant` join `employee` on(`driver_assistant`.`user_id` = `employee`.`user_id`)) join `user` on(`driver_assistant`.`user_id` = `user`.`user_id`)) WHERE !(`driver_assistant`.`user_id` in (select `leaved_employees_today`.`user_id` from `leaved_employees_today`)) AND (`driver_assistant`.`cons_turn_count` < 2 OR `driver_assistant`.`cons_turn_count` = 2 AND hour(timediff(cast(convert_tz(current_timestamp(),'+00:00','+05:30') as time),`employee`.`last_arrival_time`)) > 0) ;
 
 -- --------------------------------------------------------
 
@@ -653,7 +654,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `available_drivers`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `available_drivers`  AS SELECT `driver`.`user_id` AS `user_id`, `user`.`first_name` AS `first_name`, `user`.`last_name` AS `last_name`, `employee`.`mobile_no` AS `mobile_no`, `employee`.`weekly_worked_hours` AS `weekly_worked_hours`, `employee`.`city` AS `city` FROM ((`driver` join `employee` on(`driver`.`user_id` = `employee`.`user_id`)) join `user` on(`driver`.`user_id` = `user`.`user_id`)) WHERE !(`driver`.`user_id` in (select `leaved_employees_today`.`user_id` from `leaved_employees_today`)) AND hour(timediff(cast(convert_tz(current_timestamp(),'+00:00','+05:30') as time),`employee`.`last_arrival_time`)) > 00  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `available_drivers`  AS SELECT `driver`.`user_id` AS `user_id`, `user`.`first_name` AS `first_name`, `user`.`last_name` AS `last_name`, `employee`.`mobile_no` AS `mobile_no`, `employee`.`weekly_worked_hours` AS `weekly_worked_hours`, `employee`.`city` AS `city` FROM ((`driver` join `employee` on(`driver`.`user_id` = `employee`.`user_id`)) join `user` on(`driver`.`user_id` = `user`.`user_id`)) WHERE !(`driver`.`user_id` in (select `leaved_employees_today`.`user_id` from `leaved_employees_today`)) AND hour(timediff(cast(convert_tz(current_timestamp(),'+00:00','+05:30') as time),`employee`.`last_arrival_time`)) > 0 ;
 
 -- --------------------------------------------------------
 
@@ -662,7 +663,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `driver_assistant_order`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `driver_assistant_order`  AS SELECT `o`.`order_id` AS `order_id`, `t`.`assistant_id` AS `assistant_id`, `t`.`driver_id` AS `driver_id`, (select `r`.`route_map` from `route` `r` where `r`.`route_id` = `t`.`route_id` limit 1) AS `route_map` FROM (`item_order` `o` join `turn` `t`) WHERE `o`.`status` = 'dtruck' AND `o`.`route_id` = `t`.`route_id``route_id`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `driver_assistant_order`  AS SELECT `o`.`order_id` AS `order_id`, `t`.`assistant_id` AS `assistant_id`, `t`.`driver_id` AS `driver_id`, (select `r`.`route_map` from `route` `r` where `r`.`route_id` = `t`.`route_id` limit 1) AS `route_map` FROM (`item_order` `o` join `turn` `t`) WHERE `o`.`status` = 'dtruck' AND `o`.`route_id` = `t`.`route_id` ;
 
 -- --------------------------------------------------------
 
@@ -671,7 +672,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `future_leaves_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `future_leaves_details`  AS SELECT `employee`.`user_id` AS `user_id`, `employee`.`mobile_no` AS `mobile_no`, `employee`.`weekly_worked_hours` AS `weekly_worked_hours`, `employee`.`city` AS `city`, `employee`.`last_arrival_time` AS `last_arrival_time`, `city`.`name` AS `city_name`, `user`.`first_name` AS `first_name`, `user`.`last_name` AS `last_name`, `employee_leave`.`leave_id` AS `leave_id`, `employee_leave`.`date` AS `date`, `employee_leave`.`leave_reason` AS `leave_reason`, `employee_leave`.`status` AS `status` FROM (((`user` join `employee_leave` on(`user`.`user_id` = `employee_leave`.`user_id`)) join `employee` on(`user`.`user_id` = `employee`.`user_id`)) join `city` on(`city`.`city_id` = `employee`.`city`)) WHERE `employee_leave`.`date` > cast(convert_tz(current_timestamp(),'+00:00','+05:30') as date) ORDER BY `employee_leave`.`date` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `future_leaves_details`  AS SELECT `employee`.`user_id` AS `user_id`, `employee`.`mobile_no` AS `mobile_no`, `employee`.`weekly_worked_hours` AS `weekly_worked_hours`, `employee`.`city` AS `city`, `employee`.`last_arrival_time` AS `last_arrival_time`, `city`.`name` AS `city_name`, `user`.`first_name` AS `first_name`, `user`.`last_name` AS `last_name`, `employee_leave`.`leave_id` AS `leave_id`, `employee_leave`.`date` AS `date`, `employee_leave`.`leave_reason` AS `leave_reason`, `employee_leave`.`status` AS `status` FROM (((`user` join `employee_leave` on(`user`.`user_id` = `employee_leave`.`user_id`)) join `employee` on(`user`.`user_id` = `employee`.`user_id`)) join `city` on(`city`.`city_id` = `employee`.`city`)) WHERE `employee_leave`.`date` > cast(convert_tz(current_timestamp(),'+00:00','+05:30') as date) ORDER BY `employee_leave`.`date` ASC ;
 
 -- --------------------------------------------------------
 
@@ -680,7 +681,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `f
 --
 DROP TABLE IF EXISTS `leaved_employees_today`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `leaved_employees_today`  AS SELECT DISTINCT `employee_leave`.`user_id` AS `user_id` FROM `employee_leave` WHERE `employee_leave`.`date` = cast(convert_tz(current_timestamp(),'+00:00','+05:30') as date) AND `employee_leave`.`status` = 1111  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `leaved_employees_today`  AS SELECT DISTINCT `employee_leave`.`user_id` AS `user_id` FROM `employee_leave` WHERE `employee_leave`.`date` = cast(convert_tz(current_timestamp(),'+00:00','+05:30') as date) AND `employee_leave`.`status` = 11 ;
 
 -- --------------------------------------------------------
 
@@ -689,7 +690,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `route_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `route_details`  AS SELECT `route`.`route_id` AS `route_id`, `scity`.`name` AS `start_city_name`, `ecity`.`name` AS `end_city_name`, `city_assignment`.`city_id` AS `city` FROM (((`route` join `city_assignment` on(`route`.`route_id` = `city_assignment`.`route_id`)) join `city` `scity` on(`scity`.`city_id` = `route`.`start_city`)) join `city` `ecity` on(`ecity`.`city_id` = `route`.`end_city`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `route_details`  AS SELECT `route`.`route_id` AS `route_id`, `scity`.`name` AS `start_city_name`, `ecity`.`name` AS `end_city_name`, `city_assignment`.`city_id` AS `city` FROM (((`route` join `city_assignment` on(`route`.`route_id` = `city_assignment`.`route_id`)) join `city` `scity` on(`scity`.`city_id` = `route`.`start_city`)) join `city` `ecity` on(`ecity`.`city_id` = `route`.`end_city`)) ;
 
 -- --------------------------------------------------------
 
@@ -698,7 +699,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `train_dispatched_orders`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `train_dispatched_orders`  AS SELECT `item_order`.`order_id` AS `order_id`, `item_order`.`user_id` AS `user_id`, `item_order`.`route_id` AS `route_id`, `item_order`.`date` AS `date`, `item_order`.`status` AS `status`, `item_order`.`address` AS `address`, `item_order`.`weight` AS `weight`, `city_assignment`.`city_id` AS `city_id`, `train_assignment`.`train_id` AS `train_id`, `train`.`train_name` AS `train_name` FROM (((`item_order` join `city_assignment` on(`item_order`.`route_id` = `city_assignment`.`route_id`)) join `train_assignment` on(`item_order`.`order_id` = `train_assignment`.`order_id`)) join `train` on(`train_assignment`.`train_id` = `train`.`train_id`)) WHERE `item_order`.`status` = 'dtrain''dtrain'  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `train_dispatched_orders`  AS SELECT `item_order`.`order_id` AS `order_id`, `item_order`.`user_id` AS `user_id`, `item_order`.`route_id` AS `route_id`, `item_order`.`date` AS `date`, `item_order`.`status` AS `status`, `item_order`.`address` AS `address`, `item_order`.`weight` AS `weight`, `city_assignment`.`city_id` AS `city_id`, `train_assignment`.`train_id` AS `train_id`, `train`.`train_name` AS `train_name` FROM (((`item_order` join `city_assignment` on(`item_order`.`route_id` = `city_assignment`.`route_id`)) join `train_assignment` on(`item_order`.`order_id` = `train_assignment`.`order_id`)) join `train` on(`train_assignment`.`train_id` = `train`.`train_id`)) WHERE `item_order`.`status` = 'dtrain' ;
 
 -- --------------------------------------------------------
 
@@ -707,7 +708,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`sql6501921`@`%` SQL SECURITY INVOKER VIEW `t
 --
 DROP TABLE IF EXISTS `turns_in_progress`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `turns_in_progress`  AS SELECT `turn`.`turn_id` AS `turn_id`, `turn`.`driver_id` AS `driver_id`, `turn`.`assistant_id` AS `assistant_id`, `turn`.`route_id` AS `route_id`, `turn`.`truck_id` AS `truck_id`, `turn`.`scheduled_date` AS `scheduled_date`, `turn`.`scheduled_time` AS `scheduled_time`, `turn`.`turn_start_time` AS `turn_start_time`, `turn`.`turn_end_time` AS `turn_end_time` FROM `turn` WHERE `turn`.`scheduled_date` = cast(convert_tz(current_timestamp(),'+00:00','+05:30') as date) AND (`turn`.`turn_start_time` is null OR `turn`.`turn_end_time` is null)  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `turns_in_progress`  AS SELECT `turn`.`turn_id` AS `turn_id`, `turn`.`driver_id` AS `driver_id`, `turn`.`assistant_id` AS `assistant_id`, `turn`.`route_id` AS `route_id`, `turn`.`truck_id` AS `truck_id`, `turn`.`scheduled_date` AS `scheduled_date`, `turn`.`scheduled_time` AS `scheduled_time`, `turn`.`turn_start_time` AS `turn_start_time`, `turn`.`turn_end_time` AS `turn_end_time` FROM `turn` WHERE `turn`.`scheduled_date` = cast(convert_tz(current_timestamp(),'+00:00','+05:30') as date) AND (`turn`.`turn_start_time` is null OR `turn`.`turn_end_time` is null) ;
 
 -- --------------------------------------------------------
 
@@ -716,7 +717,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `turns_to_dispatch`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `turns_to_dispatch`  AS SELECT `turn`.`turn_id` AS `turn_id`, `turn`.`driver_id` AS `driver_id`, `turn`.`assistant_id` AS `assistant_id`, `turn`.`route_id` AS `route_id`, `turn`.`truck_id` AS `truck_id`, `city_assignment`.`city_id` AS `city_id`, concat(`d_user`.`first_name`,' ',`d_user`.`last_name`) AS `driver_name`, concat(`da_user`.`first_name`,' ',`da_user`.`last_name`) AS `assistant_name`, `truck`.`truck_no` AS `truck_no` FROM ((((`turn` join `user` `d_user` on(`d_user`.`user_id` = `turn`.`driver_id`)) join `user` `da_user` on(`da_user`.`user_id` = `turn`.`assistant_id`)) join `truck` on(`turn`.`truck_id` = `truck`.`truck_id`)) join `city_assignment` on(`turn`.`route_id` = `city_assignment`.`route_id`)) WHERE `turn`.`turn_start_time` is nullnull  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `turns_to_dispatch`  AS SELECT `turn`.`turn_id` AS `turn_id`, `turn`.`driver_id` AS `driver_id`, `turn`.`assistant_id` AS `assistant_id`, `turn`.`route_id` AS `route_id`, `turn`.`truck_id` AS `truck_id`, `city_assignment`.`city_id` AS `city_id`, concat(`d_user`.`first_name`,' ',`d_user`.`last_name`) AS `driver_name`, concat(`da_user`.`first_name`,' ',`da_user`.`last_name`) AS `assistant_name`, `truck`.`truck_no` AS `truck_no` FROM ((((`turn` join `user` `d_user` on(`d_user`.`user_id` = `turn`.`driver_id`)) join `user` `da_user` on(`da_user`.`user_id` = `turn`.`assistant_id`)) join `truck` on(`turn`.`truck_id` = `truck`.`truck_id`)) join `city_assignment` on(`turn`.`route_id` = `city_assignment`.`route_id`)) WHERE `turn`.`turn_start_time` is null ;
 
 --
 -- Indexes for dumped tables
@@ -882,7 +883,7 @@ ALTER TABLE `route`
 -- AUTO_INCREMENT for table `train`
 --
 ALTER TABLE `train`
-  MODIFY `train_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1123246;
+  MODIFY `train_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1123247;
 
 --
 -- AUTO_INCREMENT for table `turn`
@@ -956,6 +957,18 @@ ALTER TABLE `turn`
 ALTER TABLE `turn_order`
   ADD CONSTRAINT `order` FOREIGN KEY (`order_id`) REFERENCES `item_order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `turn` FOREIGN KEY (`turn_id`) REFERENCES `turn` (`turn_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `Reset_turn_count` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE driver_assistant SET cons_turn_count = 0$$
+
+CREATE DEFINER=`root`@`localhost` EVENT `Reset_last_arrival_time` ON SCHEDULE EVERY 1 DAY STARTS '2022-07-03 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE employee SET last_arrival_time = '00:00:00'$$
+
+CREATE DEFINER=`root`@`localhost` EVENT `Reset_weekly_worked_hours` ON SCHEDULE EVERY 1 WEEK STARTS '2022-07-04 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE employee SET weekly_worked_hours = 0$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
