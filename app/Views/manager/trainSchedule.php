@@ -57,6 +57,40 @@
         </div>
     </nav>
     <header class="bg-primary-gradient pt-5">
+        <?php if (isset($_SESSION['status']) && $_SESSION['status']==='added') { ?>
+                <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
+                            Successfully Added <strong><?= $_SESSION['train']; ?></strong> to Train Schedule!
+                            <?php unset($_SESSION['status']);
+                                  unset($_SESSION['train'])?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php }elseif (isset($_SESSION['status']) && $_SESSION['status']==='deleted') { ?>
+                <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-danger alert-dismissible fade show shadow-lg" role="alert">
+                            Successfully deleted the train from Train Schedule
+                            <?php unset($_SESSION['status']);
+                                  unset($_SESSION['train'])?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php }elseif (isset($_SESSION['status']) && $_SESSION['status']==='edited') { ?>
+            <div class="row">
+                    <div class="col-md-4 offset-md-8 mt-3">
+                        <div class="alert alert-info alert-dismissible fade show shadow-lg" role="alert">
+                            Successfully Edited the Details of <strong><?= $_SESSION['train']; ?></strong>  train!
+                            <?php unset($_SESSION['status']);
+                                  unset($_SESSION['train'])?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+        <?php }?>
         <div class="container pt-4 pt-xl-5">
             <div class="row pt-5">
                 <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto">
@@ -101,7 +135,7 @@
                                         <?php }?>
                                         " role="progressbar" style="width: <?= round($train->filled_capacity*100/$train->capacity)?>%;" aria-valuenow="<?= $train->filled_capacity?>" aria-valuemin="0" aria-valuemax="<?= $train->capacity?>"><?= round($train->filled_capacity*100/$train->capacity)?>%</div>
                                     </div>
-                                    <?= "Capacity - ".$train->filled_capacity."g is filled out of ".$train->capacity."g" ?><br><br>
+                                    <?= "Capacity - "?><strong><?=$train->filled_capacity." g" ?></strong><?=" is filled out of "?><strong><?= $train->capacity." g"?></strong><br><br>
                                 </div>
 
                                 <div class="col-sm-2">

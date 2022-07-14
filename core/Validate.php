@@ -43,7 +43,7 @@ class Validate
                             if ($rule_value==='item'){
                                 $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ? and is_deleted=?", [$value,0]);
                             }else {
-                                $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ?", [$value]);
+                                $check = $this->_db->query("SELECT {$item} FROM {$rule_value} WHERE {$item} = ? and is_deleted=?", [$value,0]);
                             }
                             if ($check->count()) {
                                 $this->addError(["{$display} already exists. please choose another {$display}", $item]);
@@ -56,7 +56,7 @@ class Validate
                             if ($table==='item'){
                                 $query = $this->_db->query("SELECT * FROM {$table} WHERE item_id != ? AND {$item} = ?", [$id, $value]);
                             }else {
-                                $query = $this->_db->query("SELECT * FROM {$table} WHERE train_id != ? AND {$item} = ?", [$id, $value]);
+                                $query = $this->_db->query("SELECT * FROM {$table} WHERE train_id != ? AND {$item} = ? AND is_deleted=?", [$id, $value,0]);
                             }
                             if ($query->count()) {
                                 $this->addError(["{$display} is already exists. please choose another {$display}", $item]);

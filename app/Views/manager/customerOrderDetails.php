@@ -155,7 +155,7 @@
                                 </div>
                             <?php } ?>
                             <?php } else { ?>
-                                <h5>No customers have placed orders within the selscted time period</h5>
+                                <span class="text-danger"><h5>No customers have placed orders within the selscted time period</h5></span>
                             <?php } ?>
                         </div>
                     </div>
