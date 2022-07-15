@@ -135,7 +135,7 @@ $statuses = ['all' => "All", 'new' => "New", 'dtrain' => "Dispatch to train", 'c
                 <?php if (count($this->orders) > 0) {
                     foreach ($this->orders as $item_order) { ?>
                         <div class="col-md-3 col-12 mb-4">
-                            <div class="card bg-light" style="height: 215px; width:19rem;">
+                            <div class="card bg-light" style="height: 255px; width:19rem;">
                                 <div class="card-body">
                                     <h5 class="card-title"><div><?= "Order " . $item_order->order_id ?></div></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"><?= $item_order->weight . " g" ?></h6>
