@@ -34,6 +34,11 @@ class StockKeeperHandler extends Controller{
     public function viewroutesAction(){
         $this->view->routesToAssign = $this->Stock_keeperModel->getRouteIdsForAssign();
         $this->view->routesToDispatch = $this->Stock_keeperModel->getTurnsToDispatch();
+        $array = [];
+        foreach ($this->Stock_keeperModel->getAssistantsInProgress() as $value){
+            $array[] = $value->assistant_id;
+        }
+        $this->view->getAssistantsInProgress = $array;
         $this->view->render('stock_keeper/routes');
     }
 
@@ -79,7 +84,7 @@ class StockKeeperHandler extends Controller{
                 $_SESSION['error'] = "Set all fields and try again";
                 Router::redirect("StockKeeperHandler/assigntruck/$route_id");
             }else{
-                $this->TurnModel->addTurn($route_id, $_POST['truck'], $_POST['driver'], $_POST['driver_assistant']);
+                $this->Stock_keeperModel->addTurn($route_id, $_POST['truck'], $_POST['driver'], $_POST['driver_assistant']);
                 Router::redirect("StockKeeperHandler/viewroutes");
             }
         }else {
@@ -94,7 +99,7 @@ class StockKeeperHandler extends Controller{
     }
 
     public function cancelturnAction($turn_id){
-        $this->TurnModel->cancelTurn($turn_id);
+        $this->Stock_keeperModel->cancelTurn($turn_id);
         Router::redirect("StockKeeperHandler/viewroutes");
     }
 

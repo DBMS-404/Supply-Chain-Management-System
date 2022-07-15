@@ -1,5 +1,8 @@
 <?php
 redirectToHandler('sk');
+
+$assistants = $this->getAssistantsInProgress;
+
 ?>
 
 <!doctype html>
@@ -148,10 +151,19 @@ redirectToHandler('sk');
                                 <div class="row mt-3">
                                     <div class="col-8"></div>
                                     <div class="col-4">
-                                        <a type="button" class="btn btn-primary" href="<?= SROOT ?>StockKeeperHandler/dispatchtruck/<?= $turn->turn_id ?>/<?= $turn->route_id ?>">Dispatch</a>
+                                        <?php if(!in_array($turn->assistant_id, $assistants)){ ?>
+                                            <a type="button" class="btn btn-primary" href="<?= SROOT ?>StockKeeperHandler/dispatchtruck/<?= $turn->turn_id ?>/<?= $turn->route_id ?>">Dispatch</a>
+                                        <?php } ?>
                                         <a type="button" class="btn btn-danger" href="<?= SROOT ?>StockKeeperHandler/cancelturn/<?= $turn->turn_id ?>">Cancel</a>
                                     </div>
                                 </div>
+                                <?php if(in_array($turn->assistant_id, $assistants)){ ?>
+                                <div class="row">
+                                    <strong style="color: #f93154"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Driver Assistant is currently on a trip</strong>
+
+                                </div>
+                                <?php } ?>
+
 
                             </li>
 

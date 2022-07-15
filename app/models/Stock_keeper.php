@@ -68,10 +68,23 @@ class Stock_keeper extends Model {
 
     public function getTurnsToDispatch(){
 
-        $sql = "SELECT turn_id, route_id, driver_name, assistant_name, truck_no, start_city_name, end_city_name 
+        $sql = "SELECT turn_id, route_id, driver_name, assistant_name, truck_no, start_city_name, end_city_name, assistant_id 
                     FROM turns_to_dispatch INNER JOIN route_details using(route_id) WHERE city_id = ? ";
         $resultsQuery = $this->_db->query($sql,[$this->getCity()]);
         $results = [];
+
+        if (!$resultsQuery){
+            return $results;
+        }
+
+        return $resultsQuery->results();
+    }
+
+    public function getAssistantsInProgress(){
+        $sql = "SELECT assistant_id FROM turns_in_progress WHERE NOT(turn_start_time IS NULL)";
+        $results = [];
+
+        $resultsQuery = $this->_db->query($sql);
 
         if (!$resultsQuery) return $results;
         return $resultsQuery->results();
@@ -123,6 +136,44 @@ class Stock_keeper extends Model {
 
         if (!$resultsQuery) return $results;
         return $resultsQuery->results();
+    }
+
+    public function addTurn($route_id, $truck_id, $driver_id,$assistant_id){
+        date_default_timezone_set('Asia/Colombo');
+        $scheduled_date  = date("Y-m-d");
+        $scheduled_time = date('H:i:s');
+        $sql1 = "INSERT INTO turn(driver_id, assistant_id, route_id, truck_id, scheduled_date, scheduled_time)
+                    VALUES ('$driver_id', '$assistant_id', '$route_id', '$truck_id', '$scheduled_date', '$scheduled_time')";
+        $sql2 = "UPDATE driver_assistant SET cons_turn_count = cons_turn_count + 1 WHERE user_id = '$assistant_id'";
+
+        $this->_db->beginTransaction();
+
+        try{
+            $this->_db->query($sql1);
+            $this->_db->query($sql2);
+        }catch (Exception $e){
+            $this->_db->rollBack();
+        }
+
+        $this->_db->commit();
+
+    }
+
+    public function cancelTurn($turn_id){
+        $sql1 = "UPDATE driver_assistant SET cons_turn_count = cons_turn_count - 1 WHERE user_id IN(
+                    SELECT assistant_id FROM turn WHERE turn_id=?)";
+        $sql2 = "delete from turn where turn_id=?";
+        $this->_db->beginTransaction();
+
+        try{
+            $this->_db->query($sql1,[$turn_id]);
+            $this->_db->query($sql2,[$turn_id]);
+        }catch (Exception $e){
+            $this->_db->rollBack();
+        }
+
+        $this->_db->commit();
+
     }
 
 }
