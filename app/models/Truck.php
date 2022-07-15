@@ -28,7 +28,7 @@ class Truck extends Model {
         $resultsQuery=[];
         
         $sql= "select truck_id, tot_time, truck.truck_no, city.name
-        from((select truck_id, HOUR(sum(TIMEDIFF(turn_start_time, turn_end_time))) as tot_time
+        from((select truck_id, round(Hour(sum(TIMEDIFF(turn_end_time,turn_start_time))) + Minute(sum(TIMEDIFF(turn_end_time,turn_start_time)))/60,2) as tot_time
              from turn
              where turn_end_time is not null".$q.
              " group by truck_id

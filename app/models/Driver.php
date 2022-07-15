@@ -53,16 +53,16 @@ class Driver extends Model {
         }
         $resultsQuery=[];
         $sql="select driver_id, user.first_name, user.last_name, driver_hours.tot_time
-        from (select driver_id, HOUR(sum(TIMEDIFF(turn_start_time, turn_end_time))) as tot_time
-                     from turn
-                     where turn_end_time is not null".$q.
+        from (select driver_id, round(Hour(sum(TIMEDIFF(turn_end_time,turn_start_time))) + Minute(sum(TIMEDIFF(turn_end_time,turn_start_time)))/60,2) as tot_time
+        from turn
+        where turn_end_time is not null".$q.
                      " group by driver_id
                      order by tot_time) as driver_hours,user
         where user.user_id = driver_hours.driver_id;";
         if($this->_db->query($sql)){
             $resultsQuery = $this->_db->results();
         }
-
+        
 
         return $resultsQuery;
     }

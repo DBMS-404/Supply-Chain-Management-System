@@ -74,6 +74,7 @@ redirectToHandler('mn');
         <div class="row">
             <div class="row m-2">
                 <h3>Items with most orders</h3>
+                <h5>Showing tems featured only in Delivered Orders</h5><br><br>
                 <h5 class='text-muted'>Time Range : <?php if ($this->first_date == "" and $this->second_date == "") { ?>All Time
                     <?php } elseif ($this->first_date == "" and $this->second_date != "") { ?>Until <?= $this->second_date ?>
                     <?php } elseif ($this->first_date != "" and $this->second_date == "") { ?>From <?= $this->first_date ?>
@@ -109,7 +110,7 @@ redirectToHandler('mn');
 
                                 <hr>
                                 <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
-                                <p class="card-text"><?= "Sold amount : " . $item->item_count ?><br>
+                                <p class="card-text"><?= "Number of Orders : " . $item->item_count ?><br>
                                     <?= "Unit price : Rs." . $item->unit_price ?>
                                 </p>
                             </div>

@@ -20,7 +20,7 @@ class Driver_assistant extends Model {
 
         $resultsQuery=[];
         $sql="select assistant_id, user.first_name, user.last_name, assistant_hours.tot_time
-        from (select assistant_id, HOUR(sum(TIMEDIFF(turn_start_time, turn_end_time))) as tot_time
+        from (select assistant_id, round(Hour(sum(TIMEDIFF(turn_end_time,turn_start_time))) + Minute(sum(TIMEDIFF(turn_end_time,turn_start_time)))/60,2) as tot_time
                      from turn
                      where turn_end_time is not null".$q.
                      " group by assistant_id
