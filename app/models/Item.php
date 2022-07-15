@@ -63,13 +63,6 @@ class Item extends Model {
                                                from item_order where status='delivered'".$q.")) as item_assignment_new group by item_id) as item_count_table left outer join item using(item_id)
         order by item_count
         limit 5;";
-        //dnd($sql);
-        // $sql= "select item_id, name, item_count, unit_price
-        // from(select item_id, count(item_id) as item_count
-        //     from item_assignment     
-        //     group by item_id) as item_count_table left outer join item using(item_id)
-        // order by item_count
-        // limit 5;";
 
         
         if($this->_db->query($sql)){

@@ -98,7 +98,6 @@
                         $numberList=["One", "Two", "Three", "Four", "Five"];?>
                         
                             <?php foreach ($this->details[0] as $customer) {
-                                if($x<=4){
                                 $x++ 
                             ?>
                                 <div class="col-sm-6 col-12 mt-3 mb-3">
@@ -120,12 +119,12 @@
                                                 <div class="col-sm-7">
                                                     <div class="accordion" id="accordionExample">
                                                         <div class="accordion-item">
-                                                            <h2 class="accordion-header" id=<?="heading".$numberList[$x-1]?>>
-                                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target=<?="#collapse".$numberList[$x-1]?> aria-expanded="true" aria-controls=<?="collapse".$numberList[$x-1]?>>
+                                                            <h2 class="accordion-header" id=<?="heading".$x?>>
+                                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target=<?="#collapse".$x?> aria-expanded="true" aria-controls=<?="collapse".$x?>>
                                                                     <p class="card-text"><?= "Number of Orders : " . $customer->order_count ?>
                                                                 </button>
                                                             </h2>
-                                                            <div id=<?="collapse".$numberList[$x-1]?> class="accordion-collapse collapse" aria-labelledby=<?="heading".$numberList[$x-1]?> data-bs-parent="#accordionExample">
+                                                            <div id=<?="collapse".$x?> class="accordion-collapse collapse" aria-labelledby=<?="heading".$x?> data-bs-parent="#accordionExample">
                                                                 <div class="accordion-body">
                                                                     <?php $s=0;?>
                                                                     <?php foreach($this->details[1][$x-1] as $statusVal) {?> 
@@ -155,7 +154,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php }} ?>
+                            <?php } ?>
                             <?php } else { ?>
                                 <span class="text-danger"><h5>No customers have placed orders within the selscted time period</h5></span>
                             <?php } ?>
