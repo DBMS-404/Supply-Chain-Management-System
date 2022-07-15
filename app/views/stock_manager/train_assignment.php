@@ -99,7 +99,7 @@ $page = "Order " . $this->order->order_id;
                                     </li>
                                 <?php } ?>
                             <?php } else { ?>
-                                <span class="text-danger"><h5>No Train schedules avialble</h5></span>
+                                <span class="text-danger m-2 d-flex justify-content-center"><h5>No Train schedules avialble</h5></span>
                             <?php } ?>
                         </ul>
                     </div>
