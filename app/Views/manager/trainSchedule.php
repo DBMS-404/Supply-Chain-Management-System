@@ -114,45 +114,46 @@
                     <div class="mt-3"><a href="<?= SROOT ?>ManagerHandler/addTrain/" class="btn-sm btn-success">Add New Train</a></div>
                 </div>
             </div>         
-        </div>
-        <hr>
-        <table class="table">
-            <tbody id="trains">
-                <?php if (count($this->trains) > 0) {
-                    foreach ($this->trains as $train) { ?>
-                        <tr class="train-id" style="width: 807.2px;">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <p class="fw-bolder fs-5"><i class="fa fa-train" aria-hidden="true"></i><?= "  Train " . $train->train_id ." - ".$train->train_name ?></p>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i><?= "  Arrival Day - ". $train->arrival_day ?><br>
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i><?= "  Arrival Time - ". $train->arrival_time ?><br>
-                                    <i class="fa fa-map-marker" aria-hidden="true"></i><?= "  Destination - ".$train->destination ?><br><br>
-                                    <div class="progress mb-2 w-75">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-<?php
-                                        if(round($train->filled_capacity*100/$train->capacity)<=25){?>success
-                                        <?php } elseif(round($train->filled_capacity*100/$train->capacity)<=80){?>warning
-                                        <?php } else{?>danger
-                                        <?php }?>
-                                        " role="progressbar" style="width: <?= round($train->filled_capacity*100/$train->capacity)?>%;" aria-valuenow="<?= $train->filled_capacity?>" aria-valuemin="0" aria-valuemax="<?= $train->capacity?>"><?= round($train->filled_capacity*100/$train->capacity)?>%</div>
+        
+            <hr>
+            <table class="table">
+                <tbody id="trains">
+                    <?php if (count($this->trains) > 0) {
+                        foreach ($this->trains as $train) { ?>
+                            <tr class="train-id" style="width: 807.2px;">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <p class="fw-bolder fs-5"><i class="fa fa-train" aria-hidden="true"></i><?= "  Train " . $train->train_id ." - ".$train->train_name ?></p>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i><?= "  Arrival Day - ". $train->arrival_day ?><br>
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i><?= "  Arrival Time - ". $train->arrival_time ?><br>
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i><?= "  Destination - ".$train->destination ?><br><br>
+                                        <div class="progress mb-2 w-75">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-<?php
+                                            if(round($train->filled_capacity*100/$train->capacity)<=25){?>success
+                                            <?php } elseif(round($train->filled_capacity*100/$train->capacity)<=80){?>warning
+                                            <?php } else{?>danger
+                                            <?php }?>
+                                            " role="progressbar" style="width: <?= round($train->filled_capacity*100/$train->capacity)?>%;" aria-valuenow="<?= $train->filled_capacity?>" aria-valuemin="0" aria-valuemax="<?= $train->capacity?>"><?= round($train->filled_capacity*100/$train->capacity)?>%</div>
+                                        </div>
+                                        <?= "Capacity - "?><strong><?=$train->filled_capacity." g" ?></strong><?=" is filled out of "?><strong><?= $train->capacity." g"?></strong><br><br>
                                     </div>
-                                    <?= "Capacity - "?><strong><?=$train->filled_capacity." g" ?></strong><?=" is filled out of "?><strong><?= $train->capacity." g"?></strong><br><br>
-                                </div>
 
-                                <div class="col-sm-2">
-                                    <a href="<?= SROOT ?>ManagerHandler/editTrain/<?= $train->train_id ?>" class="btn-sm btn-primary">Edit Details</a>
+                                    <div class="col-sm-2">
+                                        <a href="<?= SROOT ?>ManagerHandler/editTrain/<?= $train->train_id ?>" class="btn-sm btn-primary">Edit Details</a>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a href="<?= SROOT ?>ManagerHandler/deleteTrain/<?= $train->train_id ?>" class="btn-sm btn-danger">Delete</a>
+                                    </div>   
                                 </div>
-                                <div class="col-sm-2">
-                                    <a href="<?= SROOT ?>ManagerHandler/deleteTrain/<?= $train->train_id ?>" class="btn-sm btn-danger">Delete</a>
-                                </div>   
-                            </div>
-                        </tr>
-                        <hr>
+                            </tr>
+                            <hr>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <span class="text-danger"><h5>No trains are scheduled yet!</h5></span>
                     <?php } ?>
-                <?php } else { ?>
-                    <h1>No trains are scheduled yet!</h1>
-                <?php } ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
     <footer class="bg-primary-gradient">
         <div class="container py-4 ">
