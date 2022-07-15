@@ -55,7 +55,7 @@ class Stock_keeper extends Model {
     }
 
     public function getRouteIdsForAssign(){
-        $sql = "SELECT route_id, start_city_name, end_city_name, city FROM item_order 
+        $sql = "SELECT DISTINCT route_id, start_city_name, end_city_name, city FROM item_order 
                     INNER JOIN route_details using(route_id) WHERE city=? AND status = 'ctrain' AND 
                     route_id NOT IN(SELECT route_id FROM turns_to_dispatch)";
 

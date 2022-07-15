@@ -97,7 +97,9 @@
                         $x=0;
                         $numberList=["One", "Two", "Three", "Four", "Five"];?>
                         
-                            <?php foreach ($this->details[0] as $customer) {$x++ 
+                            <?php foreach ($this->details[0] as $customer) {
+                                if($x<=4){
+                                $x++ 
                             ?>
                                 <div class="col-sm-6 col-12 mt-3 mb-3">
                                     <div class="card bg-light shadow-lg">
@@ -153,7 +155,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php }} ?>
                             <?php } else { ?>
                                 <span class="text-danger"><h5>No customers have placed orders within the selscted time period</h5></span>
                             <?php } ?>
