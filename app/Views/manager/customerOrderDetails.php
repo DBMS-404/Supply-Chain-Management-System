@@ -1,5 +1,12 @@
 <?php 
     redirectToHandler('mn');
+    $statusList = array(
+        "dtruck" => "Dispatched to Truck",
+        "dtrain" => "Dispatched to Train",
+        "ctrain" => "Collected from Train",
+        "new" => "New",
+        "delivered" => "Delivered"
+    );
 ?>
 
 <!DOCTYPE html>
@@ -86,11 +93,15 @@
 
                 <?php } else {?>
                     <div class="row">
-                    <?php if (count($this->details[0])>0) {$x=0 ?>
+                    <?php if (count($this->details[0])>0) {
+                        $x=0;
+                        $numberList=["One", "Two", "Three", "Four", "Five"];?>
                         
-                            <?php foreach ($this->details[0] as $customer) {$x++ 
+                            <?php foreach ($this->details[0] as $customer) {
+                                if($x<=4){
+                                $x++ 
                             ?>
-                                <div class="col-sm-4 col-12 mt-3 mb-3">
+                                <div class="col-sm-6 col-12 mt-3 mb-3">
                                     <div class="card bg-light shadow-lg">
                                         <div class="card-body">
                                             <div class="row">
@@ -104,23 +115,49 @@
                                             </div>
                                             
                                             <hr>
-                                            <p class="card-text"><?= "Number of Orders : " . $customer->order_count ?>
-                                            <div class="progress">
-                                                <?php $classes=["","bg-success", "bg-secondary"];
-                                                $s=0;?>
-                                                <?php foreach($this->details[1][$x-1] as $statusVal) {?> 
-                                                    <?php $val=round(($statusVal->status_count/$customer->order_count)*100,2); ?>
-                                                    <div class="progress-bar <?=$classes[$s]?>" role="progressbar" style="width: <?= $val?>%" aria-valuenow="<?= $val?>" aria-valuemin="0" aria-valuemax="100"><?=$statusVal->status."-".$statusVal->status_count?></div>
-                                                <?php $s++;} ?>
-                                            </div><br>
+
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <div class="accordion" id="accordionExample">
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header" id=<?="heading".$numberList[$x-1]?>>
+                                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target=<?="#collapse".$numberList[$x-1]?> aria-expanded="true" aria-controls=<?="collapse".$numberList[$x-1]?>>
+                                                                    <p class="card-text"><?= "Number of Orders : " . $customer->order_count ?>
+                                                                </button>
+                                                            </h2>
+                                                            <div id=<?="collapse".$numberList[$x-1]?> class="accordion-collapse collapse" aria-labelledby=<?="heading".$numberList[$x-1]?> data-bs-parent="#accordionExample">
+                                                                <div class="accordion-body">
+                                                                    <?php $s=0;?>
+                                                                    <?php foreach($this->details[1][$x-1] as $statusVal) {?> 
+                                                                        <?php $val=round(($statusVal->status_count/$customer->order_count)*100,2); ?>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-7">
+                                                                                <?=$statusList[$statusVal->status]?>
+                                                                            </div>
+                                                                            <div class="col-sm-2">
+                                                                                <?="-"?>
+                                                                            </div>
+                                                                            <div class="col-sm-2">
+                                                                                <?=$statusVal->status_count?>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php $s++;} ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <br>
                                             <?= "Total Weight : " . $customer->tot_weight." grams" ?>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php }} ?>
                             <?php } else { ?>
-                                <h5>No customers have placed orders within the selscted time period</h5>
+                                <span class="text-danger"><h5>No customers have placed orders within the selscted time period</h5></span>
                             <?php } ?>
                         </div>
                     </div>

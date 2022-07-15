@@ -32,6 +32,7 @@ class ManagerHandler extends Controller
     public function deleteTrainAction($train_id)
     {
         $this->TrainModel->deleteTrain($train_id);
+        $_SESSION['status'] = 'deleted';
         Router::redirect("ManagerHandler/viewTrainSchedule");
     }
 
@@ -60,6 +61,8 @@ class ManagerHandler extends Controller
                     $this->view->render("manager/editTrain");
                 }else{
                     $this->TrainModel->updateTrain($id, $_POST);
+                    $_SESSION['status'] = 'edited';
+                    $_SESSION['train'] = $_POST['train_name'];
                     Router::redirect("ManagerHandler/viewTrainSchedule");    
                 }
             }else {
@@ -91,6 +94,8 @@ class ManagerHandler extends Controller
             
             if ($validaton->passed()) {
                 $this->TrainModel->addTrain($_POST);
+                $_SESSION['status'] = 'added';
+                $_SESSION['train'] = $_POST['train_name'];
                 Router::redirect("ManagerHandler/viewTrainSchedule");    
             }else {
                 $this->view->displayErrors = $validaton->displayErrors();

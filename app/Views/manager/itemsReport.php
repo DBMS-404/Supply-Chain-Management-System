@@ -117,7 +117,7 @@ redirectToHandler('mn');
                     </div>
                 <?php } ?>
             <?php } else { ?>
-                <h5>No Items are sold in the selected Time Period</h5>
+                <span class="text-danger"><h5>No Items are sold in the selected Time Period</h5></span>
             <?php } ?>
 
             </div>

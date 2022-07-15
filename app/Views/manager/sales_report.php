@@ -1,5 +1,12 @@
 <?php
 redirectToHandler('mn');
+$statusList = array(
+    "dtruck" => "Dispatched to Truck",
+    "dtrain" => "Dispatched to Train",
+    "ctrain" => "Collected from Train",
+    "new" => "New",
+    "delivered" => "Delivered"
+);
 ?>
 
 <!DOCTYPE html>
@@ -108,11 +115,41 @@ redirectToHandler('mn');
             <div class="row m-2">
                 <h3>Sales Report</h3>
                 <br><br>
-                <h5 class='text-muted'>Time Range : <?php if ($this->first_date == "" and $this->second_date == "") { ?>All Time
-                    <?php } else { ?>Quarter<?= " " . $this->time_period . " " ?> || From <?= $this->first_date ?> to <?= $this->second_date ?>
-                <?php } ?> </h5>
-                <h5 class='text-muted'>Route : <?= $this->route ?> </h5>
-                <h5 class='text-muted'>City : <?= $this->city ?> </h5><br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <h5 class='text-muted'>Time Range</h5>
+                    </div>
+                    <div class="col-sm-1">
+                        <h5 class='text-muted'>:</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        <h5 class='text-muted'><?php if ($this->first_date == "" and $this->second_date == "") { ?>All Time
+                                <?php } else { ?>Quarter<?= " " . $this->time_period . " " ?> || From <?= $this->first_date ?> to <?= $this->second_date ?>
+                                        <?php } ?></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <h5 class='text-muted'>Route</h5>
+                    </div>
+                    <div class="col-sm-1">
+                        <h5 class='text-muted'>:</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        <h5 class='text-muted'><?= $this->route ?></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <h5 class='text-muted'>City</h5>
+                    </div>
+                    <div class="col-sm-1">
+                        <h5 class='text-muted'>:</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        <h5 class='text-muted'><?= $this->city ?></h5>
+                    </div>
+                </div><br>
                 <table class="table">
                     <tbody id="trains">
                         <hr>
@@ -130,7 +167,7 @@ redirectToHandler('mn');
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <?= "Customer - " . $order->user_id . " || " . $order->first_name . " " . $order->last_name ?><br>
-                                            <?= "Status - " . $order->status ?><br>
+                                            <?= "Status - " . $statusList[$order->status] ?><br>
                                         </div>
                                         <div class="col-sm-2">
                                             <h5><span class="badge bg-success p-2"><?= "Weight - " . $order->weight . " g" ?></span></h5><br>
@@ -143,7 +180,7 @@ redirectToHandler('mn');
                                 <hr>
                             <?php } ?>
                         <?php } else { ?>
-                            <h5>No orders have been placed!</h5>
+                            <span class="text-danger"><h5>No orders have been placed!</h5></span>
                         <?php } ?>
                     </tbody>
                 </table>

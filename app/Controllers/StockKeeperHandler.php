@@ -46,7 +46,7 @@ class StockKeeperHandler extends Controller{
         $this->TrainModel->findByTrainId($train_id);
         $new_filled_capacity = $this->TrainModel->filled_capacity - $weight;
         $this->Stock_keeperModel->markAsRecieved($order_id, $train_id, $new_filled_capacity);
-        Router::redirect("StockKeeperHandler/vieworders");
+        Router::redirect("StockKeeperHandler");
     }
 
     public function viewleavedetailsAction($id){
