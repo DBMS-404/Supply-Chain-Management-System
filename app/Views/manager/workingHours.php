@@ -164,7 +164,7 @@ redirectToHandler('mn');
                     </div>
                 <?php } ?>
             <?php } else { ?>
-                <span class="text-danger"><h5>No drivers have been worked within the selected time period</h5></span>
+                <span class="text-danger"><h5>No drivers have worked within the selected time period</h5></span>
             <?php } ?>
         </div>
     </div>
@@ -205,7 +205,7 @@ redirectToHandler('mn');
                     </div>
                 <?php } ?>
             <?php } else { ?>
-                <span class="text-danger"><h5>No driver assistants have been worked within the selected time period</h5></span>
+                <span class="text-danger"><h5>No driver assistants have worked within the selected time period</h5></span>
             <?php } ?>
         </div>
     </div>
