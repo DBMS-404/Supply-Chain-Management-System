@@ -31,7 +31,6 @@ $today = date("Y-m-d");
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/turnCompletion">Ongoing Turn</a></li>
-                    <li class="nav-item"><a class="nav-link " href="<?= SROOT ?>DriverHandler/viewTurns">Turns</a></li>
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
                 </ul>
                 <a class="fw-light fs-5"><span style="margin-right: 5px;"><i class="fa fa-user" aria-hidden="true"></i> <?php print_r($_SESSION['user_id']); ?></span></a>

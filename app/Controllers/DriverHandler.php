@@ -51,6 +51,15 @@ class DriverHandler extends Controller{
             $this->view->ongoingTurns = $results;
         }
 
+        $this->view->turns = $this->TurnModel->findbyDriverId(User::currentLoggedInUser());
+        foreach ($this->view->turns as $key) {
+            $this->UserModel->findByUserName($key->assistant_id);
+            $key->assistant_name = $this->UserModel->first_name." ".$this->UserModel->last_name;
+            $key->route_map = $this->RouteModel->getRouteMap($key->route_id)->route_map;
+            $key->truck_no = $this->TruckModel->getTruckNo($key->truck_id)->truck_no;
+            $key->avg_time = $this->RouteModel->getRouteMap($key->route_id)->maximum_completion_time;
+        }
+
         $this->view->render('driver/turnCompletion');
     }
 
@@ -68,7 +77,7 @@ class DriverHandler extends Controller{
 
         $this->DriverModel->recordTurnCompletion($turn_id);
 
-        $this->viewTurnsAction();
+        $this->turnCompletionAction();
 
     }
 }

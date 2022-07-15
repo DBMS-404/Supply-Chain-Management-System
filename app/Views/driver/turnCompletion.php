@@ -26,12 +26,11 @@ redirectToHandler('dr');
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link active" href="<?= SROOT ?>DriverHandler/turnCompletion">Ongoing Turn</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/viewTurns">Turns</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= SROOT ?>DriverHandler/applyLeave">Apply Leave</a></li>
-                    
+
                 </ul>
                 <a class="fw-light fs-5"><span style="margin-right: 5px;"><i class="fa fa-user" aria-hidden="true"></i> <?php print_r($_SESSION['user_id']); ?></span></a>
-                <div  class="d-lg-none mb-3"></div>
+                <div class="d-lg-none mb-3"></div>
                 <a class="btn btn-primary btn-sm shadow" role="button" href="<?= SROOT ?>LoginHandler/logout">Logout</a>
             </div>
         </div>
@@ -65,7 +64,14 @@ redirectToHandler('dr');
                                         <iframe id="Iframe" src="<?= $this->route_map ?>" width="100%" height="400" style="border:2;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                     </div>
                                     <div class="col-md-4 col-12 align-self-center">
-                                        <div class="card-body text-center px-4 py-5 px-md-5">
+                                        <div class="card-body text-left py-5 ">
+                                            <br>
+                                            <h6 class="card-subtitle mb-2"><i class="fa fa-calendar" aria-hidden="true"></i> <?= $this->turns[0]->turn_start_time ? "Started Time : " . $this->turns[0]->turn_start_time : "Scheduled Time " . $this->turns[0]->scheduled_date . " " . $this->turns[0]->scheduled_time ?></h6><br>
+                                            <p class="card-text"><i class="fa fa-user" aria-hidden="true"></i> <?= "Driver Assistant: " . $this->turns[0]->assistant_name . "  (" .  $this->turns[0]->assistant_id . ")" ?></p>
+                                            <p class="card-text"><i class="fa fa-truck" aria-hidden="true"></i> <?= "Truck No: " . $this->turns[0]->truck_no ?></p>
+                                            <p class="card-text"><i class="fa fa-clock-o" aria-hidden="true"></i> <?= "Maximum Avg. Completion Time: " . $this->turns[0]->avg_time . " Hours" ?></p>
+                                        </div>
+                                        <div class="card-body text-md-center px-md-5">
                                             <p class="fw-bold text-primary card-text mb-2">
                                                 <?php if ($this->remainingOrders === '0') {
                                                     echo 'Turn Completed';
@@ -104,7 +110,52 @@ redirectToHandler('dr');
                                         No Ongoing Turn !
                                     </h3>
 
-                                    <h4 ><a href="<?= SROOT ?>DriverHandler/viewTurns"><strong> View Turns </strong> </a></h4>
+                                    <div class="row">
+
+                                        <?php if (count($this->turns) > 0) { ?>
+                                            <div class="row m-2">
+                                                <h3>Assigned Turns</h3>
+                                            </div>
+                                            <div class="row">
+                                                <?php foreach ($this->turns as $turn) {
+                                                ?>
+                                                    <div class="col-12 mt-3 mb-3">
+                                                        <div class="card bg-light shadow-lg">
+                                                            <div class="card-body">
+                                                                <div class="row mb-2">
+                                                                    <div class="col-lg-8 col-12">
+                                                                        <iframe id="Iframe" src="<?= $turn->route_map ?>" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                                    </div>
+                                                                    <div class="col-lg-4 col-12 align-self-center">
+                                                                        <h3 class="card-title"><?= "Turn " . $turn->turn_id ?></h3>
+                                                                        <?php if ($turn->turn_start_time) { ?>
+                                                                            <h5 class="card-subtitle mb-2 text-muted"><span class="badge bg-danger">Ongoing Turn</span></h5>
+
+                                                                        <?php } ?>
+                                                                        <br>
+                                                                        <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> <?= $turn->turn_start_time ? "Started Time : " . $turn->turn_start_time : "Scheduled Time " . $turn->scheduled_date . " " . $turn->scheduled_time ?></h6><br>
+                                                                        <p class="card-text"><i class="fa fa-user" aria-hidden="true"></i><?= "Driver Assistant: " . $turn->assistant_name . "  (" .  $turn->assistant_id . ")" ?></p>
+                                                                        <p class="card-text"><i class="fa fa-truck" aria-hidden="true"></i> <?= "Truck No: " . $turn->truck_no ?></p>
+                                                                        <p class="card-text"><i class="fa fa-clock-o" aria-hidden="true"></i> <?= "Maximum Avg. Completion Time: " . $turn->avg_time . " Hours" ?></p>
+                                                                        <br>
+                                                                        <?php if ($turn->turn_start_time) { ?><a href="<?= SROOT ?>DriverHandler/turnCompletion" class="btn btn-outline-info btn-sm">View Ongoing Turn</a><?php } else { ?>
+                                                                            <button class="btn btn-dark btn-sm disabled">Not started</button>
+                                                                        <?php } ?>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <h1>No Turns Assigned for You</h1>
+                                            <?php } ?>
+
+                                            </div>
+
+                                    </div>
 
                                 <?php } ?>
                                 </div>
