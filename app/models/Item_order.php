@@ -75,7 +75,7 @@ class Item_order extends Model {
         $sql ="select user_id, first_name, last_name, count(user_id)  as order_count, sum(weight) as tot_weight
         from item_order left outer join user using(user_id)".$r.$q.
         " group by user_id
-        order by order_count desc;";
+        order by order_count desc limit 5;";
 
         if($this->_db->query($sql)){
             $resultsQuery = $this->_db->results();
