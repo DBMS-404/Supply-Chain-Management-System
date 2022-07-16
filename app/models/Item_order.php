@@ -49,9 +49,15 @@ class Item_order extends Model {
 
     public function getcountofType($type){
         if ($type==='all'){
-            return count($this->getallOrders());
+            $sql = "select COUNT(*) as count from item_order;";
+            $this->_db->query($sql);
+            return $this->_db->results()[0]->count;
+            // return count($this->getallOrders());
         }
-        return count($this->getorderofstatus($type));
+        $sql = "select count(*) as count from item_order where status=?;";
+        $this->_db->query($sql,[$type]);
+        return $this->_db->results()[0]->count;
+        // return count($this->getorderofstatus($type));
     }
 
     public function getCustomerOrderDetailsAction($first_date, $second_date){
