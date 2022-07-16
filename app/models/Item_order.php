@@ -56,19 +56,23 @@ class Item_order extends Model {
 
     public function getCustomerOrderDetailsAction($first_date, $second_date){
         $q="";$r="";$s="";
+        $params=[];
         if($first_date=="" and $second_date==""){
         }elseif($first_date=="" and $second_date!=""){
-            $q =" item_order.date <= '".$second_date."'";
+            $q =" item_order.date <= ?";
             $r=" where";
             $s=" and";
+            $params=[$second_date];
         }elseif($first_date!="" and $second_date==""){
-            $q=" item_order.date >= '".$first_date."'";
+            $q=" item_order.date >= ?";
             $r=" where";
             $s=" and";
+            $params =[$first_date];
         }else{
-            $q=" item_order.date <= '".$second_date."'  and item_order.date >= '".$first_date."'";
+            $q=" item_order.date <= ? and item_order.date >= ?";
             $r=" where";
             $s=" and";
+            $params = [$second_date, $first_date];
         }
 
         $resultsQuery=[];
@@ -77,7 +81,7 @@ class Item_order extends Model {
         " group by user_id
         order by order_count desc limit 10;";
 
-        if($this->_db->query($sql)){
+        if($this->_db->query($sql,$params)){
             $resultsQuery = $this->_db->results();
         }
         //dnd($resultsQuery);
@@ -89,7 +93,7 @@ class Item_order extends Model {
             " group by status
             order by status_count desc;";
             //dnd($sql1);
-            if($this->_db->query($sql1)){    
+            if($this->_db->query($sql1,$params)){    
                 //$temp=(array)$user;
                 //dnd(array_push($temp,$this->_db->results()));
                 array_push($statusQuery,$this->_db->results());

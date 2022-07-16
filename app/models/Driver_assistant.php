@@ -10,12 +10,16 @@ class Driver_assistant extends Model {
     public function getWorkingHours($first_date, $second_date){
         if($first_date=="" and $second_date==""){
             $q = "";
+            $params = [];
         }elseif($first_date=="" and $second_date!=""){
-            $q = " and turn.scheduled_date <= '".$second_date."'";
+            $q = " and turn.scheduled_date <= ?";
+            $params=[$second_date];
         }elseif($first_date!="" and $second_date==""){
-            $q=" and turn.scheduled_date >= '".$first_date."'";
+            $q=" and turn.scheduled_date >= ?";
+            $params=[$first_date];
         }else{
-            $q=" and turn.scheduled_date <= '".$second_date."' and turn.scheduled_date >= '".$first_date."'";
+            $q=" and turn.scheduled_date <= ? and turn.scheduled_date >= ?";
+            $params = [$second_date,$first_date];
         }
 
         $resultsQuery=[];
@@ -23,7 +27,7 @@ class Driver_assistant extends Model {
         from total_hours".$q.
         " group by assistant_id,assistant_name
         order by tot_time desc;";
-        if($this->_db->query($sql)){
+        if($this->_db->query($sql, $params)){
             $resultsQuery = $this->_db->results();
         }
 

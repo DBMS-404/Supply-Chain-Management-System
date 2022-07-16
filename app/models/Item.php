@@ -47,12 +47,16 @@ class Item extends Model {
     public function highestOrderedItems($first_date, $second_date){
         if($first_date=="" and $second_date==""){
             $q = "";
+            $params=['delivered'];
         }elseif($first_date=="" and $second_date!=""){
-            $q = " and item_order.date <= '".$second_date."'";
+            $q = " and item_order.date <= ?";
+            $params=['delivered', $second_date];
         }elseif($first_date!="" and $second_date==""){
-            $q=" and item_order.date >= '".$first_date."'";
+            $q=" and item_order.date >= ?";
+            $params = ['delivered', $first_date];
         }else{
-            $q=" and item_order.date <= '".$second_date."'  and item_order.date >= '".$first_date."'";
+            $q=" and item_order.date <= ? and item_order.date >= ?";
+            $params = ['delivered', $second_date, $first_date];
         }
 
         $sql= "select item_id, name, item_count, unit_price
@@ -60,12 +64,11 @@ class Item extends Model {
             from (select *
             from item_assignment
             where item_assignment.order_id in (select order_id
-                                               from item_order where status='delivered'".$q.")) as item_assignment_new group by item_id) as item_count_table left outer join item using(item_id)
+                                               from item_order where status= ?".$q.")) as item_assignment_new group by item_id) as item_count_table left outer join item using(item_id)
         order by item_count desc
         limit 5;";
 
-        
-        if($this->_db->query($sql)){
+        if($this->_db->query($sql,$params)){
             $resultsQuery = $this->_db->results();
         }
 
