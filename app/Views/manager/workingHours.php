@@ -113,9 +113,8 @@ redirectToHandler('mn');
                             </div>
 
                             <hr>
-                            <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
                             <p class="card-text"> <?= "Total Used Hours : " . $truck->tot_time ?><br>
-                                <?= "City : " . $truck->name ?>
+                                <?= "City : " . $truck->truck_city ?>
                             </p>
                         </div>
                     </div>
@@ -148,7 +147,7 @@ redirectToHandler('mn');
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-9">
-                                        <h5 class="card-title">Driver Name : <?= $driver->first_name . " " . $driver->last_name ?></h5>
+                                        <h5 class="card-title">Driver Name : <?= $driver->driver_name ?></h5>
                                         <h6 class="card-subtitle mb-2 text-muted">Driver ID : <?= $driver->driver_id ?></h6>
                                     </div>
                                     <div class="col-sm-3">
@@ -157,7 +156,6 @@ redirectToHandler('mn');
                                 </div>
 
                                 <hr>
-                                <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
                                 <p class="card-text"> Total Working Hours : <?= $driver->tot_time ?><br></p>
                             </div>
                         </div>
@@ -189,16 +187,15 @@ redirectToHandler('mn');
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-9">
-                                        <h5 class="card-title">Driver Assistant Name : <?= $assistant->first_name . " " . $assistant->last_name ?></h5>
+                                        <h5 class="card-title">Driver Assistant Name : <?= $assistant->assistant_name ?></h5>
                                         <h6 class="card-subtitle mb-2 text-muted">Driver Assistant ID : <?= $assistant->assistant_id ?></h6>
                                     </div>
                                     <div class="col-sm-3">
-                                        <h4><span class="badge bg-info"><?= $y ?></span></h4>
+                                        <h4><span class="badge bg-info"><?= $z ?></span></h4>
                                     </div>
                                 </div>
 
                                 <hr>
-                                <!-- <h6 class="card-title"><button type='button' class='btn btn-danger'><?= $x ?></button></h5> -->
                                 <p class="card-text">Total Working Hours : <?= $assistant->tot_time ?><br></p>
                             </div>
                         </div>

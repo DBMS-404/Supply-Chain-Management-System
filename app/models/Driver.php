@@ -45,20 +45,17 @@ class Driver extends Model {
         if($first_date=="" and $second_date==""){
             $q = "";
         }elseif($first_date=="" and $second_date!=""){
-            $q = " and turn.scheduled_date <= '".$second_date."'";
+            $q = " where turn.scheduled_date <= '".$second_date."'";
         }elseif($first_date!="" and $second_date==""){
-            $q=" and turn.scheduled_date >= '".$first_date."'";
+            $q=" where turn.scheduled_date >= '".$first_date."'";
         }else{
-            $q=" and turn.scheduled_date <= '".$second_date."' and turn.scheduled_date >= '".$first_date."'";
+            $q=" where turn.scheduled_date <= '".$second_date."' and turn.scheduled_date >= '".$first_date."'";
         }
         $resultsQuery=[];
-        $sql="select driver_id, user.first_name, user.last_name, driver_hours.tot_time
-        from (select driver_id, round(Hour(sum(TIMEDIFF(turn_end_time,turn_start_time))) + Minute(sum(TIMEDIFF(turn_end_time,turn_start_time)))/60,2) as tot_time
-        from turn
-        where turn_end_time is not null".$q.
-                     " group by driver_id
-                     order by tot_time) as driver_hours,user
-        where user.user_id = driver_hours.driver_id;";
+        $sql="select driver_id, driver_name, sum(tot_time) as tot_time
+        from total_hours".$q.
+        " group by driver_id,driver_name
+        order by tot_time desc;";
         if($this->_db->query($sql)){
             $resultsQuery = $this->_db->results();
         }

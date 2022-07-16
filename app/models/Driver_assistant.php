@@ -19,13 +19,10 @@ class Driver_assistant extends Model {
         }
 
         $resultsQuery=[];
-        $sql="select assistant_id, user.first_name, user.last_name, assistant_hours.tot_time
-        from (select assistant_id, round(Hour(sum(TIMEDIFF(turn_end_time,turn_start_time))) + Minute(sum(TIMEDIFF(turn_end_time,turn_start_time)))/60,2) as tot_time
-                     from turn
-                     where turn_end_time is not null".$q.
-                     " group by assistant_id
-                     order by tot_time) as assistant_hours,user
-        where user.user_id = assistant_hours.assistant_id;";
+        $sql="select assistant_id, assistant_name, sum(tot_time) as tot_time
+        from total_hours".$q.
+        " group by assistant_id,assistant_name
+        order by tot_time desc;";
         if($this->_db->query($sql)){
             $resultsQuery = $this->_db->results();
         }
