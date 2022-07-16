@@ -61,7 +61,7 @@ class Item extends Model {
             from item_assignment
             where item_assignment.order_id in (select order_id
                                                from item_order where status='delivered'".$q.")) as item_assignment_new group by item_id) as item_count_table left outer join item using(item_id)
-        order by item_count
+        order by item_count desc
         limit 5;";
 
         
